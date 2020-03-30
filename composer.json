@@ -1,0 +1,18 @@
+{
+    "name": "wesleyeduardocr7/inventoryControlWithPhp7AndMySql",
+    "authors": [
+        {
+            "name": "Wesley Eduardo",
+            "email": "wesley.eduardo@acad.ifma.edu.br"
+        }
+    ],
+    "require": {    
+    	"slim/slim":"2.0",
+    	"rain/raintpl":"3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Classes\\": "vendor\\classes\\php-classes\\src"
+        }
+    }
+}

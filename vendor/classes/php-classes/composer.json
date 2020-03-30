@@ -1,0 +1,22 @@
+{
+    "name": "classes/php-classes",
+    "minimum-stability": "dev",
+    "type": "library",
+    "description": "Classes PHP",
+    "homepage": "https://github.com/wesleyeduardocr7/ecommerceWithPHP7AndMySql/tree/master/vendor/wesleyeduardo/php-classes",
+    "authors": [
+        {
+            "name": "Wesley Eduardo",
+            "email": "wesley.eduardo@acad.ifma.edu.br"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "rain/raintpl":"3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src"
+        }
+    }
+}
