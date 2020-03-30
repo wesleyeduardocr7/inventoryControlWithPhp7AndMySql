@@ -3,12 +3,12 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Lista de Produtos
+    Lista de Estoques das Filiais
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="/admin/products">Produtos</a></li>
-    <li class="active"><a href="/admin/products/create">Cadastrar</a></li>
+    <li><a href="/admin/stocks">Produtos</a></li>
+    <li class="active"><a href="/admin/stocks/create">Cadastrar</a></li>
   </ol>
 </section>
 
@@ -19,24 +19,20 @@
   	<div class="col-md-12">
   		<div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">Novo Produto</h3>
+          <h3 class="box-title">Novo Estoque</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" action="/admin/products/create" method="post">
+        <form role="form" action="/admin/stocks/create" method="post">
           <div class="box-body">
             <div class="form-group">
-              <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome">
+              <label for="idbranch">Informe o Código da Filial</label>
+              <input type="number" class="form-control" id="idbranch" name="idbranch" placeholder="código filial">
             </div>
             <div class="form-group">
-              <label for="unityprice">Preço Unitário</label>
-              <input type="number" class="form-control" id="unityprice" name="unityprice" placeholder="Digite o login">
-            </div>
-            <div class="form-group">
-              <label for="totalamount">Quantidade Total</label>
-              <input type="number" class="form-control" id="totalamount" name="totalamount" placeholder="Digite o telefone">
-            </div>
+              <label for="idproduct">Informe o Código do Produto</label>
+              <input type="number" class="form-control" id="idproduct" name="idproduct" placeholder="código produto">
+            </div>            
           </div>
           <!-- /.box-body -->
           <div class="box-footer">

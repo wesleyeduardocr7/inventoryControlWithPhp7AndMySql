@@ -26,9 +26,14 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Informe o Código da Filial onde o estoque pertence</th>
-                        <th>Informe o Código do Produto para esse estoque</th>                                               
+                        <th style="width: 100px">Código do Estoque</th>
+                        <th style="width: 100px">Código da Filial</th>
+                        <th>Gerente</th>
+                        <th>Cidade</th>                       
+                        <th style="width: 100px">Código do Produto</th>                                               
+                        <th>Nome</th>
+                        <th>Preço Unitário</th>
+                        <th>Quantidade Total</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -36,7 +41,12 @@
                       <tr>
                         <td>{$value.idstock}</td>
                         <td>{$value.idbranch}</td>
+                        <td>{$value.manager}</td>
+                        <td>{$value.city}</td>
                         <td>{$value.idproduct}</td>                        
+                        <td>{$value.name}</td> 
+                        <td>{$value.unityprice}</td> 
+                        <td>{$value.totalamount}</td> 
                         <td>
                           <a href="/admin/stocks/{$value.idstock}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                           <a href="/admin/stocks/{$value.idstock}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>

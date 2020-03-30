@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Starter</title>
+  <title>Painel Administrativo</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="/res/admin/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -21,11 +21,11 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="/admin" class="logo">
+    <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>Administrativo</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -135,7 +135,7 @@
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="/admin" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="/" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
               <img src="/res/admin/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
@@ -147,8 +147,8 @@
                 <img src="/res/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  Wesley Eduardo - Web Developer
+                  <small>Member since Jan. 2017</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -172,7 +172,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="/admin/logout" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="/" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -197,7 +197,7 @@
           <img src="/res/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>Wesley Eduardo</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -220,7 +220,8 @@
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->        
         <li><a href="/admin/products"><i class="fa fa-link"></i> <span>Produtos</span></a></li>
-        <li><a href="/admin/affiliates"><i class="fa fa-link"></i> <span>Filiais</span></a></li>
+        <li><a href="/admin/branchs"><i class="fa fa-link"></i> <span>Filiais</span></a></li>
+        <li><a href="/admin/stocks"><i class="fa fa-link"></i> <span>Estoque</span></a></li>
        </ul>
       <!-- /.sidebar-menu -->
     </section>

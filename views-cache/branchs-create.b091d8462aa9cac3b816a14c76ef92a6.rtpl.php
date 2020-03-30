@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -7,8 +7,8 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="/admin/affiliates">Filiais</a></li>
-    <li class="active"><a href="/admin/affiliates/create">Cadastrar</a></li>
+    <li><a href="/admin/branchs">Filiais</a></li>
+    <li class="active"><a href="/admin/branchs/create">Cadastrar</a></li>
   </ol>
 </section>
 
@@ -23,7 +23,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" action="/admin/affiliates/create" method="post">
+        <form role="form" action="/admin/branchs/create" method="post">
           <div class="box-body">           
             <div class="form-group">
               <label for="address">Endereço</label>
