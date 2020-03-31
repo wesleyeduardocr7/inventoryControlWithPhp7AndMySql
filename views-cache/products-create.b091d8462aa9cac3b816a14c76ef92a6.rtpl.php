@@ -26,16 +26,20 @@
         <form role="form" action="/admin/products/create" method="post">
           <div class="box-body">
             <div class="form-group">
-              <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome">
+              <label for="idstock">Informe o código do estoque para o produto</label>
+              <input type="number" class="form-control" id="idstock" name="idstock" placeholder="Digite o código" required>            
+            </div>
+            <div class="form-group">
+              <label for="name">Nome do Produto</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" required>
             </div>
             <div class="form-group">
               <label for="unityprice">Preço Unitário</label>
-              <input type="number" class="form-control" id="unityprice" name="unityprice" placeholder="Digite o login">
+              <input type="number" class="form-control" id="unityprice" name="unityprice" placeholder="Digite o login" required>
             </div>
             <div class="form-group">
               <label for="totalamount">Quantidade Total</label>
-              <input type="number" class="form-control" id="totalamount" name="totalamount" placeholder="Digite o telefone">
+              <input type="number" class="form-control" id="totalamount" name="totalamount" placeholder="Digite o telefone" required>
             </div>
           </div>
           <!-- /.box-body -->

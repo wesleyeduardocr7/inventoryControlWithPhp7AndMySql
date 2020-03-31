@@ -28,12 +28,8 @@
                       <tr>
                         <th style="width: 100px">Código do Estoque</th>
                         <th style="width: 100px">Código da Filial</th>
-                        <th>Gerente</th>
-                        <th>Cidade</th>                       
-                        <th style="width: 100px">Código do Produto</th>                                               
-                        <th>Nome</th>
-                        <th>Preço Unitário</th>
-                        <th>Quantidade Total</th>
+                        <th>Resonsável</th>                       
+                        <th>Telefone</th>                            
                       </tr>
                     </thead>
                     <tbody>
@@ -41,12 +37,8 @@
                       <tr>
                         <td><?php echo htmlspecialchars( $value1["idstock"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["manager"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["city"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                        
-                        <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td> 
-                        <td><?php echo htmlspecialchars( $value1["unityprice"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td> 
-                        <td><?php echo htmlspecialchars( $value1["totalamount"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td> 
+                        <td><?php echo htmlspecialchars( $value1["responsible"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["telephone"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                        
                         <td>
                           <a href="/admin/stocks/<?php echo htmlspecialchars( $value1["idstock"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                           <a href="/admin/stocks/<?php echo htmlspecialchars( $value1["idstock"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>

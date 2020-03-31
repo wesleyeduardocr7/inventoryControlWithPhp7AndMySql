@@ -18,8 +18,9 @@ class Product extends Model {
 	{
 		$sql = new Sql();
 
-		 $sql->select("CALL sp_product_save(:idproduct, :name, :unityprice, :totalamount)", array(
-			":idproduct"=>$this->getidproduct(),
+		 $sql->select("CALL sp_product_save(:idproduct, :idstock, :name, :unityprice, :totalamount)", array(
+			":idproduct"=>()$this->getidproduct(),
+			":idproduct"=>$this->getidstock(),
 			":name"=>$this->getname(),
             ":unityprice"=>$this->getunityprice(),
             ":totalamount"=>$this->gettotalamount()

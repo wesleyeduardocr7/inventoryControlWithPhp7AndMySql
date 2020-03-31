@@ -3,11 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Lista de Estoques
+        Lista de Pedidos de Estoque
       </h1>
       <ol class="breadcrumb">
         <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="/admin/stocks">Estoques</a></li>
+        <li class="active"><a href="/admin/stockorders">Pedidos de Estoque</a></li>
       </ol>
     </section>
     
@@ -19,7 +19,7 @@
           <div class="box box-primary">
                 
                 <div class="box-header">
-                  <a href="/admin/stocks/create" class="btn btn-success">Cadastrar Estoque</a>
+                  <a href="/admin/stockorders/create" class="btn btn-success">Cadastrar Estoque</a>
                 </div>
     
                 <div class="box-body no-padding">
@@ -28,20 +28,20 @@
                       <tr>
                         <th style="width: 100px">Código do Estoque</th>
                         <th style="width: 100px">Código da Filial</th>
-                        <th>Resonsável</th>                       
-                        <th>Telefone</th>                            
+                        <th>Gerente</th>
+                        <th>Cidade</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {loop="$stocks"}
+                      {loop="$stockorders"}
                       <tr>
                         <td>{$value.idstock}</td>
                         <td>{$value.idbranch}</td>
-                        <td>{$value.responsible}</td>
-                        <td>{$value.telephone}</td>                        
+                        <td>{$value.manager}</td>
+                        <td>{$value.city}</td>                         
                         <td>
-                          <a href="/admin/stocks/{$value.idstock}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                          <a href="/admin/stocks/{$value.idstock}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                          <a href="/admin/stockorders/{$value.idstock}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                          <a href="/admin/stockorders/{$value.idstock}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                         </td>
                       </tr>
                       {/loop}

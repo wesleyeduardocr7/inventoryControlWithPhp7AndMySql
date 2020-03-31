@@ -28,11 +28,15 @@
             <div class="form-group">
               <label for="idbranch">Informe o Código da Filial</label>
               <input type="number" class="form-control" id="idbranch" name="idbranch" placeholder="código filial">
-            </div>
+            </div>     
             <div class="form-group">
-              <label for="idproduct">Informe o Código do Produto</label>
-              <input type="number" class="form-control" id="idproduct" name="idproduct" placeholder="código produto">
-            </div>            
+              <label for="responsible">Informe o Nome do Responsável</label>
+              <input type="text" class="form-control" id="responsible" name="responsible" placeholder="Nome do Responsável">
+            </div> 
+            <div class="form-group">
+              <label for="telephone">Informe o Telefone</label>
+              <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telefone">
+            </div>                   
           </div>
           <!-- /.box-body -->
           <div class="box-footer">

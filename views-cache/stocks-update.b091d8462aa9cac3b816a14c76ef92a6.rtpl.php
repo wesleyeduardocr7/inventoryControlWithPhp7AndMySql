@@ -23,11 +23,15 @@
             <div class="form-group">
               <label for="idbranch">Código da Filial</label>
               <input type="number" class="form-control" id="idbranch" name="idbranch" placeholder="Digite o Código da Filial" value="<?php echo htmlspecialchars( $stock["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
-            </div>
+            </div> 
             <div class="form-group">
-              <label for="idproduct">Código do Produto</label>
-              <input type="number" class="form-control" id="idproduct" name="idproduct" placeholder="Digite o Código do Produto"  value="<?php echo htmlspecialchars( $stock["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
-            </div>                       
+              <label for="responsible">Nome do Responsável</label>
+              <input type="text" class="form-control" id="responsible" name="responsible" placeholder="Digite o Código da Filial" value="<?php echo htmlspecialchars( $stock["responsible"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+            </div> 
+            <div class="form-group">
+              <label for="telephone">Telefone</label>
+              <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Digite o Código da Filial" value="<?php echo htmlspecialchars( $stock["telephone"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+            </div>                                 
           </div>
           <!-- /.box-body -->
           <div class="box-footer">

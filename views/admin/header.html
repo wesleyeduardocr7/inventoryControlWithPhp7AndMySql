@@ -219,9 +219,10 @@
       <ul class="sidebar-menu">
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->        
-        <li><a href="/admin/products"><i class="fa fa-link"></i> <span>Produtos</span></a></li>
         <li><a href="/admin/branchs"><i class="fa fa-link"></i> <span>Filiais</span></a></li>
         <li><a href="/admin/stocks"><i class="fa fa-link"></i> <span>Estoque</span></a></li>
+        <li><a href="/admin/products"><i class="fa fa-link"></i> <span>Produtos</span></a></li>
+        <li><a href="/admin/stockorders/create"><i class="fa fa-link"></i> <span>Pedidos de Estoque</span></a></li>
        </ul>
       <!-- /.sidebar-menu -->
     </section>

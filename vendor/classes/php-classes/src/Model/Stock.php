@@ -12,28 +12,18 @@ class Stock extends Model {
 		$sql = new Sql();
 
 		return $sql->select("SELECT * FROM tb_stock ORDER BY idstock");
-    }
-
-    public static function listBranchsWithStocksAndProducts()
-	{
-		$sql = new Sql();
-
-        return $sql->select("SELECT s.idstock, b.idbranch, b.manager, 
-        b.city,p.idproduct,p.name, p.unityprice, p.totalamount
-        FROM tb_branch b INNER JOIN tb_stock s ON b.idbranch = s.idbranch
-        INNER JOIN tb_product p ON s.idproduct = p.idproduct ORDER BY s.idstock ");
-    }
-
-
+	}
+	
   	public function save()
 	{
 
 		$sql = new Sql();
 
-		$sql->select("CALL sp_stock_save(:idstock, :idbranch, :idproduct)", array(
-			":idstock"=>(int)$this->getidstock(),
+		$sql->select("CALL sp_stock_save(:idstock, :idbranch , :responsible, :telephone)", array(
+			":idstock"=>$this->getidstock(),
 			":idbranch"=>(int)$this->getidbranch(),
-			":idproduct"=>(int)$this->getidproduct()			
+			":responsible"=>$this->getresponsible(),
+			":telephone"=>$this->gettelephone()
 		));
 	}
 

@@ -5,21 +5,21 @@ use \Classes\Model\Stock;
 
 $app->get("/admin/stocks", function () {
 
-	$stocks = Stock::listAll();
+    $stocksdatas = Stock::listBranchsWithStocksAndProducts();
     
     $page = new PageAdmin();
 
     $page->setTpl("stocks",array(
-		'stocks'=>$stocks
+		'stocks'=>$stocksdatas
 	));
 });
 
 
-$app->get("/admin/stocks/create", function () {
+$app->get("/admin/stockorders/create", function () {
 
     $page = new PageAdmin();
 
-    $page->setTpl("stocks-create");
+    $page->setTpl("stockorders-create");
 });
 
 

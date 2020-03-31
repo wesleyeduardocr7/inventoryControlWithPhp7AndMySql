@@ -3,10 +3,11 @@
 use \Classes\PageAdmin;
 use \Classes\Model\Product;
 
+
 $app->get("/admin/products", function () {
 
-    $products = Product::listAll();
-
+	$products = Product::listAll();
+	
     $page = new PageAdmin();
 
     $page->setTpl("products", array(
@@ -24,7 +25,7 @@ $app->get("/admin/products/create", function () {
 
 
 $app->post("/admin/products/create", function () {
-
+	
 	$product = new Product();
 	
     $product->setData($_POST);
