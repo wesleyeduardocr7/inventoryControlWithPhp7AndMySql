@@ -11,16 +11,17 @@ class Branch extends Model {
 	{
 		$sql = new Sql();
 
-		return $sql->select("SELECT * FROM tb_branch ORDER BY idbranch");
+		return $sql->select("SELECT * FROM tb_branch ORDER BY dtregister DESC");
     }
     
 	public function save()
 	{
 		$sql = new Sql();
 
-		$sql->select("CALL sp_branch_save(:idbranch, :address,:city, :state, :telephone, :manager)", array(
+		$sql->select("CALL sp_branch_save(:idbranch, :name, :street,:city, :state, :telephone, :manager)", array(
 			":idbranch"=>(int)$this->getidbranch(),
-			":address"=> $this->getaddress(),
+			":name"=>$this->getname(),
+			":street"=> $this->getstreet(),
 			":city"=> $this->getcity(),
 			":state"=> $this->getstate(),
             ":telephone"=>$this->gettelephone(),

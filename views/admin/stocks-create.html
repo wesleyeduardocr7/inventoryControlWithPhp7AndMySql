@@ -27,21 +27,26 @@
           <div class="box-body">
             <div class="form-group">
               <label for="idbranch">Informe o Código da Filial</label>
-              <input type="number" class="form-control" id="idbranch" name="idbranch" placeholder="código filial">
+              <input type="number" class="form-control" id="idbranch" name="idbranch" placeholder="código filial"  value="{$idbranch}" >
             </div>     
             <div class="form-group">
-              <label for="responsible">Informe o Nome do Responsável</label>
-              <input type="text" class="form-control" id="responsible" name="responsible" placeholder="Nome do Responsável">
+              <label for="idproduct">Informe o Código do Produto</label>
+              <input type="number" class="form-control" id="idproduct" name="idproduct" placeholder="código produto "  value="{$idproduct}">
             </div> 
             <div class="form-group">
-              <label for="telephone">Informe o Telefone</label>
-              <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telefone">
+              <label for="quantity">Informe a Quantidade</label>
+              <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantidade"  value="{$quantity}">
             </div>                   
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Cadastrar</button>
+          </div>          
+          {if="$error != ''"}
+          <div class="alert alert-danger">
+              {$error}
           </div>
+          {/if}
         </form>
       </div>
   	</div>

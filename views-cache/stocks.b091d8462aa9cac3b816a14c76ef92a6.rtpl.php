@@ -25,23 +25,29 @@
                 <div class="box-body no-padding">
                   <table class="table table-striped">
                     <thead>
-                      <tr>
-                        <th style="width: 100px">Código do Estoque</th>
-                        <th style="width: 100px">Código da Filial</th>
-                        <th>Resonsável</th>                       
-                        <th>Telefone</th>                            
+                      <tr>                       
+                        <th style="width: 100px">Código da Filia</th>
+                        <th>Nome Filial</th>                       
+                        <th style="width: 100px">Código do Produto</th>     
+                        <th>Nome Produto</th>                                            
+                        <th>Quantidade</th>                                            
+                        <th>Preço</th>                                            
+                        <th>Data do Registo do Estoque</th>                                            
                       </tr>
                     </thead>
                     <tbody>
                       <?php $counter1=-1;  if( isset($stocks) && ( is_array($stocks) || $stocks instanceof Traversable ) && sizeof($stocks) ) foreach( $stocks as $key1 => $value1 ){ $counter1++; ?>
-                      <tr>
-                        <td><?php echo htmlspecialchars( $value1["idstock"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                      <tr>                                           
                         <td><?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["responsible"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["telephone"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                        
+                        <td><?php echo htmlspecialchars( $value1["namebranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["nameproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["quantity"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["price"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["dtregister"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                        
                         <td>
-                          <a href="/admin/stocks/<?php echo htmlspecialchars( $value1["idstock"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                          <a href="/admin/stocks/<?php echo htmlspecialchars( $value1["idstock"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                          <a href="/admin/stocks/<?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                          <a href="/admin/stocks/<?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                         </td>
                       </tr>
                       <?php } ?>

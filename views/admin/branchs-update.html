@@ -21,8 +21,11 @@
         <form role="form" action="/admin/branchs/{$branch.idbranch}" method="post">
           <div class="box-body">
             <div class="form-group">
-              <label for="address">Endereço</label>
-              <input type="text" class="form-control" id="address" name="address" placeholder="Digite o nome" value="{$branch.address}">
+              <label for="name">Nome</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" value="{$branch.name}">
+            </div>
+              <label for="street">Rua</label>
+              <input type="text" class="form-control" id="street" name="street" placeholder="Digite o nome da rua" value="{$branch.street}">
             </div>
             <div class="form-group">
               <label for="city">Cidade</label>

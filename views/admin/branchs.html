@@ -27,22 +27,26 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Endereço</th>
+                        <th>Nome</th>
+                        <th>Rua</th>
                         <th>Cidade</th>
                         <th>Estado</th>
                         <th>Telefone</th>
                         <th>Gerente</th>                        
+                        <th>Data do Registro</th>  
                       </tr>
                     </thead>
                     <tbody>
                       {loop="$branchs"}
                       <tr>
                         <td>{$value.idbranch}</td>
-                        <td>{$value.address}</td>
+                        <td>{$value.name}</td>
+                        <td>{$value.street}</td>
                         <td>{$value.city}</td>
                         <td>{$value.state}</td>
                         <td>{$value.telephone}</td>
                         <td>{$value.manager}</td>                        
+                        <td>{$value.dtregister}</td> 
                         <td>
                           <a href="/admin/branchs/{$value.idbranch}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                           <a href="/admin/branchs/{$value.idbranch}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>

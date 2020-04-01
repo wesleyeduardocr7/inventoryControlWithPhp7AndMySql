@@ -19,20 +19,44 @@ $app->get("/admin/stocks/create", function () {
 
     $page = new PageAdmin();
 
-    $page->setTpl("stocks-create");
+    $page->setTpl("stocks-create",array(
+		'idbranch'=>'',
+		'idproduct'=>'',
+		'quantity'=>'',
+		'error'=>''
+	));
 });
 
 
 $app->post("/admin/stocks/create", function () {
 
-    $stock = new Stock();
+	$stock = new Stock();
+	
+	$stock->setData($_POST);	
+	
+	$result = $stock->save();
+	
+	if( count($result) <= 0 ){
+			
+		$page = new PageAdmin();
 
-    $stock->setData($_POST);
-    
-    $stock->save();
+		$page->setTpl("stocks-create",array(
+			'idbranch'=>$stock->getidbranch(),
+			'idproduct'=>$stock->getidproduct(),
+			'quantity'=>$stock->getquantity(),	
+			'error'=>'Erro! Código do Estoque ou Filial Inválido'
+		));
 
-    header("Location: /admin/stocks");
-    exit;
+
+		exit;
+
+	}else{
+		
+		header("Location: /admin/stocks");
+
+		exit;
+	}
+
 });
 
 $app->get("/admin/stocks/:idstock", function($idstock){

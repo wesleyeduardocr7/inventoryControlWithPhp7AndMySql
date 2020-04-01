@@ -11,7 +11,9 @@ class Stock extends Model {
 	{
 		$sql = new Sql();
 
-		return $sql->select("SELECT * FROM tb_stock ORDER BY idstock");
+		return $sql->select("SELECT b.idbranch,b.name AS namebranch,p.idproduct,p.name AS nameproduct,s.quantity, p.price, s.dtregister
+		FROM tb_branch b INNER JOIN tb_stock s ON b.idbranch = s.idbranch
+		INNER JOIN tb_product p ON p.idproduct = s.idproduct ORDER BY s.dtregister DESC");
 	}
 	
   	public function save()
@@ -19,13 +21,16 @@ class Stock extends Model {
 
 		$sql = new Sql();
 
-		$sql->select("CALL sp_stock_save(:idstock, :idbranch , :responsible, :telephone)", array(
-			":idstock"=>$this->getidstock(),
+		$results = $sql->select("CALL sp_stock_save(:idbranch , :idproduct, :quantity)", array(
 			":idbranch"=>(int)$this->getidbranch(),
-			":responsible"=>$this->getresponsible(),
-			":telephone"=>$this->gettelephone()
+			":idproduct"=>(int)$this->getidproduct(),
+			":quantity"=>$this->getquantity(),			
 		));
+
+		return $results;
+
 	}
+
 
     public function get($idstock)
 	{

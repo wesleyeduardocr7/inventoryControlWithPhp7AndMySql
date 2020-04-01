@@ -27,22 +27,26 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Endereço</th>
+                        <th>Nome</th>
+                        <th>Rua</th>
                         <th>Cidade</th>
                         <th>Estado</th>
                         <th>Telefone</th>
                         <th>Gerente</th>                        
+                        <th>Data do Registro</th>  
                       </tr>
                     </thead>
                     <tbody>
                       <?php $counter1=-1;  if( isset($branchs) && ( is_array($branchs) || $branchs instanceof Traversable ) && sizeof($branchs) ) foreach( $branchs as $key1 => $value1 ){ $counter1++; ?>
                       <tr>
                         <td><?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["address"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["street"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["city"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["state"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["telephone"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["manager"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                        
+                        <td><?php echo htmlspecialchars( $value1["dtregister"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td> 
                         <td>
                           <a href="/admin/branchs/<?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                           <a href="/admin/branchs/<?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>

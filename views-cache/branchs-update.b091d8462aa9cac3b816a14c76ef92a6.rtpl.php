@@ -21,8 +21,11 @@
         <form role="form" action="/admin/branchs/<?php echo htmlspecialchars( $branch["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
           <div class="box-body">
             <div class="form-group">
-              <label for="address">Endereço</label>
-              <input type="text" class="form-control" id="address" name="address" placeholder="Digite o nome" value="<?php echo htmlspecialchars( $branch["address"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <label for="name">Nome</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" value="<?php echo htmlspecialchars( $branch["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+            </div>
+              <label for="street">Rua</label>
+              <input type="text" class="form-control" id="street" name="street" placeholder="Digite o nome da rua" value="<?php echo htmlspecialchars( $branch["street"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>
             <div class="form-group">
               <label for="city">Cidade</label>

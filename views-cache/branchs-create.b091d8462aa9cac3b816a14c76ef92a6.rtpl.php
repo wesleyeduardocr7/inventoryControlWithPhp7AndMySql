@@ -26,9 +26,12 @@
         <form role="form" action="/admin/branchs/create" method="post">
           <div class="box-body">           
             <div class="form-group">
-              <label for="address">Endereço</label>
-              <input type="text" class="form-control" id="address" name="address" placeholder="Digite a cidade">
+              <label for="name">Nome</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome">
             </div>
+            <label for="street">Rua</label>
+            <input type="text" class="form-control" id="street" name="street" placeholder="Digite o nome da rua">
+          </div>
             <div class="form-group">
               <label for="city">Cidade</label>
               <input type="text" class="form-control" id="city" name="city" placeholder="Digite a cidade">

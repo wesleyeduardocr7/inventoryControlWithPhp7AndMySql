@@ -27,21 +27,26 @@
           <div class="box-body">
             <div class="form-group">
               <label for="idbranch">Informe o Código da Filial</label>
-              <input type="number" class="form-control" id="idbranch" name="idbranch" placeholder="código filial">
+              <input type="number" class="form-control" id="idbranch" name="idbranch" placeholder="código filial"  value="<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>" >
             </div>     
             <div class="form-group">
-              <label for="responsible">Informe o Nome do Responsável</label>
-              <input type="text" class="form-control" id="responsible" name="responsible" placeholder="Nome do Responsável">
+              <label for="idproduct">Informe o Código do Produto</label>
+              <input type="number" class="form-control" id="idproduct" name="idproduct" placeholder="código produto "  value="<?php echo htmlspecialchars( $idproduct, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div> 
             <div class="form-group">
-              <label for="telephone">Informe o Telefone</label>
-              <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telefone">
+              <label for="quantity">Informe a Quantidade</label>
+              <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantidade"  value="<?php echo htmlspecialchars( $quantity, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             </div>                   
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Cadastrar</button>
+          </div>          
+          <?php if( $error != '' ){ ?>
+          <div class="alert alert-danger">
+              <?php echo htmlspecialchars( $error, ENT_COMPAT, 'UTF-8', FALSE ); ?>
           </div>
+          <?php } ?>
         </form>
       </div>
   	</div>
