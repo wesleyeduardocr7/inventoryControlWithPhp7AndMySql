@@ -276,9 +276,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-call sp_product_save(15,'ed','ed','ed','ed',200);
-
-select * from tb_product;
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_product_save`(

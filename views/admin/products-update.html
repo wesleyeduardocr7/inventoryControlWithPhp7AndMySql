@@ -19,11 +19,7 @@
         <!-- /.box-header -->
           <!-- form start -->
           <form role="form" action="/admin/products/{$product.idproduct}" method="post">
-            <div class="box-body">    
-              <!-- <div class="form-group">
-                <label for="idproduct">Id</label>
-                <input type="text" class="form-control" id="idproduct" name="name" placeholder="Informe o nome" required value="{$product.idproduct}">
-              </div>-->
+            <div class="box-body">
               <div class="form-group">
                 <label for="name">Nome do Produto</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Informe o nome" required value="{$product.name}">
@@ -48,6 +44,7 @@
             <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/admin/products" style="width: 70px;" class="btn btn-primary">Voltar</a>
           </div>
         </form>
       </div>

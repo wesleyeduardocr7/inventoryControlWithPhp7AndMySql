@@ -18,7 +18,7 @@
         </div>
         <!-- /.box-header -->
           <!-- form start -->
-        <form role="form" action="/admin/users/create" method="post">
+        <form role="form" action="/admin/users/{$user.iduser}" method="post">
           <div class="box-body">    
             <div class="form-group">
               <label for="name">Nome do Usuário</label>
@@ -40,6 +40,7 @@
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/admin/users" style="width: 70px;" class="btn btn-primary">Voltar</a>
           </div>
         </form>
       </div>

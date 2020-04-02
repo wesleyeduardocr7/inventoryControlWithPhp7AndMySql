@@ -48,6 +48,7 @@
             <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/admin/products" style="width: 70px;" class="btn btn-primary">Voltar</a>
           </div>
         </form>
       </div>
