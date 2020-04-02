@@ -113,15 +113,15 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_stockorder` (
   `idstockorder` INT(11) NOT NULL AUTO_INCREMENT,
   `idbranch` INT(11) NOT NULL,
   `iduser` INT(11) NOT NULL,
-  `idclient` INT(11) NOT NULL,
+  `idcliente` INT(11) NULL,
   `idpaymentmethod` INT(11) NULL,
   `ordertype` VARCHAR(20) NOT NULL,
-  `deliverynote` VARCHAR(256) NOT NULL,
+  `deliverynote` VARCHAR(256) NULL,
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idstockorder`),
   INDEX `fk_tb_stockorder_tb_branch1_idx` (`idbranch` ASC) VISIBLE,
   INDEX `fk_tb_stockorder_tb_user1_idx` (`iduser` ASC) VISIBLE,
-  INDEX `fk_tb_stockorder_tb_client1_idx` (`idclient` ASC) VISIBLE,
+  INDEX `fk_tb_stockorder_tb_cliente1_idx` (`idcliente` ASC) VISIBLE,
   INDEX `fk_tb_stockorder_tb_paymentmethod1_idx` (`idpaymentmethod` ASC) VISIBLE,
   CONSTRAINT `fk_tb_stockorder_tb_branch1`
     FOREIGN KEY (`idbranch`)
@@ -133,8 +133,8 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_stockorder` (
     REFERENCES `inventorycontrol`.`tb_user` (`iduser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tb_stockorder_tb_client1`
-    FOREIGN KEY (`idclient`)
+  CONSTRAINT `fk_tb_stockorder_tb_cliente1`
+    FOREIGN KEY (`idcliente`)
     REFERENCES `inventorycontrol`.`tb_client` (`idclient`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -194,7 +194,7 @@ ENGINE = InnoDB;
 
 /*INSERTS DE TABELAS BASE PARA TESTES | https://www.generatedata.com/ */
 
-/*
+
 INSERT INTO tb_branch (name,street,city,state,telephone,manager) VALUES ("Ullamcorper Consulting","477-3322 Dapibus Av.","Rio de Janeiro","RJ","(791) 897-9190","Porter Bartlett"),("Nullam Lobortis LLP","1655 Ipsum St.","Campinas","SP","(347) 255-1392","Phillip Watson"),("Aliquam Gravida LLC","5405 Nunc Av.","Jundiaí","São Paulo","(230) 674-6563","Quentin Newman"),("Donec Porttitor Incorporated","Ap #589-6840 Luctus Rd.","Piracicaba","SP","(564) 441-7862","Drew Saunders"),("Placerat Augue Corp.","P.O. Box 232, 8584 Accumsan Rd.","Osasco","SP","(204) 435-3838","Boris Salinas"),("Nullam Velit Dui Consulting","3773 Aliquam Street","Blumenau","SC","(900) 837-4079","Ronan Dickerson"),("Luctus Ipsum Leo Ltd","7501 Et, Road","Belford Roxo","Rio de Janeiro","(825) 441-5466","Carlos Sharp"),("Nisl Arcu Consulting","Ap #839-5072 Ut Av.","Mogi das Cruzes","São Paulo","(206) 345-2336","Quinlan Rosa"),("Lacus LLP","135-7916 Suspendisse Street","Lauro de Freitas","BA","(155) 437-5850","Kareem Camacho"),("Ut Molestie PC","P.O. Box 768, 2269 Suspendisse St.","Piracicaba","São Paulo","(294) 238-1762","Tate Weeks"),("Eget Limited","502-2792 Eu, St.","Osasco","SP","(650) 772-6435","Yoshio Conley"),("Eget Metus Eu Associates","607-7065 Sed Rd.","Florianópolis","SC","(211) 651-8394","Oren Riley"),("Dui Nec Foundation","P.O. Box 971, 7373 Interdum St.","Açailândia","MA","(723) 948-2436","Tad Slater"),("Quisque Varius Ltd","8164 Orci Av.","Olinda","PE","(307) 171-2106","Omar Bishop"),("Semper Et Lacinia LLP","436 Morbi Avenue","Balsas","MA","(254) 762-5215","Ezekiel Sharp"),("Venenatis Corp.","P.O. Box 469, 2404 Mauris Street","Chapecó","Santa Catarina","(239) 688-0772","Chester Langley"),("Non Arcu Vivamus Corp.","Ap #139-5503 Ac, St.","São Gonçalo","RJ","(420) 717-3611","Ahmed Chan"),("Dolor Foundation","P.O. Box 473, 165 Purus, St.","Osasco","São Paulo","(450) 226-2259","Garth Joseph"),("Metus Facilisis Consulting","Ap #713-955 Sed Ave","Sete Lagoas","MG","(633) 141-9173","Rashad Robertson"),("Et Magnis PC","7279 Mauris Rd.","Juiz de Fora","MG","(487) 215-8082","Ciaran Mercado"),("Turpis Vitae Incorporated","851 Eros St.","Guarulhos","SP","(900) 499-0149","Andrew Kerr"),("Duis PC","775-5060 Nam Road","Valparaíso de Goiás","Goiás","(800) 172-4428","Mark Harrell"),("Eget Odio Inc.","934-6536 Ultricies Rd.","Betim","Minas Gerais","(765) 467-5426","Price Logan"),("Dapibus PC","967-9024 Elit. St.","Guarulhos","SP","(155) 529-3673","Emmanuel Kelley"),("Pellentesque Industries","8735 Tincidunt Ave","Guarulhos","São Paulo","(156) 973-3777","Amery Pennington"),("Semper Et PC","672-4736 Metus. Street","Piracicaba","SP","(368) 793-4845","Jamal Valentine"),("Odio Vel Est Foundation","Ap #877-5959 Nulla St.","Guarulhos","São Paulo","(189) 605-5483","Honorato Davis"),("Lacus Etiam Incorporated","571-6251 Mauris Rd.","Recife","Pernambuco","(298) 610-4081","Duncan Cannon"),("Ut Sagittis Lobortis Industries","1586 Eget Avenue","Piracicaba","SP","(675) 992-6260","Abraham Flores"),("Auctor Incorporated","P.O. Box 644, 5168 Mollis Ave","Uberlândia","MG","(832) 416-6586","David Bowman"),("In Cursus Industries","1816 Mauris Av.","Campinas","SP","(245) 453-9257","Joseph Guy"),("Et Magnis Corp.","P.O. Box 806, 8923 Ante. Road","Contagem","MG","(542) 801-4677","Steven Noel"),("Nunc Ac Mattis Corporation","Ap #737-8413 Ante Avenue","Crato","Ceará","(117) 736-5621","James Gibson"),("Suspendisse Aliquet Sem Associates","Ap #553-5880 Vitae, St.","Anápolis","GO","(291) 939-2178","Jelani Walsh"),("Ac PC","P.O. Box 169, 159 Pharetra St.","Florianópolis","SC","(380) 496-6739","Alec Clark"),("Tincidunt Neque Consulting","Ap #260-2248 Sed Street","Colombo","Paraná","(664) 387-2053","Len Shannon"),("Nullam Corporation","310-9794 Magna Road","Marabá","Pará","(877) 487-1962","Barrett Webb"),("Mauris Blandit Enim Limited","Ap #665-3357 Commodo Street","Guarulhos","São Paulo","(593) 601-3319","Salvador Young"),("Aliquet Nec Imperdiet Associates","Ap #849-3788 Elit. St.","Vitória da Conquista","BA","(936) 680-1012","Aidan Humphrey"),("Lorem Foundation","P.O. Box 871, 913 Sit St.","Ribeirão Preto","SP","(935) 861-5403","Ferdinand Gentry"),("Duis Associates","756-3478 Nec Av.","Contagem","MG","(297) 846-6734","Vernon Sweet"),("Ullamcorper Limited","248-3915 Tellus Road","Petrópolis","Rio de Janeiro","(610) 515-2323","Chandler Clayton"),("Magna Ut Tincidunt Institute","Ap #883-5158 Amet, Rd.","Camaçari","BA","(806) 951-3120","Connor Clark"),("A Consulting","7241 Quis St.","Marabá","PA","(280) 452-5806","Evan Dunlap"),("Orci Lobortis Incorporated","P.O. Box 187, 1524 Pede. Rd.","Rio de Janeiro","RJ","(305) 938-8953","Darius Buckner"),("Phasellus Elit Incorporated","P.O. Box 371, 3601 Pellentesque, St.","Diadema","SP","(213) 613-9168","Colt Morales"),("Lorem Eget Mollis Incorporated","8959 Et, Avenue","São Gonçalo","Rio de Janeiro","(395) 755-4487","Kane Bonner"),("Pretium Aliquet Inc.","8826 Ut, St.","Florianópolis","SC","(165) 246-6608","Rajah Cantu"),("Natoque Penatibus Et LLC","P.O. Box 401, 3463 Lacinia Av.","São Luís","Maranhão","(754) 610-0975","Preston Weaver"),("Consectetuer Inc.","Ap #521-5513 Sollicitudin Street","Rio de Janeiro","RJ","(184) 733-4861","Benedict Santana");
 INSERT INTO tb_branch (name,street,city,state,telephone,manager) VALUES ("Integer Vitae Nibh Limited","808-9248 Magna. Street","Guarulhos","SP","(121) 602-4696","Barclay Vincent"),("In Lorem Company","Ap #944-8807 Ipsum Road","Bragança","Pará","(138) 385-9661","Tiger Martin"),("Ac Tellus Ltd","Ap #299-7799 Nunc Rd.","Canoas","RS","(950) 906-7043","Vaughan Durham"),("Fusce Mi Industries","Ap #263-862 Lectus St.","Mogi das Cruzes","São Paulo","(843) 977-4836","Wesley Wilkerson"),("Turpis Aliquam Limited","P.O. Box 773, 5870 Tincidunt Road","Cascavel","Paraná","(991) 500-6057","August Holcomb"),("Tellus Industries","Ap #688-5303 Nisl Rd.","Bragança","PA","(937) 508-2641","Jerry Blanchard"),("Nulla Eget Institute","602-4796 Vitae, Av.","Rio Grande","Rio Grande do Sul","(230) 916-6884","Coby Hodges"),("Non Inc.","723-8824 Malesuada St.","Valparaíso de Goiás","GO","(687) 773-6159","Drake Fleming"),("Eu Nulla At Consulting","P.O. Box 925, 2429 Dapibus Avenue","Foz do Iguaçu","PR","(879) 624-3680","Dean Green"),("Donec Nibh Enim Institute","234-4261 Nunc Road","Novo Hamburgo","Rio Grande do Sul","(403) 417-6141","Isaiah Farrell"),("Ligula Company","P.O. Box 407, 4495 Risus, Rd.","Jundiaí","São Paulo","(838) 269-8941","Clinton Cummings"),("Malesuada Augue Ut LLP","P.O. Box 778, 3988 Magna. St.","São Luís","MA","(113) 989-2817","Reese Cross"),("Lorem Vehicula Et Industries","2502 Sapien St.","Belém","PA","(240) 849-0669","Aidan Nash"),("Pellentesque Tellus Associates","2050 Tincidunt Av.","Caruaru","PE","(271) 383-8803","Uriah Macdonald"),("Nulla Institute","4448 At Rd.","Guarulhos","SP","(920) 468-4081","Luke Wheeler"),("Dictum Phasellus In Limited","P.O. Box 416, 5511 Mi, Street","Abaetetuba","PA","(120) 328-8436","Marvin Sharpe"),("Vestibulum Lorem Associates","241-8199 Vel, Avenue","Itabuna","Bahia","(412) 962-6714","Vaughan Farmer"),("Eget Tincidunt Foundation","Ap #999-861 Enim Rd.","Guarulhos","SP","(681) 304-7251","Jared Blackwell"),("Tellus Lorem Inc.","919-3612 Mus. Rd.","Diadema","São Paulo","(575) 333-3441","Harding Hogan"),("Metus LLC","P.O. Box 343, 4410 Donec Av.","Piracicaba","São Paulo","(248) 900-4246","Harding Ware"),("Dapibus Ltd","495-3242 Non, Street","Mauá","São Paulo","(181) 584-3209","Aaron Warner"),("Metus Vivamus Euismod Corp.","P.O. Box 809, 2516 Proin Avenue","Vitória da Conquista","Bahia","(735) 666-5574","Graiden Carson"),("Vulputate Consulting","7530 Sodales St.","Mauá","SP","(537) 260-6440","Caleb Townsend"),("Eget Ipsum Donec Associates","P.O. Box 633, 5090 Mus. Ave","Paulista","PE","(694) 362-3581","Brian Wiley"),("Mi LLP","P.O. Box 322, 2344 Donec Street","Divinópolis","Minas Gerais","(654) 101-3223","Cedric Floyd"),("Quis Corp.","Ap #505-2209 Ut Rd.","Cascavel","Paraná","(581) 220-7605","Rashad Stephens"),("Dui Nec Tempus LLC","P.O. Box 958, 5808 Iaculis Avenue","Vitória da Conquista","BA","(520) 614-1633","Martin Reed"),("Cum Foundation","Ap #510-1453 Malesuada Rd.","Santa Rita","Paraíba","(290) 397-4170","Yardley Garrison"),("Rhoncus Proin LLP","190-9466 Phasellus Avenue","Carapicuíba","São Paulo","(997) 436-5192","Brent Graham"),("Posuere Corporation","P.O. Box 773, 2581 Ultricies Avenue","Santa Maria","Rio Grande do Sul","(535) 203-8240","Ulysses Ayala"),("Ultrices PC","457-5763 Ultricies Rd.","Niterói","Rio de Janeiro","(162) 743-8226","Len Ortiz"),("Amet Foundation","Ap #876-368 Vitae, Av.","São José dos Pinhais","PR","(466) 409-1096","Barrett Black"),("Eu Eros Company","P.O. Box 666, 6498 Eu, Ave","Piracicaba","São Paulo","(373) 481-1743","Adrian Bradley"),("Maecenas Mi Associates","494-9372 Blandit St.","Santa Luzia","Minas Gerais","(782) 264-5436","Fulton Leon"),("Non Limited","P.O. Box 302, 3211 Nunc. Road","Foz do Iguaçu","PR","(816) 902-3623","Geoffrey Buckner"),("Mi Pede Nonummy LLP","Ap #782-2008 Hendrerit. Rd.","São Luís","MA","(401) 888-8526","Macaulay Hampton"),("Accumsan Interdum LLC","Ap #984-1362 Rhoncus Street","Mauá","SP","(558) 233-6539","Carson Lynch"),("Consequat Incorporated","P.O. Box 301, 3683 Nonummy Avenue","Itapipoca","Ceará","(954) 109-8627","Lance Pratt"),("Est Congue A Foundation","9265 Elit St.","Criciúma","SC","(514) 594-5087","Tiger Wilkinson"),("Fusce Aliquet Magna Company","Ap #765-5592 Tristique Avenue","Campinas","São Paulo","(988) 884-1438","Robert Mccall"),("Interdum Nunc Sollicitudin Company","225-6942 Vel, Street","Anápolis","Goiás","(586) 818-9066","Felix Macias"),("Mauris Corp.","232-4872 Sodales Ave","Ponta Grossa","PR","(886) 253-7791","Zahir Johnson"),("Erat Vel Pede LLP","9993 Nec, Avenue","Porto Alegre","Rio Grande do Sul","(951) 835-1235","Shad Sanders"),("Pharetra Ltd","902-1915 Et, St.","Caruaru","PE","(845) 782-3547","Cole Cunningham"),("Donec Egestas Aliquam Company","P.O. Box 218, 1798 Semper, Ave","Piracicaba","SP","(266) 739-8517","Gareth Morgan"),("Euismod Et Commodo Incorporated","925-2522 Placerat Ave","Parauapebas","PA","(811) 700-1341","Alfonso Carson"),("At Limited","P.O. Box 507, 1269 Ipsum Street","Itapipoca","Ceará","(867) 544-2317","Leroy Meyers"),("Varius LLC","4371 Vel, St.","Betim","Minas Gerais","(251) 734-5352","Cyrus Reyes"),("At Sem Inc.","Ap #941-3781 Scelerisque Av.","Santa Maria","RS","(601) 596-3792","Raja Carey"),("Nunc Pulvinar Inc.","413-1640 Leo. Ave","Itabuna","BA","(387) 937-4845","Allistair Delacruz");
 
@@ -208,7 +208,7 @@ INSERT INTO tb_client (name,cpf) VALUES ("Octavius Richmond","16900305 0458"),("
 
 INSERT INTO tb_stock (idbranch,idproduct,quantity) VALUES (23,172,884),(45,153,434),(72,148,203),(32,45,297),(45,159,308),(1,164,61),(77,105,868),(18,180,722),(46,119,238),(65,104,150),(57,18,415),(76,144,183),(11,174,872),(24,50,685),(13,88,950),(3,61,573),(7,160,443),(6,97,145),(76,199,950),(35,118,837),(97,51,423),(87,56,25),(96,3,695),(64,174,915),(19,131,964),(49,126,497),(92,131,703),(35,194,580),(59,50,271),(96,22,364),(49,178,935),(34,191,492),(8,166,947),(78,148,453),(3,81,835),(42,138,164),(60,197,970),(81,38,297),(55,45,548),(88,154,385),(14,9,250),(51,102,438),(51,88,304),(97,193,361),(20,153,508),(51,59,325),(26,70,93),(64,189,993),(38,105,856),(99,112,223),(81,80,912),(50,103,769),(1,20,491),(16,120,612),(26,94,976),(42,158,145),(42,87,29),(45,61,407),(91,8,854),(12,193,208);
 INSERT INTO tb_stock (idbranch,idproduct,quantity) VALUES (75,155,946),(15,41,972),(56,66,39),(10,148,192),(39,24,23),(89,3,375),(38,13,683),(60,167,946),(18,15,956),(85,110,202),(67,67,224),(31,41,797),(27,88,7),(59,98,536),(53,190,864),(56,3,257),(75,148,679),(62,143,99),(54,4,751),(12,132,308),(40,118,158),(29,44,109),(19,79,802),(43,59,22),(29,190,105),(86,18,304),(73,178,213),(36,76,238),(28,127,223),(11,20,705),(87,6,358),(48,51,608),(65,170,936),(12,142,874),(99,198,3),(49,44,530),(45,13,852),(56,163,610),(54,16,740),(90,45,510);
-*/
+
 
 # PROCEDURES PARA INSERTS E UPDATES
 
@@ -345,6 +345,39 @@ BEGIN
     END IF;
     
     SELECT * FROM tb_user WHERE iduser = piduser;
+    
+END$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_client_save`(
+pidclient int(11),
+pname varchar(100),
+pcpf  varchar(256)
+)
+BEGIN
+	
+	IF pidclient > 0 THEN
+		
+		UPDATE tb_client
+        SET 
+            name = pname,
+			cpf = pcpf      
+
+        WHERE idclient = pidclient;
+        
+    ELSE
+		
+		INSERT INTO tb_client (name,cpf) 
+        VALUES(pname,pcpf);
+        
+        SET pidclient = LAST_INSERT_ID();
+        
+    END IF;
+    
+    SELECT * FROM tb_client WHERE idclient = pidclient;
     
 END$$
 DELIMITER ;

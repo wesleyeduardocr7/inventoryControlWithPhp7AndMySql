@@ -3,23 +3,21 @@
 use \Classes\PageAdmin;
 use \Classes\Model\Stock;
 
-$app->get("/admin/stocks", function () {
+$app->get("/admin/stockorders-output", function () {
 
-    $stocksdatas = Stock::listBranchsWithStocksAndProducts();
-    
-    $page = new PageAdmin();
-
-    $page->setTpl("stocks",array(
-		'stocks'=>$stocksdatas
-	));
+   
 });
 
 
-$app->get("/admin/stockorders/create", function () {
+$app->get("/admin/stockorders-output/create", function () {
 
     $page = new PageAdmin();
 
-    $page->setTpl("stockorders-create");
+    $page->setTpl("stockorders-output-create",array(
+		'idbranch'=>'',
+		'iduser'=>'',
+		'idclient'=>''
+	));
 });
 
 
