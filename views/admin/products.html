@@ -28,8 +28,10 @@
                       <tr>
                         <th style="width: 10px">#</th>
                         <th>Nome</th>
-                        <th>Preço Unitário</th>
-                        <th>Quantidade Total</th>                        
+                        <th>Sequencial</th>
+                        <th>Código de Barras</th>
+                        <th>Descrição</th>
+                        <th>Preço Unitário</th>                        
                       </tr>
                     </thead>
                     <tbody>
@@ -37,8 +39,10 @@
                       <tr>
                         <td>{$value.idproduct}</td>
                         <td>{$value.name}</td>
-                        <td>{$value.unityprice}</td>
-                        <td>{$value.totalamount}</td>                        
+                        <td>{$value.sequential}</td>
+                        <td>{$value.barcode}</td>
+                        <td>{$value.description}</td>
+                        <td>{$value.price}</td>                        
                         <td>
                           <a href="/admin/products/{$value.idproduct}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                           <a href="/admin/products/{$value.idproduct}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>

@@ -9,7 +9,7 @@
 
 <!-- Main content -->
 <section class="content">
-
+  
   <div class="row">
   	<div class="col-md-12">
   		<div class="box box-primary">
@@ -17,23 +17,31 @@
           <h3 class="box-title">Editar Produto</h3>
         </div>
         <!-- /.box-header -->
-        <!-- form start -->
-        <form role="form" action="/admin/products/{$product.idproduct}" method="post">
-          <div class="box-body">
-            <div class="form-group">
-              <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" value="{$product.name}">
+          <!-- form start -->
+          <form role="form" action="/admin/products/create" method="post">
+            <div class="box-body">    
+              <div class="form-group">
+                <label for="name">Nome do Produto</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Informe o nome" required value="{$product.name}">
+              </div>
+              <div class="form-group">
+                <label for="sequential">Sequencial</label>
+                <input type="text" class="form-control" id="sequential" name="sequential" placeholder="Informe o sequencial" required value="{$product.sequential}">
+              </div>
+              <div class="form-group">
+                <label for="barcode">Código de Barras</label>
+                <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Informe o código de barras" required value="{$product.barcode}">
+              </div>
+              <div class="form-group">
+                <label for="description">Descrição</label>
+                <input type="text" class="form-control" id="description" name="description" placeholder="Informe a descrição" required value="{$product.description}">
+              </div>
+              <div class="form-group">
+                <label for="price">Preço Unitário</label>
+                <input type="number" class="form-control" id="price" name="price" placeholder="Informe o preço unitário" required value="{$product.price}">
+              </div>
             </div>
-            <div class="form-group">
-              <label for="unityprice">Preço Uniário</label>
-              <input type="number" class="form-control" id="unityprice" name="unityprice" placeholder="Digite a preço único"  value="{$product.unityprice}">
-            </div>
-            <div class="form-group">
-              <label for="totalamount">Quantidade Total</label>
-              <input type="number" class="form-control" id="totalamount" name="totalamount" placeholder="Digite a quantidade total"  value="{$product.totalamount}">
-            </div>            
-          </div>
-          <!-- /.box-body -->
+            <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-primary">Salvar</button>
           </div>

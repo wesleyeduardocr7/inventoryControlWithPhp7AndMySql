@@ -27,31 +27,32 @@
           <div class="box-body">           
             <div class="form-group">
               <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" required>
             </div>
             <label for="street">Rua</label>
-            <input type="text" class="form-control" id="street" name="street" placeholder="Digite o nome da rua">
+            <input type="text" class="form-control" id="street" name="street" placeholder="Digite o nome da rua" required>
           </div>
             <div class="form-group">
               <label for="city">Cidade</label>
-              <input type="text" class="form-control" id="city" name="city" placeholder="Digite a cidade">
+              <input type="text" class="form-control" id="city" name="city" placeholder="Digite a cidade" required>
             </div>
             <div class="form-group">
               <label for="address">Estado</label>
-              <input type="text" class="form-control" id="state" name="state" placeholder="Digite a cidade">
+              <input type="text" class="form-control" id="state" name="state" placeholder="Digite a cidade" required>
             </div>
             <div class="form-group">
               <label for="telephone">Telefone</label>
-              <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Digite o telefone">
+              <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Digite o telefone" required>
             </div>
             <div class="form-group">
               <label for="manager">Nome gerente</label>
-              <input type="text" class="form-control" id="manager" name="manager" placeholder="Digite o nome do gerente">
+              <input type="text" class="form-control" id="manager" name="manager" placeholder="Digite o nome do gerente" required>
             </div>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Cadastrar</button>
+            <a href="/admin/branchs" style="width: 90px;" class="btn btn-success">Voltar</a>
           </div>
         </form>
       </div>

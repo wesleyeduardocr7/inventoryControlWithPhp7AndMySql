@@ -194,6 +194,7 @@ ENGINE = InnoDB;
 
 /*INSERTS DE TABELAS BASE PARA TESTES | https://www.generatedata.com/ */
 
+/*
 INSERT INTO tb_branch (name,street,city,state,telephone,manager) VALUES ("Ullamcorper Consulting","477-3322 Dapibus Av.","Rio de Janeiro","RJ","(791) 897-9190","Porter Bartlett"),("Nullam Lobortis LLP","1655 Ipsum St.","Campinas","SP","(347) 255-1392","Phillip Watson"),("Aliquam Gravida LLC","5405 Nunc Av.","Jundiaí","São Paulo","(230) 674-6563","Quentin Newman"),("Donec Porttitor Incorporated","Ap #589-6840 Luctus Rd.","Piracicaba","SP","(564) 441-7862","Drew Saunders"),("Placerat Augue Corp.","P.O. Box 232, 8584 Accumsan Rd.","Osasco","SP","(204) 435-3838","Boris Salinas"),("Nullam Velit Dui Consulting","3773 Aliquam Street","Blumenau","SC","(900) 837-4079","Ronan Dickerson"),("Luctus Ipsum Leo Ltd","7501 Et, Road","Belford Roxo","Rio de Janeiro","(825) 441-5466","Carlos Sharp"),("Nisl Arcu Consulting","Ap #839-5072 Ut Av.","Mogi das Cruzes","São Paulo","(206) 345-2336","Quinlan Rosa"),("Lacus LLP","135-7916 Suspendisse Street","Lauro de Freitas","BA","(155) 437-5850","Kareem Camacho"),("Ut Molestie PC","P.O. Box 768, 2269 Suspendisse St.","Piracicaba","São Paulo","(294) 238-1762","Tate Weeks"),("Eget Limited","502-2792 Eu, St.","Osasco","SP","(650) 772-6435","Yoshio Conley"),("Eget Metus Eu Associates","607-7065 Sed Rd.","Florianópolis","SC","(211) 651-8394","Oren Riley"),("Dui Nec Foundation","P.O. Box 971, 7373 Interdum St.","Açailândia","MA","(723) 948-2436","Tad Slater"),("Quisque Varius Ltd","8164 Orci Av.","Olinda","PE","(307) 171-2106","Omar Bishop"),("Semper Et Lacinia LLP","436 Morbi Avenue","Balsas","MA","(254) 762-5215","Ezekiel Sharp"),("Venenatis Corp.","P.O. Box 469, 2404 Mauris Street","Chapecó","Santa Catarina","(239) 688-0772","Chester Langley"),("Non Arcu Vivamus Corp.","Ap #139-5503 Ac, St.","São Gonçalo","RJ","(420) 717-3611","Ahmed Chan"),("Dolor Foundation","P.O. Box 473, 165 Purus, St.","Osasco","São Paulo","(450) 226-2259","Garth Joseph"),("Metus Facilisis Consulting","Ap #713-955 Sed Ave","Sete Lagoas","MG","(633) 141-9173","Rashad Robertson"),("Et Magnis PC","7279 Mauris Rd.","Juiz de Fora","MG","(487) 215-8082","Ciaran Mercado"),("Turpis Vitae Incorporated","851 Eros St.","Guarulhos","SP","(900) 499-0149","Andrew Kerr"),("Duis PC","775-5060 Nam Road","Valparaíso de Goiás","Goiás","(800) 172-4428","Mark Harrell"),("Eget Odio Inc.","934-6536 Ultricies Rd.","Betim","Minas Gerais","(765) 467-5426","Price Logan"),("Dapibus PC","967-9024 Elit. St.","Guarulhos","SP","(155) 529-3673","Emmanuel Kelley"),("Pellentesque Industries","8735 Tincidunt Ave","Guarulhos","São Paulo","(156) 973-3777","Amery Pennington"),("Semper Et PC","672-4736 Metus. Street","Piracicaba","SP","(368) 793-4845","Jamal Valentine"),("Odio Vel Est Foundation","Ap #877-5959 Nulla St.","Guarulhos","São Paulo","(189) 605-5483","Honorato Davis"),("Lacus Etiam Incorporated","571-6251 Mauris Rd.","Recife","Pernambuco","(298) 610-4081","Duncan Cannon"),("Ut Sagittis Lobortis Industries","1586 Eget Avenue","Piracicaba","SP","(675) 992-6260","Abraham Flores"),("Auctor Incorporated","P.O. Box 644, 5168 Mollis Ave","Uberlândia","MG","(832) 416-6586","David Bowman"),("In Cursus Industries","1816 Mauris Av.","Campinas","SP","(245) 453-9257","Joseph Guy"),("Et Magnis Corp.","P.O. Box 806, 8923 Ante. Road","Contagem","MG","(542) 801-4677","Steven Noel"),("Nunc Ac Mattis Corporation","Ap #737-8413 Ante Avenue","Crato","Ceará","(117) 736-5621","James Gibson"),("Suspendisse Aliquet Sem Associates","Ap #553-5880 Vitae, St.","Anápolis","GO","(291) 939-2178","Jelani Walsh"),("Ac PC","P.O. Box 169, 159 Pharetra St.","Florianópolis","SC","(380) 496-6739","Alec Clark"),("Tincidunt Neque Consulting","Ap #260-2248 Sed Street","Colombo","Paraná","(664) 387-2053","Len Shannon"),("Nullam Corporation","310-9794 Magna Road","Marabá","Pará","(877) 487-1962","Barrett Webb"),("Mauris Blandit Enim Limited","Ap #665-3357 Commodo Street","Guarulhos","São Paulo","(593) 601-3319","Salvador Young"),("Aliquet Nec Imperdiet Associates","Ap #849-3788 Elit. St.","Vitória da Conquista","BA","(936) 680-1012","Aidan Humphrey"),("Lorem Foundation","P.O. Box 871, 913 Sit St.","Ribeirão Preto","SP","(935) 861-5403","Ferdinand Gentry"),("Duis Associates","756-3478 Nec Av.","Contagem","MG","(297) 846-6734","Vernon Sweet"),("Ullamcorper Limited","248-3915 Tellus Road","Petrópolis","Rio de Janeiro","(610) 515-2323","Chandler Clayton"),("Magna Ut Tincidunt Institute","Ap #883-5158 Amet, Rd.","Camaçari","BA","(806) 951-3120","Connor Clark"),("A Consulting","7241 Quis St.","Marabá","PA","(280) 452-5806","Evan Dunlap"),("Orci Lobortis Incorporated","P.O. Box 187, 1524 Pede. Rd.","Rio de Janeiro","RJ","(305) 938-8953","Darius Buckner"),("Phasellus Elit Incorporated","P.O. Box 371, 3601 Pellentesque, St.","Diadema","SP","(213) 613-9168","Colt Morales"),("Lorem Eget Mollis Incorporated","8959 Et, Avenue","São Gonçalo","Rio de Janeiro","(395) 755-4487","Kane Bonner"),("Pretium Aliquet Inc.","8826 Ut, St.","Florianópolis","SC","(165) 246-6608","Rajah Cantu"),("Natoque Penatibus Et LLC","P.O. Box 401, 3463 Lacinia Av.","São Luís","Maranhão","(754) 610-0975","Preston Weaver"),("Consectetuer Inc.","Ap #521-5513 Sollicitudin Street","Rio de Janeiro","RJ","(184) 733-4861","Benedict Santana");
 INSERT INTO tb_branch (name,street,city,state,telephone,manager) VALUES ("Integer Vitae Nibh Limited","808-9248 Magna. Street","Guarulhos","SP","(121) 602-4696","Barclay Vincent"),("In Lorem Company","Ap #944-8807 Ipsum Road","Bragança","Pará","(138) 385-9661","Tiger Martin"),("Ac Tellus Ltd","Ap #299-7799 Nunc Rd.","Canoas","RS","(950) 906-7043","Vaughan Durham"),("Fusce Mi Industries","Ap #263-862 Lectus St.","Mogi das Cruzes","São Paulo","(843) 977-4836","Wesley Wilkerson"),("Turpis Aliquam Limited","P.O. Box 773, 5870 Tincidunt Road","Cascavel","Paraná","(991) 500-6057","August Holcomb"),("Tellus Industries","Ap #688-5303 Nisl Rd.","Bragança","PA","(937) 508-2641","Jerry Blanchard"),("Nulla Eget Institute","602-4796 Vitae, Av.","Rio Grande","Rio Grande do Sul","(230) 916-6884","Coby Hodges"),("Non Inc.","723-8824 Malesuada St.","Valparaíso de Goiás","GO","(687) 773-6159","Drake Fleming"),("Eu Nulla At Consulting","P.O. Box 925, 2429 Dapibus Avenue","Foz do Iguaçu","PR","(879) 624-3680","Dean Green"),("Donec Nibh Enim Institute","234-4261 Nunc Road","Novo Hamburgo","Rio Grande do Sul","(403) 417-6141","Isaiah Farrell"),("Ligula Company","P.O. Box 407, 4495 Risus, Rd.","Jundiaí","São Paulo","(838) 269-8941","Clinton Cummings"),("Malesuada Augue Ut LLP","P.O. Box 778, 3988 Magna. St.","São Luís","MA","(113) 989-2817","Reese Cross"),("Lorem Vehicula Et Industries","2502 Sapien St.","Belém","PA","(240) 849-0669","Aidan Nash"),("Pellentesque Tellus Associates","2050 Tincidunt Av.","Caruaru","PE","(271) 383-8803","Uriah Macdonald"),("Nulla Institute","4448 At Rd.","Guarulhos","SP","(920) 468-4081","Luke Wheeler"),("Dictum Phasellus In Limited","P.O. Box 416, 5511 Mi, Street","Abaetetuba","PA","(120) 328-8436","Marvin Sharpe"),("Vestibulum Lorem Associates","241-8199 Vel, Avenue","Itabuna","Bahia","(412) 962-6714","Vaughan Farmer"),("Eget Tincidunt Foundation","Ap #999-861 Enim Rd.","Guarulhos","SP","(681) 304-7251","Jared Blackwell"),("Tellus Lorem Inc.","919-3612 Mus. Rd.","Diadema","São Paulo","(575) 333-3441","Harding Hogan"),("Metus LLC","P.O. Box 343, 4410 Donec Av.","Piracicaba","São Paulo","(248) 900-4246","Harding Ware"),("Dapibus Ltd","495-3242 Non, Street","Mauá","São Paulo","(181) 584-3209","Aaron Warner"),("Metus Vivamus Euismod Corp.","P.O. Box 809, 2516 Proin Avenue","Vitória da Conquista","Bahia","(735) 666-5574","Graiden Carson"),("Vulputate Consulting","7530 Sodales St.","Mauá","SP","(537) 260-6440","Caleb Townsend"),("Eget Ipsum Donec Associates","P.O. Box 633, 5090 Mus. Ave","Paulista","PE","(694) 362-3581","Brian Wiley"),("Mi LLP","P.O. Box 322, 2344 Donec Street","Divinópolis","Minas Gerais","(654) 101-3223","Cedric Floyd"),("Quis Corp.","Ap #505-2209 Ut Rd.","Cascavel","Paraná","(581) 220-7605","Rashad Stephens"),("Dui Nec Tempus LLC","P.O. Box 958, 5808 Iaculis Avenue","Vitória da Conquista","BA","(520) 614-1633","Martin Reed"),("Cum Foundation","Ap #510-1453 Malesuada Rd.","Santa Rita","Paraíba","(290) 397-4170","Yardley Garrison"),("Rhoncus Proin LLP","190-9466 Phasellus Avenue","Carapicuíba","São Paulo","(997) 436-5192","Brent Graham"),("Posuere Corporation","P.O. Box 773, 2581 Ultricies Avenue","Santa Maria","Rio Grande do Sul","(535) 203-8240","Ulysses Ayala"),("Ultrices PC","457-5763 Ultricies Rd.","Niterói","Rio de Janeiro","(162) 743-8226","Len Ortiz"),("Amet Foundation","Ap #876-368 Vitae, Av.","São José dos Pinhais","PR","(466) 409-1096","Barrett Black"),("Eu Eros Company","P.O. Box 666, 6498 Eu, Ave","Piracicaba","São Paulo","(373) 481-1743","Adrian Bradley"),("Maecenas Mi Associates","494-9372 Blandit St.","Santa Luzia","Minas Gerais","(782) 264-5436","Fulton Leon"),("Non Limited","P.O. Box 302, 3211 Nunc. Road","Foz do Iguaçu","PR","(816) 902-3623","Geoffrey Buckner"),("Mi Pede Nonummy LLP","Ap #782-2008 Hendrerit. Rd.","São Luís","MA","(401) 888-8526","Macaulay Hampton"),("Accumsan Interdum LLC","Ap #984-1362 Rhoncus Street","Mauá","SP","(558) 233-6539","Carson Lynch"),("Consequat Incorporated","P.O. Box 301, 3683 Nonummy Avenue","Itapipoca","Ceará","(954) 109-8627","Lance Pratt"),("Est Congue A Foundation","9265 Elit St.","Criciúma","SC","(514) 594-5087","Tiger Wilkinson"),("Fusce Aliquet Magna Company","Ap #765-5592 Tristique Avenue","Campinas","São Paulo","(988) 884-1438","Robert Mccall"),("Interdum Nunc Sollicitudin Company","225-6942 Vel, Street","Anápolis","Goiás","(586) 818-9066","Felix Macias"),("Mauris Corp.","232-4872 Sodales Ave","Ponta Grossa","PR","(886) 253-7791","Zahir Johnson"),("Erat Vel Pede LLP","9993 Nec, Avenue","Porto Alegre","Rio Grande do Sul","(951) 835-1235","Shad Sanders"),("Pharetra Ltd","902-1915 Et, St.","Caruaru","PE","(845) 782-3547","Cole Cunningham"),("Donec Egestas Aliquam Company","P.O. Box 218, 1798 Semper, Ave","Piracicaba","SP","(266) 739-8517","Gareth Morgan"),("Euismod Et Commodo Incorporated","925-2522 Placerat Ave","Parauapebas","PA","(811) 700-1341","Alfonso Carson"),("At Limited","P.O. Box 507, 1269 Ipsum Street","Itapipoca","Ceará","(867) 544-2317","Leroy Meyers"),("Varius LLC","4371 Vel, St.","Betim","Minas Gerais","(251) 734-5352","Cyrus Reyes"),("At Sem Inc.","Ap #941-3781 Scelerisque Av.","Santa Maria","RS","(601) 596-3792","Raja Carey"),("Nunc Pulvinar Inc.","413-1640 Leo. Ave","Itabuna","BA","(387) 937-4845","Allistair Delacruz");
 
@@ -205,64 +206,53 @@ INSERT INTO tb_user (name,cpf,login,password) VALUES ("Adrian Page","16010312 83
 INSERT INTO tb_client (name,cpf) VALUES ("Eagan Mason","16290504 3515"),("Lamar Ware","16320620 3097"),("Victor Boyle","16270202 6978"),("Brendan Mcgee","16990822 5817"),("Ira Norton","16550713 9904"),("Guy Hensley","16871107 1814"),("Benedict Robbins","16301228 6625"),("Boris Stewart","16231228 3001"),("Craig Franklin","16071202 0155"),("Phillip Koch","16380407 9642"),("Channing Beck","16441022 2147"),("Kane Fletcher","16100722 0419"),("Dalton Barrett","16181214 3707"),("Zeus Michael","16061027 9937"),("Allistair Gallagher","16600124 9389"),("Camden Hensley","16530901 8801"),("Alan Woodward","16731113 9138"),("Brett Palmer","16280813 8826"),("Herman Whitney","16580430 5687"),("Hammett Barker","16060202 9001"),("Yuli Flynn","16510425 6598"),("Gannon Bridges","16411223 0026"),("Josiah Ellis","16341220 5019"),("Ali Mills","16221016 0764"),("Garrison Conley","16141104 9560"),("Vladimir Stone","16460617 4854"),("Ashton Brady","16070618 4249"),("Tobias Pearson","16620220 2781"),("Christopher Arnold","16920513 3490"),("Ciaran England","16871125 3669"),("Nash Dunn","16610301 4624"),("Kaseem Soto","16010319 2282"),("Dieter Cannon","16461129 9563"),("Martin Skinner","16440404 4929"),("Francis Cabrera","16851107 0677"),("Malcolm Hahn","16170501 2472"),("Flynn Walker","16931101 3495"),("Ciaran Petersen","16710415 6760"),("Aquila Carpenter","16220321 8603"),("Eagan Stuart","16990120 5956"),("Lester Franks","16930301 9773"),("Lane Paul","16680929 6384"),("Vincent Salas","16541104 5528"),("Emery Carpenter","16430618 8600"),("Jesse Bender","16130709 1825"),("Upton Moore","16980308 0226"),("Giacomo Gallagher","16820618 7935"),("Acton Drake","16470727 1468"),("Austin Knowles","16361123 1444"),("Howard Pugh","16441019 8602"),("Aidan Buckner","16560916 2788"),("Jared Michael","16240919 4863"),("Fletcher Beasley","16840901 4985"),("Blaze Meadows","16171005 3099"),("Lucian Galloway","16540617 4218"),("Ali Peters","16521109 9618"),("Abel Greene","16111203 3541"),("Austin Hatfield","16710325 6447"),("Mufutau Barnes","16950723 4798"),("Sebastian Tyler","16650914 3068"),("Gavin Payne","16370607 6084"),("Jeremy Wise","16350723 0047"),("Zeph Bailey","16290211 4046"),("Gabriel Alvarado","16881023 5641"),("Walter Richard","16731022 5318"),("Chaney Douglas","16250623 0255"),("Dalton Henderson","16150425 5249"),("Beau Cannon","16301122 7026"),("Philip Orr","16790423 5384"),("Arsenio Pena","16960707 9127"),("Kenyon Moreno","16241029 2847"),("Aquila Marsh","16980320 8306"),("John Hinton","16150629 2091"),("Hu Gibson","16521021 9688"),("John Atkinson","16471224 1985"),("Keane Owens","16001213 5158"),("Keegan Morrison","16950826 4034"),("Fuller Hall","16120616 6058"),("Callum Zamora","16630515 9979"),("Bevis Weeks","16150826 9568"),("Maxwell Dennis","16961217 5886"),("Thaddeus Mercer","16410423 0067"),("Shad Simon","16741122 2784"),("Malik Beasley","16600413 6492"),("Fulton Pennington","16210810 5996"),("John Steele","16620230 4934"),("Hu Mcbride","16490515 3336"),("Paki Bradley","16430526 5920"),("Stewart Harris","16030908 7724"),("Malcolm Guzman","16590303 9310"),("Sebastian Patrick","16730618 4164"),("Oren Mcdonald","16720928 0291"),("Lev Knox","16740101 1767"),("Reese Vasquez","16540208 3678"),("Arsenio Bright","16680421 7120"),("Nehru Patton","16461101 8930"),("Nash Jacobson","16320320 5566"),("Palmer Whitley","16800427 1899"),("Lee Price","16571202 0543"),("George Franco","16261201 8834");
 INSERT INTO tb_client (name,cpf) VALUES ("Octavius Richmond","16900305 0458"),("Orson Rogers","16860124 4794"),("Harper Sellers","16380923 0570"),("Gabriel Bryan","16870824 0489"),("Fritz Neal","16751128 6465"),("Cadman Long","16730826 7652"),("Garrison Bradford","16600704 5922"),("Randall Hardy","16830320 6505"),("Kennedy Joseph","16111106 5114"),("Lucius Griffith","16870826 2939"),("Colby Bullock","16420815 4031"),("Carlos Wheeler","16300806 6361"),("Brett Hodges","16740927 7352"),("Kamal Mcdaniel","16620703 6770"),("Gannon Little","16530905 0051"),("Ryan Chan","16030506 5690"),("Darius Moss","16540309 6059"),("Hayes Chen","16531222 2150"),("Nero Sweeney","16901027 4893"),("Kevin Rodgers","16421217 7960"),("Ronan Gould","16510423 6202"),("Baker Trevino","16830218 6757"),("Hakeem Kirby","16941012 1033"),("Owen Munoz","16561125 6271"),("Ryder Mckay","16710430 4253"),("Conan Rice","16190203 7892"),("Fulton Bowman","16471107 5194"),("Ronan Cooper","16670617 7893"),("Damon Whitney","16200830 1752"),("Allen Gomez","16630717 1741"),("Norman Charles","16170726 5615"),("Drake Sloan","16490116 8882"),("Keith Gross","16410226 2351"),("Ignatius Sloan","16240714 8192"),("Amal Warren","16111230 8299"),("Thomas Mason","16890820 9748"),("Lee Cline","16000626 2638"),("Nissim Vega","16000210 1509"),("Moses Burch","16500802 6444"),("Laith Stanley","16141204 8462"),("Camden Jackson","16540105 2740"),("Callum Dudley","16141203 4611"),("Dillon Camacho","16870223 0353"),("Gavin Leon","16101117 1525"),("Emery Hudson","16200604 8140"),("Vernon Roberts","16710907 4612"),("Ross Morse","16590328 7109"),("Ezekiel Bishop","16300616 2741"),("Baxter Stokes","16210306 3224"),("Tarik Jenkins","16131029 7203"),("Lyle Curry","16830305 2974"),("Quentin Medina","16700629 8991"),("Hyatt Taylor","16501212 9705"),("Wallace Morin","16600801 7227"),("Zeph Bryant","16270922 5177"),("Zachary Craig","16110601 0240"),("Steven Justice","16971111 7813"),("Lionel Short","16700725 1122"),("Ciaran Martinez","16471128 5827"),("Gabriel Vance","16720715 5602"),("Eagan Decker","16160123 2257"),("Christian Torres","16060111 5900"),("Dieter Marquez","16250220 7448"),("Jakeem Frye","16300327 3673"),("Hayes Foreman","16240301 9611"),("Ryan Reese","16970112 9364"),("Hilel Ballard","16990608 1105"),("Gannon Oliver","16791221 6392"),("Connor Beard","16290620 9750"),("Chester Montgomery","16980508 8250"),("Darius Goodman","16710909 8538"),("Daniel Henderson","16030330 1873"),("Alden Hampton","16560220 7820"),("Stephen Barnes","16890519 5379"),("Plato Cross","16300309 1364"),("Fletcher Mayo","16000923 0657"),("Owen Wooten","16410112 1988"),("Dillon Clay","16250111 9511"),("Melvin Dean","16281025 9214"),("Laith Lane","16260509 4834"),("Brett Lee","16210729 8420"),("Rigel Suarez","16501210 3296"),("Vladimir Dalton","16860626 2247"),("Kelly Juarez","16971006 6532"),("Edward Knowles","16680827 1289"),("Zachery Riddle","16250410 3231"),("Burke Espinoza","16720921 0629"),("Aaron Estrada","16630324 6984"),("Michael Drake","16690426 1796"),("Chase Stanley","16691013 2270"),("Randall Fowler","16420613 3854"),("Ferris Griffith","16881022 3936"),("Daniel Cochran","16411111 1813"),("Zeus Hardy","16161108 3237"),("Edward Wiggins","16490323 9475"),("Reese Wheeler","16270922 6746"),("Clarke Horton","16730715 3366"),("Hayes Colon","16070317 0399"),("Steven Johns","16220930 7723"),("Carlos Mcclure","16270228 6523");
 
-##INSERT INTO tb_stock (idbranch,idproduct,quantity) VALUES (23,172,884),(45,153,434),(72,148,203),(32,45,297),(45,159,308),(1,164,61),(77,105,868),(18,180,722),(46,119,238),(65,104,150),(57,18,415),(76,144,183),(11,174,872),(24,50,685),(13,88,950),(3,61,573),(7,160,443),(6,97,145),(76,199,950),(35,118,837),(97,51,423),(87,56,25),(96,3,695),(64,174,915),(19,131,964),(49,126,497),(92,131,703),(35,194,580),(59,50,271),(96,22,364),(49,178,935),(34,191,492),(8,166,947),(78,148,453),(3,81,835),(42,138,164),(60,197,970),(81,38,297),(55,45,548),(88,154,385),(14,9,250),(51,102,438),(51,88,304),(97,193,361),(20,153,508),(51,59,325),(26,70,93),(64,189,993),(38,105,856),(99,112,223),(81,80,912),(50,103,769),(1,20,491),(16,120,612),(26,94,976),(42,158,145),(42,87,29),(45,61,407),(91,8,854),(12,193,208);
-##INSERT INTO tb_stock (idbranch,idproduct,quantity) VALUES (75,155,946),(15,41,972),(56,66,39),(10,148,192),(39,24,23),(89,3,375),(38,13,683),(60,167,946),(18,15,956),(85,110,202),(67,67,224),(31,41,797),(27,88,7),(59,98,536),(53,190,864),(56,3,257),(75,148,679),(62,143,99),(54,4,751),(12,132,308),(40,118,158),(29,44,109),(19,79,802),(43,59,22),(29,190,105),(86,18,304),(73,178,213),(36,76,238),(28,127,223),(11,20,705),(87,6,358),(48,51,608),(65,170,936),(12,142,874),(99,198,3),(49,44,530),(45,13,852),(56,163,610),(54,16,740),(90,45,510);
-
+INSERT INTO tb_stock (idbranch,idproduct,quantity) VALUES (23,172,884),(45,153,434),(72,148,203),(32,45,297),(45,159,308),(1,164,61),(77,105,868),(18,180,722),(46,119,238),(65,104,150),(57,18,415),(76,144,183),(11,174,872),(24,50,685),(13,88,950),(3,61,573),(7,160,443),(6,97,145),(76,199,950),(35,118,837),(97,51,423),(87,56,25),(96,3,695),(64,174,915),(19,131,964),(49,126,497),(92,131,703),(35,194,580),(59,50,271),(96,22,364),(49,178,935),(34,191,492),(8,166,947),(78,148,453),(3,81,835),(42,138,164),(60,197,970),(81,38,297),(55,45,548),(88,154,385),(14,9,250),(51,102,438),(51,88,304),(97,193,361),(20,153,508),(51,59,325),(26,70,93),(64,189,993),(38,105,856),(99,112,223),(81,80,912),(50,103,769),(1,20,491),(16,120,612),(26,94,976),(42,158,145),(42,87,29),(45,61,407),(91,8,854),(12,193,208);
+INSERT INTO tb_stock (idbranch,idproduct,quantity) VALUES (75,155,946),(15,41,972),(56,66,39),(10,148,192),(39,24,23),(89,3,375),(38,13,683),(60,167,946),(18,15,956),(85,110,202),(67,67,224),(31,41,797),(27,88,7),(59,98,536),(53,190,864),(56,3,257),(75,148,679),(62,143,99),(54,4,751),(12,132,308),(40,118,158),(29,44,109),(19,79,802),(43,59,22),(29,190,105),(86,18,304),(73,178,213),(36,76,238),(28,127,223),(11,20,705),(87,6,358),(48,51,608),(65,170,936),(12,142,874),(99,198,3),(49,44,530),(45,13,852),(56,163,610),(54,16,740),(90,45,510);
+*/
 
 # PROCEDURES PARA INSERTS E UPDATES
 
-
-call sp_branch_save(0,'1','1','1','1','1','1');
+select * from tb_product;
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_branch_save`(
-bidbranch int(11),
-bname varchar(100),
-bstreet  varchar(100),
-bcity varchar(50),
-bstate varchar(50),
-btelephone varchar(20),
-bmanager varchar(50)
+pidbranch int(11),
+pname varchar(100),
+pstreet  varchar(100),
+pcity varchar(50),
+pstate varchar(50),
+ptelephone varchar(20),
+pmanager varchar(50)
 )
 BEGIN
 	
-	IF bidbranch > 0 THEN
+	IF pidbranch > 0 THEN
 		
 		UPDATE tb_branch
         SET 
             name = bname,
-			street = bstreet,
-            city =  bcity ,
-            state = bstate,
-            telephone = btelephone,
-            manager= bmanager
+			street = pstreet,
+            city =  pcity ,
+            state = ptate,
+            telephone = ptelephone,
+            manager= pmanager
             
-        WHERE idbranch = bidbranch;
+        WHERE idbranch = pidbranch;
         
     ELSE
 		
 		INSERT INTO tb_branch (name,street,city,state,telephone, manager) 
-        VALUES(bname,bstreet,bcity,bstate,btelephone, bmanager);
+        VALUES(pname,pstreet,pcity,pstate,ptelephone, pmanager);
         
-        SET bidbranch = LAST_INSERT_ID();
+        SET pidbranch = LAST_INSERT_ID();
         
     END IF;
     
-    SELECT * FROM tb_branch WHERE idbranch = bidbranch;
+    SELECT * FROM tb_branch WHERE idbranch = pidbranch;
     
 END$$
 DELIMITER ;
 
-
-
-
-##INSERT INTO tb_stock (idbranch,idproduct,quantity) VALUES(100,50,2); 
-
-
-
-##INSERT INTO tb_stock (idbranch,idproduct,quantity)  VALUES(10,10,200);
-        
-call sp_stock_save(54,1, 1000); 
         
 DELIMITER $$
 CREATE PROCEDURE `sp_stock_save`(
@@ -283,9 +273,46 @@ BEGIN
           
 		 select * from tb_stock;
              
-    END IF;          
+    END IF; 
     
+END$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_product_save`(
+pidproduct int(11),
+pname varchar(100),
+psequential  varchar(256),
+pbarcode varchar(256),
+pdescription varchar(256),
+pprice decimal(10,2)
+)
+BEGIN
+	
+	IF pidproduct > 0 THEN
+		
+		UPDATE tb_product
+        SET 
+            name = pname,
+			sequential = psequential,
+            barcode =  pbarcode ,
+            description = pdescription,
+            price = pprice
+
+        WHERE idproduct = pidproduct;
+        
+    ELSE
+		
+		INSERT INTO tb_product (name,sequential,barcode,description,price) 
+        VALUES(pname,psequential,pbarcode,pdescription,pprice);
+        
+        SET pidproduct = LAST_INSERT_ID();
+        
+    END IF;
     
+    SELECT * FROM tb_product WHERE idproduct = pidproduct;
     
 END$$
 DELIMITER ;

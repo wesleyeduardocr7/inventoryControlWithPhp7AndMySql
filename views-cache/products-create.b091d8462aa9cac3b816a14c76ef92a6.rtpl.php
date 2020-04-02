@@ -24,27 +24,32 @@
         <!-- /.box-header -->
         <!-- form start -->
         <form role="form" action="/admin/products/create" method="post">
-          <div class="box-body">
-            <div class="form-group">
-              <label for="idstock">Informe o código do estoque para o produto</label>
-              <input type="number" class="form-control" id="idstock" name="idstock" placeholder="Digite o código" required>            
-            </div>
+          <div class="box-body">    
             <div class="form-group">
               <label for="name">Nome do Produto</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" required>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Informe o nome" required>
             </div>
             <div class="form-group">
-              <label for="unityprice">Preço Unitário</label>
-              <input type="number" class="form-control" id="unityprice" name="unityprice" placeholder="Digite o login" required>
+              <label for="sequential">Sequencial</label>
+              <input type="text" class="form-control" id="sequential" name="sequential" placeholder="Informe o sequencial" required>
             </div>
             <div class="form-group">
-              <label for="totalamount">Quantidade Total</label>
-              <input type="number" class="form-control" id="totalamount" name="totalamount" placeholder="Digite o telefone" required>
+              <label for="barcode">Código de Barras</label>
+              <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Informe o código de barras" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Descrição</label>
+              <input type="text" class="form-control" id="description" name="description" placeholder="Informe a descrição" required>
+            </div>
+            <div class="form-group">
+              <label for="price">Preço Unitário</label>
+              <input type="number" class="form-control" id="price" name="price" placeholder="Informe o preço unitário" required>
             </div>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Cadastrar</button>
+            <a href="/admin/products" style="width: 90px;" class="btn btn-success">Voltar</a>
           </div>
         </form>
       </div>

@@ -22,31 +22,32 @@
           <div class="box-body">
             <div class="form-group">
               <label for="name">Nome</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" value="{$branch.name}">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" required value="{$branch.name}">
             </div>
               <label for="street">Rua</label>
-              <input type="text" class="form-control" id="street" name="street" placeholder="Digite o nome da rua" value="{$branch.street}">
+              <input type="text" class="form-control" id="street" name="street" placeholder="Digite o nome da rua" required value="{$branch.street}">
             </div>
             <div class="form-group">
               <label for="city">Cidade</label>
-              <input type="text" class="form-control" id="city" name="city" placeholder="Digite o nome" value="{$branch.city}">
+              <input type="text" class="form-control" id="city" name="city" placeholder="Digite o nome" required value="{$branch.city}">
             </div>
             <div class="form-group">
               <label for="state">Estado</label>
-              <input type="text" class="form-control" id="state" name="state" placeholder="Digite o nome" value="{$branch.state}">
+              <input type="text" class="form-control" id="state" name="state" placeholder="Digite o nome" required value="{$branch.state}">
             </div>
             <div class="form-group">
               <label for="telephone">Telefone</label>
-              <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Digite a preço único"  value="{$branch.telephone}">
+              <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Digite a preço único"  required value="{$branch.telephone}">
             </div>
             <div class="form-group">
               <label for="manager">Nome do Gerete</label>
-              <input type="text" class="form-control" id="manager" name="manager" placeholder="Digite a quantidade total"  value="{$branch.manager}">
+              <input type="text" class="form-control" id="manager" name="manager" placeholder="Digite a quantidade total" required  value="{$branch.manager}">
             </div>            
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/admin/branchs" style="width: 70px;" class="btn btn-primary">Voltar</a>
           </div>
         </form>
       </div>

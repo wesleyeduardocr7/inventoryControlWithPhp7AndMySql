@@ -18,12 +18,13 @@ class Product extends Model {
 	{
 		$sql = new Sql();
 
-		 $sql->select("CALL sp_product_save(:idproduct, :idstock, :name, :unityprice, :totalamount)", array(
+		 $sql->select("CALL sp_product_save(:idproduct, :name, :sequential, :barcode, :description, :price)", array(
 			":idproduct"=>$this->getidproduct(),
-			":idproduct"=>$this->getidstock(),
 			":name"=>$this->getname(),
-            ":unityprice"=>$this->getunityprice(),
-            ":totalamount"=>$this->gettotalamount()
+			":sequential"=>$this->getsequential(),
+            ":barcode"=>$this->getbarcode(),
+			":description"=>$this->getdescription(),
+			":price"=>$this->getprice()
 		));
 	}
 

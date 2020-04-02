@@ -27,21 +27,22 @@
           <div class="box-body">
             <div class="form-group">
               <label for="idbranch">Informe o Código da Filial</label>
-              <input type="number" class="form-control" id="idbranch" name="idbranch" placeholder="código filial"  value="{$idbranch}" >
+              <input type="number" class="form-control" id="idbranch" name="idbranch" placeholder="código filial"  required value="{$idbranch}" >
             </div>     
             <div class="form-group">
               <label for="idproduct">Informe o Código do Produto</label>
-              <input type="number" class="form-control" id="idproduct" name="idproduct" placeholder="código produto "  value="{$idproduct}">
+              <input type="number" class="form-control" id="idproduct" name="idproduct" placeholder="código produto " required   value="{$idproduct}">
             </div> 
             <div class="form-group">
               <label for="quantity">Informe a Quantidade</label>
-              <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantidade"  value="{$quantity}">
+              <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantidade" required   value="{$quantity}">
             </div>                   
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Cadastrar</button>
-          </div>          
+            <a href="/admin/stocks" style="width: 90px;" class="btn btn-success">Voltar</a>
+          </div>
           {if="$error != ''"}
           <div class="alert alert-danger">
               {$error}

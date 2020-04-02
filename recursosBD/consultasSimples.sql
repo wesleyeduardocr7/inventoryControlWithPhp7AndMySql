@@ -1,0 +1,1 @@
+SELECT * FROM inventorycontrol.tb_branch;

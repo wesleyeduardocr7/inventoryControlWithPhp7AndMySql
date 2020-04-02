@@ -44,9 +44,8 @@ $app->post("/admin/stocks/create", function () {
 			'idbranch'=>$stock->getidbranch(),
 			'idproduct'=>$stock->getidproduct(),
 			'quantity'=>$stock->getquantity(),	
-			'error'=>'Erro! Código do Estoque ou Filial Inválido'
+			'error'=>'Erro! Códigos inválidos ou já existe estoque com esses dados'
 		));
-
 
 		exit;
 
