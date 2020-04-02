@@ -212,8 +212,6 @@ INSERT INTO tb_stock (idbranch,idproduct,quantity) VALUES (75,155,946),(15,41,97
 
 # PROCEDURES PARA INSERTS E UPDATES
 
-select * from tb_product;
-
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_branch_save`(
 pidbranch int(11),
@@ -230,10 +228,10 @@ BEGIN
 		
 		UPDATE tb_branch
         SET 
-            name = bname,
+            name = pname,
 			street = pstreet,
             city =  pcity ,
-            state = ptate,
+            state = pstate,
             telephone = ptelephone,
             manager= pmanager
             
@@ -278,7 +276,9 @@ BEGIN
 END$$
 DELIMITER ;
 
+call sp_product_save(15,'ed','ed','ed','ed',200);
 
+select * from tb_product;
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_product_save`(
@@ -287,7 +287,7 @@ pname varchar(100),
 psequential  varchar(256),
 pbarcode varchar(256),
 pdescription varchar(256),
-pprice decimal(10,2)
+pprice float
 )
 BEGIN
 	
@@ -317,6 +317,40 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_save`(
+piduser int(11),
+pname varchar(100),
+pcpf  varchar(256),
+plogin varchar(256),
+ppassword varchar(256)
+)
+BEGIN
+	
+	IF piduser > 0 THEN
+		
+		UPDATE tb_user
+        SET 
+            name = pname,
+			cpf = pcpf,
+            login =  plogin ,
+            password = ppassword          
+
+        WHERE iduser = piduser;
+        
+    ELSE
+		
+		INSERT INTO tb_user (name,cpf,login,password) 
+        VALUES(pname,pcpf,plogin,ppassword);
+        
+        SET piduser = LAST_INSERT_ID();
+        
+    END IF;
+    
+    SELECT * FROM tb_user WHERE iduser = piduser;
+    
+END$$
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

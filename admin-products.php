@@ -28,16 +28,16 @@ $app->post("/admin/products/create", function () {
 	
 	$product = new Product();
 	
-    $product->setData($_POST);
-
-     $product->save();
+	$product->setData($_POST);
+		
+    $product->save();
 
     header("Location: /admin/products");
     exit;
 });
 
 $app->get("/admin/products/:idproduct", function($idproduct){
-
+	
 	$product = new Product();
 
 	$product->get((int)$idproduct);
