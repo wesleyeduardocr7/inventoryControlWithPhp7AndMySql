@@ -46,6 +46,11 @@
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Adicionar Itens</button>
             <a href="/" style="width: 120px;" class="btn btn-success">Voltar</a>
+            <?php if( $error != '' ){ ?>
+            <div style="margin-top: 15px;" class="alert alert-danger">
+                <?php echo htmlspecialchars( $error, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+            </div>
+            <?php } ?>
           </div>
         </form>
       </div>

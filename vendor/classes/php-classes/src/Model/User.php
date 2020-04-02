@@ -35,7 +35,12 @@ class User extends Model {
 			':iduser'=>$iduser
 		]);
 
-		$this->setData($results[0]);
+		if(count($results)<=0){
+			return null;
+		}else{
+			$this->setData($results[0]);	
+			return $this;
+		}	
 	}
 
     

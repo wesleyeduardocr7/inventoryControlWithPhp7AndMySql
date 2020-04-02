@@ -46,6 +46,11 @@
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Adicionar Itens</button>
             <a href="/" style="width: 120px;" class="btn btn-success">Voltar</a>
+            {if="$error != ''"}
+            <div style="margin-top: 15px;" class="alert alert-danger">
+                {$error}
+            </div>
+            {/if}
           </div>
         </form>
       </div>

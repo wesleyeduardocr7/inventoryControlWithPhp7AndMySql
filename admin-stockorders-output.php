@@ -16,7 +16,9 @@ $app->get("/admin/stockorders-output/create", function () {
     $page->setTpl("stockorders-output-create",array(
 		'idbranch'=>'',
 		'iduser'=>'',
-		'idclient'=>''
+		'idclient'=>'',
+		'error'=>''
+		
 	));
 });
 
