@@ -31,7 +31,7 @@
                         <th style="width: 100px">Código do Produto</th>     
                         <th>Nome Produto</th>                                            
                         <th>Quantidade</th>                                            
-                        <th>Preço</th>                                            
+                        <th>Preço Unitário</th>                                            
                         <th>Data do Registo do Estoque</th>                                            
                       </tr>
                     </thead>

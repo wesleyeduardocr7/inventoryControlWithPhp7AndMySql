@@ -170,3 +170,88 @@ BEGIN
     
 END$$
 DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorder_save`(
+pidstockorder int(11),
+pidbranch int(11),
+piduser int(11),
+pidclient int(11),
+pordertype varchar(20),
+ppaymentmethod varchar(50),
+pdeliverynote varchar(256)
+)
+BEGIN
+	
+	IF(  NOT (select exists( select * from tb_stockorder where idstockorder = pidstockorder ) )  AND
+       (select exists( select * from tb_branch where idbranch = pidbranch ) ) AND
+       (select exists( select * from tb_user where iduser = piduser ) ) 
+    
+    )THEN
+     
+		INSERT INTO tb_stockorder (idbranch,iduser,idclient, ordertype, paymentmethod,  deliverynote) 
+        VALUES(pidbranch,piduser,pidclient, pordertype, ppaymentmethod, pdeliverynote) ;
+        
+        SET pidstockorder = LAST_INSERT_ID();
+        
+    ELSE 
+    
+        UPDATE tb_stockorder
+        SET 
+            idbranch =  pidbranch,
+		    iduser = piduser, 
+			idclient = pidclient,			
+			ordertype = pordertype,
+            paymentmethod = ppaymentmethod, 
+			deliverynote = pdeliverynote 
+            
+        WHERE idstockorder = pidstockorder;
+		        
+    END IF;
+    
+    SELECT * FROM tb_stockorder WHERE idstockorder= pidstockorder;
+    
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorderitem_save`(
+pidstockorderitem int(11),
+pidproduct int(11),
+pidstockorder int(11),
+pidorderstatus int(11),
+pquantity int(11),
+punitaryvalue float,
+ptotalvalue float,
+pdtremoved float
+)
+BEGIN
+	
+	IF ( NOT (select exists( select * from tb_stockorderitem where idstockorderitem = pidstockorderitem ) ) ) THEN
+		
+		INSERT INTO tb_stockorderitem (idproduct,idstockorder,idorderstatus, quantity, unitaryvalue, totalvalue) 
+        VALUES(pidproduct,pidstockorder,pidorderstatus, pquantity, punitaryvalue, ptotalvalue) ;
+        
+        SET pidstockorderitem = LAST_INSERT_ID();
+        
+    ELSE 
+    
+        UPDATE tb_stockorderitem
+        SET 
+            idproduct = pidproduct,
+		    idstockorder = 	pidstockorder ,
+			idorderstatus = pidorderstatus ,
+			quantity = pquantity ,
+			unitaryvalue = punitaryvalue ,
+			totalvalue = ptotalvalue ,
+            dtremoved = pdtremoved
+        WHERE idstockorderitem = pidstockorderitem;
+		        
+    END IF;
+    
+    SELECT * FROM tb_stockorderitem WHERE idstockorderitem = pidstockorderitem;
+    
+END$$
+DELIMITER ;

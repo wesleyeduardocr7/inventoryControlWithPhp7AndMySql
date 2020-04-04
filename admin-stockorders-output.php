@@ -3,12 +3,6 @@
 use \Classes\PageAdmin;
 use \Classes\Model\Stock;
 
-$app->get("/admin/stockorders-output", function () {
-
-   
-});
-
-
 $app->get("/admin/stockorders-output/create", function () {
 
     $page = new PageAdmin();
@@ -23,7 +17,7 @@ $app->get("/admin/stockorders-output/create", function () {
 });
 
 
-$app->post("/admin/stocks/create", function () {
+$app->post("/admin/stockorders/create", function () {
 
     $stock = new Stock();
 

@@ -13,7 +13,21 @@ class Product extends Model {
 
 		return $sql->select("SELECT * FROM tb_product ORDER BY idproduct");
     }
+	
+	public static function branchProduct($idproduct,$idbranch)
+	{
+		$sql = new Sql();
+		
+		return $sql->select("SELECT p.idproduct, p.name,p.sequential,p.barcode,p.description,p.price, s.quantity AS stockquantity
+		FROM tb_branch b INNER JOIN tb_stock s ON s.idbranch = b.idbranch
+		INNER JOIN tb_product p ON s.idproduct = p.idproduct
+		WHERE s.idproduct = :idproduct AND s.idbranch = :idbranch",array(
+		":idproduct"=>$idproduct,
+		":idbranch"=>$idbranch
+		));
+    }
     
+
 	public function save()
 	{
 		$sql = new Sql();
@@ -36,7 +50,12 @@ class Product extends Model {
 			':idproduct'=>$idproduct
 		]);
 
-		$this->setData($results[0]);
+		if(count($results)<=0){
+			return null;
+		}else{
+			$this->setData($results[0]);	
+			return $this;
+		}
 	}
 
     

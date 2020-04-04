@@ -15,7 +15,7 @@ require_once("admin-stocks.php");
 require_once("admin-users.php");
 require_once("admin-clients.php");
 require_once("admin-stockorders-output.php");
-require_once("admin-stockordersitem-output.php");
+require_once("admin-stockordersitem.php");
 
 $app->run();
 
