@@ -11,6 +11,41 @@ use \Classes\PageAdmin;
 
 $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch,$iduser,$idclient,$idstockorder) {
 
+	$page = new PageAdmin();
+
+    $page->setTpl("stockorders-output-create",array(
+		'idbranch'=>$idbranch,
+		'iduser'=>$iduser,
+		'idclient'=>$idclient,
+		'error'=>'',
+		'paymentmethod'=>'add',
+		'deliverynote'=>'add',
+		'finishrequest'=>'add',
+		'idstockorder'=>$idstockorder
+		
+	));
+
+
+});
+
+$app->get("/admin/stockorders-output/create/finish/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch,$iduser,$idclient,$idstockorder) {
+
+	$page = new PageAdmin();
+
+    $page->setTpl("stockorders-output-create",array(
+		'idbranch'=>$idbranch,
+		'iduser'=>$iduser,
+		'idclient'=>$idclient,
+		'error'=>'',
+		'paymentmethod'=>'add',
+		'deliverynote'=>'add',
+		'finishrequest'=>'add',		
+		'idstockorder'=>$idstockorder
+	));
+});
+
+$app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch,$iduser,$idclient,$idstockorder) {
+
 	$parameter = $_GET;
 
 	$branch = new Branch();
@@ -173,8 +208,7 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 		'totalvalue'=>'',
 		'itens'=>$itens
 	
-	));
-	
+	));	
 	
 	exit;
 

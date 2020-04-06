@@ -98,11 +98,11 @@
           <div class="box-body">    
             <div class="form-group">
               <label for="requestedquantity">Quantidade Solicitada</label>
-              <input type="number" class="form-control" id="requestedquantity" name="requestedquantity" placeholder="Quantidade" style="width: 180px;" required>
+              <input type="number" class="form-control" id="requestedquantity" name="requestedquantity" placeholder="Quantidade" style="width: 140px;" required>
             </div>
             <div class="form-group">
               <label for="unitaryprice">Preço Unitário</label>
-              <input type="number" class="form-control" id="unitaryprice" name="unitaryprice" placeholder="Preço" style="width: 150px;"  required>
+              <input type="number" class="form-control" id="unitaryprice" name="unitaryprice" placeholder="Preço" style="width: 140px;"  required>
             </div>                        
           <!-- /.box-body -->
           <div class="box-footer">
@@ -146,9 +146,10 @@
                 </tbody>
               </table>        
             </div>            
-          </form>  
+          </form> 
 
-
+          <a href="/admin/stockorders-output/create/finish/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
+          <a href="/admin/stockordersitem-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Voltar</a>
 
         </div>
       </div>

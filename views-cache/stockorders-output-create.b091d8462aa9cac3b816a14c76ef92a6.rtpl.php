@@ -46,6 +46,32 @@
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Adicionar Itens</button>
             <a href="/" style="width: 120px;" class="btn btn-success">Voltar</a>
+            
+
+            <?php if( $idstockorder != '' ){ ?>
+              <div style="margin-top: 20px;" class="form-group">
+                <label style="font-size: 25px;" for="idstockorder">Código do Pedido: <?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>               
+              </div>  
+            <?php } ?>
+
+            <?php if( $paymentmethod != '' ){ ?>
+              <div style="margin-top: 20px;" class="form-group">
+                <label for="paymentmethod">Informe o Método de Pagamento</label>
+                <input type="number" class="form-control" id="paymentmethod" name="paymentmethod" required placeholder="Método de Pagamento">
+              </div>  
+            <?php } ?>
+
+            <?php if( $deliverynote != '' ){ ?>
+            <div style="margin-top: 20px;" class="form-group">
+              <label for="deliverynote">Informe o Método de Pagamento</label>
+              <input type="number" class="form-control" id="deliverynote" name="deliverynote" required placeholder="Nota de Entrega">
+            </div>  
+          <?php } ?>
+
+          <?php if( $finishrequest != '' ){ ?>
+             <a href="/admin/stockorders-output/create/finish/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $paymentmethod, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $deliverynote, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 120px;" class="btn btn-success">Concluir</a>
+          <?php } ?>
+
             <?php if( $error != '' ){ ?>
             <div style="margin-top: 15px;" class="alert alert-danger">
                 <?php echo htmlspecialchars( $error, ENT_COMPAT, 'UTF-8', FALSE ); ?>

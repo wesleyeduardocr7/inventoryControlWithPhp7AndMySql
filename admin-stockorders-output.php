@@ -1,7 +1,24 @@
 <?php
 
+use Classes\Controller\StockOrder;
 use \Classes\PageAdmin;
 use \Classes\Model\Stock;
+
+$app->get("/admin/stockorders-output/create/finish/:idstockorder/:idpaymentmethod/:deliverynote", function ($idstockorder,$idpaymentmethod,$deliverynote) {
+
+	$stockorder = new StockOrder();
+
+	$stockorder->get($idstockorder);
+
+	
+
+	var_dump($idpaymentmethod);
+	var_dump($deliverynote);
+	var_dump($stockorder);exit;
+
+
+});
+
 
 $app->get("/admin/stockorders-output/create", function () {
 
@@ -11,7 +28,11 @@ $app->get("/admin/stockorders-output/create", function () {
 		'idbranch'=>'',
 		'iduser'=>'',
 		'idclient'=>'',
-		'error'=>''
+		'error'=>'',
+		'paymentmethod'=>'',
+		'deliverynote'=>'',
+		'finishrequest'=>'',
+		'idstockorder'=>''
 		
 	));
 });
