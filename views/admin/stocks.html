@@ -26,12 +26,11 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>                       
-                        <th style="width: 100px">Código da Filia</th>
+                        <th style="width: 100px">Código da Filial</th>
                         <th>Nome Filial</th>                       
                         <th style="width: 100px">Código do Produto</th>     
                         <th>Nome Produto</th>                                            
-                        <th>Quantidade</th>                                            
-                        <th>Preço Unitário</th>                                            
+                        <th>Quantidade</th>                      
                         <th>Data do Registo do Estoque</th>                                            
                       </tr>
                     </thead>
@@ -42,8 +41,7 @@
                         <td>{$value.namebranch}</td>
                         <td>{$value.idproduct}</td>
                         <td>{$value.nameproduct}</td>
-                        <td>{$value.quantity}</td>
-                        <td>{$value.price}</td>
+                        <td>{$value.quantity}</td>                       
                         <td>{$value.dtregister}</td>
                       </tr>
                       {/loop}

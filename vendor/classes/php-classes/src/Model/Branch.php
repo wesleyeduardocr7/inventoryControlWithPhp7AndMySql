@@ -46,6 +46,20 @@ class Branch extends Model {
 		
 	}
 
+	public static function getStockOrderBranch($idstockorder)
+	{
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT so.idbranch, b.name  AS namebranch  FROM tb_stockorder so 
+			INNER JOIN tb_branch b ON so.idbranch = b.idbranch WHERE so.idstockorder = :idstockorder", [
+			':idstockorder'=>$idstockorder
+		]);
+
+		return $results[0];
+		
+	}
+
+
     
     public function delete()
 	{

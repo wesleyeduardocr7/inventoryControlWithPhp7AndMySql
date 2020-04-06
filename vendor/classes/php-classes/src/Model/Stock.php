@@ -11,7 +11,7 @@ class Stock extends Model {
 	{
 		$sql = new Sql();
 
-		return $sql->select("SELECT b.idbranch,b.name AS namebranch,p.idproduct,p.name AS nameproduct,s.quantity, p.price, s.dtregister
+		return $sql->select("SELECT b.idbranch,b.name AS namebranch,p.idproduct,p.name AS nameproduct,s.quantity, s.dtregister
 		FROM tb_branch b INNER JOIN tb_stock s ON b.idbranch = s.idbranch
 		INNER JOIN tb_product p ON p.idproduct = s.idproduct ORDER BY s.dtregister DESC");
 	}

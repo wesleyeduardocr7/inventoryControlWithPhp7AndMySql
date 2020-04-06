@@ -16,19 +16,21 @@
   <section class="content">
 
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12">        
         <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Novo Item de Pedido</h3>
           </div>
           <!-- /.box-header -->
-          <!-- form start -->
-          <form role="form" action="/admin/stockordersitem-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="get">
-            <div class="box-body">
 
+          <!-- form start -->
+          <form role="form" action="/admin/stockordersitem-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="get">
+            <div class="box-body">
+            
               <table class="table table-striped">
                 <thead>
                   <tr>
+                    <th>Código do Pedido</th>
                     <th>Código da Filial</th>
                     <th>Nome da Filial</th>
                     <th>Códido do Usuário</th>
@@ -40,6 +42,7 @@
                 </thead>
                 <tbody>
                   <tr>
+                    <td><?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $namebranch, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
@@ -50,67 +53,111 @@
                   </tr>
                 </tbody>
               </table>
-             
-                <h3>Selecione o Parâmetro de Busca do Produto</h3>
-
-                <div class="row">
-                  <div class="col-sm-3">
-                    <select class="form-control">
-                      <option value="codigo">Código</option>
-                      <option value="nome">Nome</option>
-                    </select>
-                  </div>
-                </div>
-                <br />
-                <div>
-
-                <input type="text" class="form-control" id="product_search_parameter" name="product_search_parameter" placeholder="Informe o Parâmetro" style="width: 290px;" required>
-                        
+                <h3>Informe o Parâmetro de Busca do Produto</h3>
+                <input type="text" class="form-control" id="product_search_parameter" name="product_search_parameter" placeholder="Código ou Nome" style="width: 417px;" required>                        
             </div>
-            <!-- /.box-body -->
+            <!-- /.box-body -->            
             <div style="margin-top: 10px;" class="box-footer">
               <button type="submit" class="btn btn-success">Pesquisar</button>                            
-            </div>   
-
-            <div class="box-body no-padding">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Nome</th>
-                    <th>Sequencial</th>
-                    <th>Código de Barras</th>
-                    <th>Descrição</th>
-                    <th>Preço Unitário</th>                        
-                    <th>Quantidade em Estoque</th> 
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $counter1=-1;  if( isset($itensList) && ( is_array($itensList) || $itensList instanceof Traversable ) && sizeof($itensList) ) foreach( $itensList as $key1 => $value1 ){ $counter1++; ?>
-                  <tr>
-                    <td><?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $value1["sequential"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $value1["barcode"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $value1["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $value1["price"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                        
-                    <td><?php echo htmlspecialchars( $value1["stockquantity"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                  </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-
+            </div> 
             <?php if( $error != '' ){ ?>
             <div class="alert alert-danger">
                 <?php echo htmlspecialchars( $error, ENT_COMPAT, 'UTF-8', FALSE ); ?>
             </div>
-            <?php } ?>                  
+            <?php } ?> 
           </form>
+
+
+          <!-- form start -->
+          <form role="form" action="/admin/stockordersitem-output/additem" method="get">
+            <div class="box-body">
+            
+              <table class="table table-striped">
+                <thead>
+                 
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Nome</th>                  
+                    <th>Descrição</th>                                         
+                    <th>Quantidade Disponível</th>                     
+                  </tr>
+                </thead>
+                <tbody>                 
+                  <tr>
+                    <td><?php echo htmlspecialchars( $idproduct, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo htmlspecialchars( $name, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                 
+                    <td><?php echo htmlspecialchars( $description, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                                          
+                    <td><?php echo htmlspecialchars( $stockquantity, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                    
+                  </tr>               
+                </tbody>
+              </table>        
+            </div>
+            <!-- /.box-body -->
+          </form>        
+           
+          <!-- form start -->
+        <form role="form" action="/admin/stockordersitem-output/additem/<?php echo htmlspecialchars( $idproduct, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
+          <div class="box-body">    
+            <div class="form-group">
+              <label for="requestedquantity">Quantidade Solicitada</label>
+              <input type="number" class="form-control" id="requestedquantity" name="requestedquantity" placeholder="Quantidade" style="width: 180px;" required>
+            </div>
+            <div class="form-group">
+              <label for="unitaryprice">Preço Unitário</label>
+              <input type="number" class="form-control" id="unitaryprice" name="unitaryprice" placeholder="Preço" style="width: 150px;"  required>
+            </div>                        
+          <!-- /.box-body -->
+          <div class="box-footer">
+            <button type="submit" class="btn btn-success">Adicionar</button>            
+          </div>
+        </form>
+          
+          
+          <!-- form start -->
+          <form role="form" action="/">
+            <div class="box-body">
+            
+              <table class="table table-striped">
+                <thead>
+                 <h3>Itens Adicionados</h3>
+                  <tr>
+                    <th>Código Item</th>                                   
+                    <th>Status</th>                                        
+                    <th>Código Pedido</th> 
+                    <th>Código Produto</th> 
+                    <th>Nome Produto</th> 
+                    <th>Quantidade Solicitada</th> 
+                    <th>Preço Unitário</th> 
+                    <th>Valor Total</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $counter1=-1;  if( isset($itens) && ( is_array($itens) || $itens instanceof Traversable ) && sizeof($itens) ) foreach( $itens as $key1 => $value1 ){ $counter1++; ?>
+                  <tr>                 
+                    <td><?php echo htmlspecialchars( $value1["idstockorderitem"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                 
+                    <td><?php echo htmlspecialchars( $value1["namestatus"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
+                    <td><?php echo htmlspecialchars( $value1["idstockorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
+                    <td><?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
+                    <td><?php echo htmlspecialchars( $value1["nameproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
+                    <td><?php echo htmlspecialchars( $value1["requestedquantity"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
+                    <td><?php echo htmlspecialchars( $value1["unitaryvalue"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
+                    <td><?php echo htmlspecialchars( $value1["totalvalue"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                      
+                    <td><a href="" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir Item</a></td> 
+                  </tr>
+                  <?php } ?>
+                </tbody>
+              </table>        
+            </div>            
+          </form>  
+
+
+
         </div>
       </div>
     </div>
+
+
+
 
   </section>
   <!-- /.content -->

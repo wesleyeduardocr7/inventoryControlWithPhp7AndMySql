@@ -82,8 +82,7 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_product` (
   `name` VARCHAR(50) NOT NULL,
   `sequential` VARCHAR(100) NOT NULL,
   `barcode` VARCHAR(100) NOT NULL,
-  `description` VARCHAR(256) NOT NULL,
-  `price` DECIMAL(10,2) NOT NULL,
+  `description` VARCHAR(256) NOT NULL,  
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idproduct`))
 ENGINE = InnoDB
@@ -135,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_stockorder` (
   `idstockorder` INT NOT NULL AUTO_INCREMENT,
   `idbranch` INT NOT NULL,
   `iduser` INT NOT NULL,
-  `idcliente` INT NULL DEFAULT NULL,
+  `idclient` INT NULL DEFAULT NULL,
   `idpaymentmethod` INT NULL DEFAULT NULL,
   `ordertype` VARCHAR(20) NOT NULL,
   `deliverynote` VARCHAR(256) NULL DEFAULT NULL,
@@ -143,13 +142,13 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_stockorder` (
   PRIMARY KEY (`idstockorder`),
   INDEX `fk_tb_stockorder_tb_branch1_idx` (`idbranch` ASC) VISIBLE,
   INDEX `fk_tb_stockorder_tb_user1_idx` (`iduser` ASC) VISIBLE,
-  INDEX `fk_tb_stockorder_tb_cliente1_idx` (`idcliente` ASC) VISIBLE,
+  INDEX `fk_tb_stockorder_tb_cliente1_idx` (`idclient` ASC) VISIBLE,
   INDEX `fk_tb_stockorder_tb_paymentmethod1_idx` (`idpaymentmethod` ASC) VISIBLE,
   CONSTRAINT `fk_tb_stockorder_tb_branch1`
     FOREIGN KEY (`idbranch`)
     REFERENCES `inventorycontrol`.`tb_branch` (`idbranch`),
   CONSTRAINT `fk_tb_stockorder_tb_cliente1`
-    FOREIGN KEY (`idcliente`)
+    FOREIGN KEY (`idclient`)
     REFERENCES `inventorycontrol`.`tb_client` (`idclient`),
   CONSTRAINT `fk_tb_stockorder_tb_paymentmethod1`
     FOREIGN KEY (`idpaymentmethod`)

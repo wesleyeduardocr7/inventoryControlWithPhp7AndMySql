@@ -43,6 +43,21 @@ class User extends Model {
 		}	
 	}
 
+	public static function getStockOrderUser($idstockorder)
+	{
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT so.iduser, u.name  AS nameuser  FROM tb_stockorder so 
+		INNER JOIN tb_user u ON so.iduser = u.iduser WHERE so.idstockorder = :idstockorder", [
+			':idstockorder'=>$idstockorder
+		]);
+
+		return $results[0];
+		
+	}
+
+
+
     
     public function delete()
 	{

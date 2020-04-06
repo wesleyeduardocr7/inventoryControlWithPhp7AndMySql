@@ -16,19 +16,21 @@
   <section class="content">
 
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12">        
         <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Novo Item de Pedido</h3>
           </div>
           <!-- /.box-header -->
-          <!-- form start -->
-          <form role="form" action="/admin/stockordersitem-output/create/{$idbranch}/{$iduser}/{$idclient}" method="get">
-            <div class="box-body">
 
+          <!-- form start -->
+          <form role="form" action="/admin/stockordersitem-output/create/{$idbranch}/{$iduser}/{$idclient}/{$idstockorder}" method="get">
+            <div class="box-body">
+            
               <table class="table table-striped">
                 <thead>
                   <tr>
+                    <th>Código do Pedido</th>
                     <th>Código da Filial</th>
                     <th>Nome da Filial</th>
                     <th>Códido do Usuário</th>
@@ -40,6 +42,7 @@
                 </thead>
                 <tbody>
                   <tr>
+                    <td>{$idstockorder}</td>
                     <td>{$idbranch}</td>
                     <td>{$namebranch}</td>
                     <td>{$iduser}</td>
@@ -50,67 +53,111 @@
                   </tr>
                 </tbody>
               </table>
-             
-                <h3>Selecione o Parâmetro de Busca do Produto</h3>
-
-                <div class="row">
-                  <div class="col-sm-3">
-                    <select class="form-control">
-                      <option value="codigo">Código</option>
-                      <option value="nome">Nome</option>
-                    </select>
-                  </div>
-                </div>
-                <br />
-                <div>
-
-                <input type="text" class="form-control" id="product_search_parameter" name="product_search_parameter" placeholder="Informe o Parâmetro" style="width: 290px;" required>
-                        
+                <h3>Informe o Parâmetro de Busca do Produto</h3>
+                <input type="text" class="form-control" id="product_search_parameter" name="product_search_parameter" placeholder="Código ou Nome" style="width: 417px;" required>                        
             </div>
-            <!-- /.box-body -->
+            <!-- /.box-body -->            
             <div style="margin-top: 10px;" class="box-footer">
               <button type="submit" class="btn btn-success">Pesquisar</button>                            
-            </div>   
-
-            <div class="box-body no-padding">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Nome</th>
-                    <th>Sequencial</th>
-                    <th>Código de Barras</th>
-                    <th>Descrição</th>
-                    <th>Preço Unitário</th>                        
-                    <th>Quantidade em Estoque</th> 
-                  </tr>
-                </thead>
-                <tbody>
-                  {loop="$item"}
-                  <tr>
-                    <td>{$value.idproduct}</td>
-                    <td>{$value.name}</td>
-                    <td>{$value.sequential}</td>
-                    <td>{$value.barcode}</td>
-                    <td>{$value.description}</td>
-                    <td>{$value.price}</td>                        
-                    <td>{$value.stockquantity}</td>
-                  </tr>
-                  {/loop}
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-
+            </div> 
             {if="$error != ''"}
             <div class="alert alert-danger">
                 {$error}
             </div>
-            {/if}                  
+            {/if} 
           </form>
+
+
+          <!-- form start -->
+          <form role="form" action="/admin/stockordersitem-output/additem" method="get">
+            <div class="box-body">
+            
+              <table class="table table-striped">
+                <thead>
+                 
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Nome</th>                  
+                    <th>Descrição</th>                                         
+                    <th>Quantidade Disponível</th>                     
+                  </tr>
+                </thead>
+                <tbody>                 
+                  <tr>
+                    <td>{$idproduct}</td>
+                    <td>{$name}</td>                 
+                    <td>{$description}</td>                                          
+                    <td>{$stockquantity}</td>                    
+                  </tr>               
+                </tbody>
+              </table>        
+            </div>
+            <!-- /.box-body -->
+          </form>        
+           
+          <!-- form start -->
+        <form role="form" action="/admin/stockordersitem-output/additem/{$idproduct}/{$idstockorder}" method="post">
+          <div class="box-body">    
+            <div class="form-group">
+              <label for="requestedquantity">Quantidade Solicitada</label>
+              <input type="number" class="form-control" id="requestedquantity" name="requestedquantity" placeholder="Quantidade" style="width: 180px;" required>
+            </div>
+            <div class="form-group">
+              <label for="unitaryprice">Preço Unitário</label>
+              <input type="number" class="form-control" id="unitaryprice" name="unitaryprice" placeholder="Preço" style="width: 150px;"  required>
+            </div>                        
+          <!-- /.box-body -->
+          <div class="box-footer">
+            <button type="submit" class="btn btn-success">Adicionar</button>            
+          </div>
+        </form>
+          
+          
+          <!-- form start -->
+          <form role="form" action="/">
+            <div class="box-body">
+            
+              <table class="table table-striped">
+                <thead>
+                 <h3>Itens Adicionados</h3>
+                  <tr>
+                    <th>Código Item</th>                                   
+                    <th>Status</th>                                        
+                    <th>Código Pedido</th> 
+                    <th>Código Produto</th> 
+                    <th>Nome Produto</th> 
+                    <th>Quantidade Solicitada</th> 
+                    <th>Preço Unitário</th> 
+                    <th>Valor Total</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  {loop="$itens"}
+                  <tr>                 
+                    <td>{$value.idstockorderitem}</td>                 
+                    <td>{$value.namestatus}</td>  
+                    <td>{$value.idstockorder}</td>  
+                    <td>{$value.idproduct}</td>  
+                    <td>{$value.nameproduct}</td>  
+                    <td>{$value.requestedquantity}</td>  
+                    <td>{$value.unitaryvalue}</td>  
+                    <td>{$value.totalvalue}</td>                      
+                    <td><a href="" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir Item</a></td> 
+                  </tr>
+                  {/loop}
+                </tbody>
+              </table>        
+            </div>            
+          </form>  
+
+
+
         </div>
       </div>
     </div>
+
+
+
 
   </section>
   <!-- /.content -->

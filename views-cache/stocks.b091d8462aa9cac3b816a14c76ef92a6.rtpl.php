@@ -26,12 +26,11 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>                       
-                        <th style="width: 100px">Código da Filia</th>
+                        <th style="width: 100px">Código da Filial</th>
                         <th>Nome Filial</th>                       
                         <th style="width: 100px">Código do Produto</th>     
                         <th>Nome Produto</th>                                            
-                        <th>Quantidade</th>                                            
-                        <th>Preço Unitário</th>                                            
+                        <th>Quantidade</th>                      
                         <th>Data do Registo do Estoque</th>                                            
                       </tr>
                     </thead>
@@ -42,8 +41,7 @@
                         <td><?php echo htmlspecialchars( $value1["namebranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["nameproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["quantity"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["price"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["quantity"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                       
                         <td><?php echo htmlspecialchars( $value1["dtregister"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       </tr>
                       <?php } ?>

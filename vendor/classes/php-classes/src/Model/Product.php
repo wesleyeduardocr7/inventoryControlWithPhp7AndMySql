@@ -18,7 +18,7 @@ class Product extends Model {
 	{
 		$sql = new Sql();
 		
-		return $sql->select("SELECT p.idproduct, p.name,p.sequential,p.barcode,p.description,p.price, s.quantity AS stockquantity
+		return $sql->select("SELECT p.idproduct, p.name,p.sequential,p.barcode,p.description, s.quantity AS stockquantity
 		FROM tb_branch b INNER JOIN tb_stock s ON s.idbranch = b.idbranch
 		INNER JOIN tb_product p ON s.idproduct = p.idproduct
 		WHERE s.idproduct = :idproduct AND s.idbranch = :idbranch",array(
@@ -57,6 +57,23 @@ class Product extends Model {
 			return $this;
 		}
 	}
+
+	public function getProductInBranch($idproduct)
+	{
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT * FROM tb_product WHERE idproduct = :idproduct", [
+			':idproduct'=>$idproduct
+		]);
+
+		if(count($results)<=0){
+			return null;
+		}else{
+			$this->setData($results[0]);	
+			return $this;
+		}
+	}
+
 
     
     public function delete()

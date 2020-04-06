@@ -41,6 +41,19 @@ class Client extends Model {
 		}	
 	}
 
+	public static function getStockOrderClient($idstockorder)
+	{
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT so.idclient, c.name  AS nameclient  FROM tb_stockorder so 
+		INNER JOIN tb_client c ON so.idclient = c.idclient WHERE so.idstockorder = :idstockorder", [
+			':idstockorder'=>$idstockorder
+		]);
+
+		return $results[0];
+		
+	}
+
     
     public function delete()
 	{

@@ -6,7 +6,7 @@ use \Classes\Model\Stock;
 $app->get("/admin/stocks", function () {
 
 	$stocks = Stock::listAll();
-    
+
     $page = new PageAdmin();
 
     $page->setTpl("stocks",array(

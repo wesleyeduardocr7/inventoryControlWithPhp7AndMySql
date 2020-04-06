@@ -72,8 +72,7 @@ pidproduct int(11),
 pname varchar(100),
 psequential  varchar(256),
 pbarcode varchar(256),
-pdescription varchar(256),
-pprice float
+pdescription varchar(256)
 )
 BEGIN
 	
@@ -84,15 +83,14 @@ BEGIN
             name = pname,
 			sequential = psequential,
             barcode =  pbarcode ,
-            description = pdescription,
-            price = pprice
+            description = pdescription          
 
         WHERE idproduct = pidproduct;
         
     ELSE
 		
-		INSERT INTO tb_product (name,sequential,barcode,description,price) 
-        VALUES(pname,psequential,pbarcode,pdescription,pprice);
+		INSERT INTO tb_product (name,sequential,barcode,description) 
+        VALUES(pname,psequential,pbarcode,pdescription);
         
         SET pidproduct = LAST_INSERT_ID();
         
@@ -172,26 +170,28 @@ END$$
 DELIMITER ;
 
 
+
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorder_save`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorder_output_save`(
 pidstockorder int(11),
 pidbranch int(11),
 piduser int(11),
 pidclient int(11),
+pidpaymentmethod int(11),
 pordertype varchar(20),
-ppaymentmethod varchar(50),
 pdeliverynote varchar(256)
 )
 BEGIN
 	
 	IF(  NOT (select exists( select * from tb_stockorder where idstockorder = pidstockorder ) )  AND
        (select exists( select * from tb_branch where idbranch = pidbranch ) ) AND
-       (select exists( select * from tb_user where iduser = piduser ) ) 
+       (select exists( select * from tb_user where iduser = piduser ) ) AND
+        (select exists( select * from tb_client where idclient = pidclient ) )
     
     )THEN
      
-		INSERT INTO tb_stockorder (idbranch,iduser,idclient, ordertype, paymentmethod,  deliverynote) 
-        VALUES(pidbranch,piduser,pidclient, pordertype, ppaymentmethod, pdeliverynote) ;
+		INSERT INTO tb_stockorder (idbranch,iduser,idclient, idpaymentmethod, ordertype,  deliverynote) 
+        VALUES(pidbranch,piduser,pidclient, pidpaymentmethod,  pordertype, pdeliverynote) ;
         
         SET pidstockorder = LAST_INSERT_ID();
         
@@ -201,9 +201,9 @@ BEGIN
         SET 
             idbranch =  pidbranch,
 		    iduser = piduser, 
-			idclient = pidclient,			
-			ordertype = pordertype,
-            paymentmethod = ppaymentmethod, 
+			idclient = pidclient,	
+			idpaymentmethod = pidpaymentmethod, 
+			ordertype = pordertype,         
 			deliverynote = pdeliverynote 
             
         WHERE idstockorder = pidstockorder;
