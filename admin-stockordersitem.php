@@ -27,9 +27,13 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 		$product = new Product();
 
-		$resultSearchProduct = $product->branchProduct($idproduct,$branch->getidbranch());
+		$resultSearchProductItemOrder = $product->checksProductItemOrder($idproduct,$idstockorder);
 
-		if($resultSearchProduct == null){
+		$resultSearchProductBranch = $product->checkProductBranch($idproduct,$idbranch);
+
+		if($resultSearchProductItemOrder){
+
+			$itens = StockOrderItem::getItens($idstockorder);
 		
 			$page = new PageAdmin();
 
@@ -41,17 +45,35 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 				'nameuser'=>$user->getname(),
 				'idclient'=>$client->getidclient(),
 				'nameclient'=>$client->getname(),
-				'error'=>'Erro! Produto não pertence ao estoque da filial informada',
+				'error'=>'Erro! Já existem Item com esse Produto!',
+				'idproduct'=>'',
+				'name'=>'',
+				'description'=>'',				
+				'itens'=>$itens					
+			));
+							
+		}else if(!$resultSearchProductBranch){
+
+			$itens = StockOrderItem::getItens($idstockorder);
+
+			$page = new PageAdmin();
+
+			$page->setTpl("stockordersitem-create",array(
+				'idstockorder'=>$idstockorder,
+				'idbranch'=>$branch->getidbranch(),
+				'namebranch'=>$branch->getname(),
+				'iduser'=>$user->getiduser(),
+				'nameuser'=>$user->getname(),
+				'idclient'=>$client->getidclient(),
+				'nameclient'=>$client->getname(),
+				'error'=>'Erro! Produto não existe no estoque da filial!',
 				'idproduct'=>'',
 				'name'=>'',
 				'description'=>'',
-				'stockquantity'=>''						
+				'itens'=>$itens						
 			));
-							
-		}else{
-			
 
-			$product = Product::branchProduct($idproduct,$branch->getidbranch());
+		}else{
 
 			$itens = StockOrderItem::getItens($idstockorder);
 
@@ -60,6 +82,10 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 			$userStockOrder = User::getStockOrderUser($idstockorder);
 
 			$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+			$product = new Product();
+
+			$product->get($idproduct);
 			
 			$page = new PageAdmin();
 
@@ -72,12 +98,11 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 				'idclient'=>$clientStockOrder['idclient'],
 				'nameclient'=>$clientStockOrder['nameclient'],
 				'error'=>'',						
-				'idproduct'=>'',
-				'name'=>'',
-				'description'=>'',
+				'idproduct'=>$product->getidproduct(),
+				'name'=>$product->getname(),
+				'description'=>$product->getdescription(),
 				'requestedquantity'=>'',
-				'unitaryorice'=>'',
-				'stockquantity'=>'',
+				'unitaryorice'=>'',				
 				'totalvalue'=>'',
 				'itens'=>$itens
 			

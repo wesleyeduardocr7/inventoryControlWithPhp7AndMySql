@@ -12,19 +12,46 @@ class Product extends Model {
 		$sql = new Sql();
 
 		return $sql->select("SELECT * FROM tb_product ORDER BY idproduct");
-    }
+	}
 	
-	public static function branchProduct($idproduct,$idbranch)
+	public static function checkProductBranch($idproduct,$idbranch)
 	{
 		$sql = new Sql();
 		
-		return $sql->select("SELECT p.idproduct, p.name,p.sequential,p.barcode,p.description, s.quantity AS stockquantity
-		FROM tb_branch b INNER JOIN tb_stock s ON s.idbranch = b.idbranch
-		INNER JOIN tb_product p ON s.idproduct = p.idproduct
-		WHERE s.idproduct = :idproduct AND s.idbranch = :idbranch",array(
-		":idproduct"=>$idproduct,
-		":idbranch"=>$idbranch
+		$result = $sql->select("SELECT p.idproduct, p.name,p.sequential,p.barcode,p.description, s.quantity AS stockquantity
+			FROM tb_branch b INNER JOIN tb_stock s ON s.idbranch = b.idbranch
+			INNER JOIN tb_product p ON s.idproduct = p.idproduct
+			WHERE s.idproduct = :idproduct AND s.idbranch = :idbranch",array(
+			":idproduct"=>$idproduct,
+			":idbranch"=>$idbranch
 		));
+
+		if (count($result) >= 1 ){
+			return true;		
+		}else{
+			return false;
+		}
+    }
+    
+	
+	public static function checksProductItemOrder($idproduct,$idstockorder)
+	{
+		$sql = new Sql();
+		
+		$result =  $sql->select("SELECT  * FROM tb_stockorder so 
+			INNER JOIN tb_stockorderitem soi ON soi.idstockorder = so.idstockorder
+			INNER JOIN tb_branch b ON so.idbranch = b.idbranch
+			INNER JOIN tb_stock s ON b.idbranch = s.idbranch
+			WHERE so.idstockorder = :idstockorder AND soi.idproduct = :idproduct",array(
+			":idproduct"=>$idproduct,
+			":idstockorder"=>$idstockorder
+		));
+		
+		if (count($result) > 1 ){
+			return true;		
+		}else{
+			return false;
+		}
     }
     
 

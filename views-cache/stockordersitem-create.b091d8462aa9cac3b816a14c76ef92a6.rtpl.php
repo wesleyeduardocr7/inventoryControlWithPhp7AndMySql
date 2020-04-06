@@ -76,18 +76,16 @@
                 <thead>
                  
                   <tr>
-                    <th style="width: 10px">#</th>
+                    <th  style="width: 200px;">Código do Produto</th>
                     <th>Nome</th>                  
-                    <th>Descrição</th>                                         
-                    <th>Quantidade Disponível</th>                     
+                    <th>Descrição</th>  
                   </tr>
                 </thead>
                 <tbody>                 
                   <tr>
                     <td><?php echo htmlspecialchars( $idproduct, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $name, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                 
-                    <td><?php echo htmlspecialchars( $description, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                                          
-                    <td><?php echo htmlspecialchars( $stockquantity, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                    
+                    <td><?php echo htmlspecialchars( $description, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                    
                   </tr>               
                 </tbody>
               </table>        
