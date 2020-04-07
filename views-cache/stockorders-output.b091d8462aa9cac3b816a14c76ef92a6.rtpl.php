@@ -42,8 +42,16 @@
                         <td><?php echo htmlspecialchars( $value1["idstockorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["idclient"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>     
-                        <td>BOLETO</td>                       
+                        <td><?php echo htmlspecialchars( $value1["idclient"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
+                        <?php if( $value1["idpaymentmethod"] == '1' ){ ?>
+                          <td>À VISTA</td>  
+                        <?php } ?>  
+                        <?php if( $value1["idpaymentmethod"] == '2' ){ ?>
+                          <td>BOLETO</td>  
+                        <?php } ?>  
+                        <?php if( $value1["idpaymentmethod"] == '3' ){ ?>
+                          <td>CARTÂO</td>  
+                        <?php } ?>                                         
                         <td>SAÍDA</td>               
                         <td><?php echo htmlspecialchars( $value1["deliverynote"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>             
                         <td><?php echo htmlspecialchars( $value1["dtregister"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>

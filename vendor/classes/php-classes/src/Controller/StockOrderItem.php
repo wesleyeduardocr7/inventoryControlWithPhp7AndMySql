@@ -72,7 +72,29 @@ class StockOrderItem extends Model {
 			"dtremoved"=> $this->getdtremoved()
 		));
 	}
- 
+
+	
+	public static function saveAndUpdateItemsStatus($idstockorder,$idorderstatus)
+	{
+		$sql = new Sql();
+		
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		for($i = 0 ; $i < count($itens); $i++){
+
+			$sql->select("CALL sp_stockorderitem_save(:idstockorderitem, :idproduct, :idstockorder, :idorderstatus, :quantity, :unitaryvalue, :totalvalue, :dtremoved)", array(
+				"idstockorderitem"=>$itens[$i]['idstockorderitem'],
+				"idproduct"=>$itens[$i]['idproduct'],
+				"idstockorder"=>$idstockorder,
+				"idorderstatus"=>$idorderstatus,
+				"quantity"=>$itens[$i]['requestedquantity'],
+				"unitaryvalue"=>$itens[$i]['unitaryvalue'],
+				"totalvalue"=> $itens[$i]['totalvalue'],
+				"dtremoved"=>null
+			));
+		}		
+
+	}
 
 }
 

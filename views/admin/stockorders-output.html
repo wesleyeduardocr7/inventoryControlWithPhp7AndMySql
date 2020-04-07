@@ -42,8 +42,16 @@
                         <td>{$value.idstockorder}</td>
                         <td>{$value.idbranch}</td>
                         <td>{$value.iduser}</td>
-                        <td>{$value.idclient}</td>     
-                        <td>BOLETO</td>                       
+                        <td>{$value.idclient}</td>  
+                        {if="$value.idpaymentmethod == '1'"}
+                          <td>À VISTA</td>  
+                        {/if}  
+                        {if="$value.idpaymentmethod == '2'"}
+                          <td>BOLETO</td>  
+                        {/if}  
+                        {if="$value.idpaymentmethod == '3'"}
+                          <td>CARTÂO</td>  
+                        {/if}                                         
                         <td>SAÍDA</td>               
                         <td>{$value.deliverynote}</td>             
                         <td>{$value.dtregister}</td>

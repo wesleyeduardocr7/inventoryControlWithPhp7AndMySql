@@ -206,7 +206,7 @@ BEGIN
 			ordertype = pordertype,         
 			deliverynote = pdeliverynote 
             
-        WHERE idstockorder = pidstockorder;
+        WHERE idstockorder = pidstockorder;   
 		        
     END IF;
     
@@ -248,6 +248,13 @@ BEGIN
 			totalvalue = ptotalvalue ,
             dtremoved = pdtremoved
         WHERE idstockorderitem = pidstockorderitem;
+        
+		UPDATE tb_stock
+        SET 
+            
+		quantity = quantity - pquantity
+            
+        WHERE idbranch = 203 and idproduct = 305;
 		        
     END IF;
     

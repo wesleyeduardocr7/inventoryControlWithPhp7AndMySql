@@ -11,7 +11,7 @@ class StockOrder extends Model {
 	{
 		$sql = new Sql();
 
-		return $sql->select("SELECT * FROM tb_stockorder ORDER BY idstockorder");
+		return $sql->select("SELECT * FROM tb_stockorder ORDER BY dtregister DESC");
     }
 
 	public function save()
@@ -27,9 +27,10 @@ class StockOrder extends Model {
 			"ordertype"=>$this->getordertype(),
 			"deliverynote"=>$this->getdeliverynote()
 		));
-
+		
 		return $result[0];
 	}
+
 
 	
     public function get($idstockorder)

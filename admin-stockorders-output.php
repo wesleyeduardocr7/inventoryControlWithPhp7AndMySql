@@ -8,11 +8,40 @@ use \Classes\PageAdmin;
 use \Classes\Model\Stock;
 use Classes\Model\User;
 
-$app->get("/admin/stockorders-output/create/finish/:idstockorder/:idpaymentmethod/:deliverynote", function ($idstockorder,$idpaymentmethod,$deliverynote) {
+$app->post("/admin/stockorders-output/create/finish/:idstockorder", function ($idstockorder) {
 
-	$stockorder = new StockOrder();
+	$stockOrder = new StockOrder();
 
-	$stockorder->get($idstockorder);
+	$parameters = $_POST;
+
+	$deliverynote = $parameters['deliverynote'];
+	
+	$idpaymentmethod =  paymentMethod($parameters['gender']);
+
+	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+
+	$userStockOrder = User::getStockOrderUser($idstockorder);
+
+	$clientStockOrder = Client::getStockOrderClient($idstockorder);
+		
+	$data = [	
+		"idstockorder"=>$idstockorder,
+		'idbranch'=>$branchStockOrder['idbranch'],
+		'namebranch'=>$branchStockOrder['namebranch'],
+		'iduser'=>$userStockOrder['iduser'],
+		'idclient'=>$clientStockOrder['idclient'],
+		"idpaymentmethod"=>$idpaymentmethod,
+		"ordertype"=>'SAÍDA',
+		"deliverynote"=>$deliverynote
+	];
+
+	$stockOrder->setData($data);
+
+	$stockOrder->save();
+
+	StockOrderItem::saveAndUpdateItemsStatus($idstockorder,3);
+
+	header("Location: /admin/stockorders-output");
 	
 	exit;
 
@@ -51,7 +80,6 @@ $app->get("/admin/stockorders-output/create", function () {
 });
 
 
-
 $app->get("/admin/stockorders-output/create/:idbranch/:iduser/:idclient", function ($idbranch,$iduser,$idclient) {
 
 	$page = new PageAdmin();
@@ -70,13 +98,40 @@ $app->get("/admin/stockorders-output/create/:idbranch/:iduser/:idclient", functi
 
 
 $app->get("/admin/stockorders-output/create/checkout/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch,$iduser,$idclient,$idstockorder) {
-
 	
 	$itens = StockOrderItem::getItens($idstockorder);
+	
+	if($itens[0]['namestatus'] == 'PROCESSADO'){
 
-	$page = new PageAdmin();
+		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+	
+		$userStockOrder = User::getStockOrderUser($idstockorder);
+	
+		$clientStockOrder = Client::getStockOrderClient($idstockorder);
 
-	if(count($itens)>0){
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		$page = new PageAdmin();
+
+		$page->setTpl("stockordersitem-create",array(
+			'idstockorder'=>$idstockorder,
+			'idbranch'=>$branchStockOrder['idbranch'],
+			'namebranch'=>$branchStockOrder['namebranch'],
+			'iduser'=>$userStockOrder['iduser'],
+			'nameuser'=>$userStockOrder['nameuser'],
+			'idclient'=>$clientStockOrder['idclient'],
+			'nameclient'=>$clientStockOrder['nameclient'],
+			'error'=>'',
+			'errorNotItens'=>'Erro! Itens do Pedido ja foram PROCESSADOS',
+			'idproduct'=>'',
+			'name'=>'',
+			'description'=>'',
+			'itens'=>$itens					
+		));
+
+	}else if(count($itens)>0){
+
+		$page = new PageAdmin();
 
 		$page->setTpl("stockorders-output-create",array(
 			'idbranch'=>'',
@@ -87,14 +142,15 @@ $app->get("/admin/stockorders-output/create/checkout/:idbranch/:iduser/:idclient
 			'idstockorder'=>$idstockorder
 		));
 		
-	}else{
-				
+	}else{				
 
 		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
 	
 		$userStockOrder = User::getStockOrderUser($idstockorder);
 	
 		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+		$page = new PageAdmin();
 
 		$page->setTpl("stockordersitem-create",array(
 			'idstockorder'=>$idstockorder,
@@ -174,5 +230,18 @@ $app->get("/admin/stocks/:idstock/delete", function($idstock){
 
 });
 
+
+
+function paymentMethod($parameter){
+
+	if($parameter === 'avista'){
+		return 1;
+	}else if ($parameter === 'boleto'){
+		return 2;
+	}else{
+		return 3;
+	}
+	
+}
 
 ?>
