@@ -237,6 +237,16 @@
               <a href="/"><i class="fa fa-link"></i> <span>Entrada</span></a></li>
             </ul>
           </li>
+          <li>
+            <a> <span> <strong>Lista de Pedidos</span></strong> </a></li>
+            <ul >
+              <a href="/admin/stockorders-output"><i class="fa fa-link"></i> <span>Saída</span></a></li>
+            </ul>
+            <ul style="margin-top: 8px;">
+              <a href="/"><i class="fa fa-link"></i> <span>Entrada</span></a></li>
+            </ul>
+          </li>
+          
         </ul>
         <!-- /.sidebar-menu -->
       </section>

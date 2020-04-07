@@ -20,52 +20,50 @@
         <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Novo Item de Pedido</h3>
-          </div>
-          <!-- /.box-header -->
-
+          </div>  
           <!-- form start -->
-          <form role="form" action="/admin/stockordersitem-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="get">
-            <div class="box-body">
-            
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Código do Pedido</th>
-                    <th>Código da Filial</th>
-                    <th>Nome da Filial</th>
-                    <th>Códido do Usuário</th>
-                    <th>Nome do Usuário</th>
-                    <th>Códido do Cliente</th>
-                    <th>Nome do Cliente</th>
-                    <th>Tipo do Pedido</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $namebranch, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $nameuser, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $nameclient, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td>SAÍDA</td>
-                  </tr>
-                </tbody>
-              </table>
-                <h3>Informe o Parâmetro de Busca do Produto</h3>
-                <input type="text" class="form-control" id="product_search_parameter" name="product_search_parameter" placeholder="Código ou Nome" style="width: 417px;" required>                        
-            </div>
-            <!-- /.box-body -->            
-            <div style="margin-top: 10px;" class="box-footer">
-              <button type="submit" class="btn btn-success">Pesquisar</button>                            
-            </div> 
-            <?php if( $error != '' ){ ?>
-            <div class="alert alert-danger">
-                <?php echo htmlspecialchars( $error, ENT_COMPAT, 'UTF-8', FALSE ); ?>
-            </div>
-            <?php } ?> 
-          </form>
+            <form role="form" action="/admin/stockordersitem-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="get">
+                  <div class="box-body">              
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                  <th>Código do Pedido</th>
+                                  <th>Código da Filial</th>
+                                  <th>Nome da Filial</th>
+                                  <th>Códido do Usuário</th>
+                                  <th>Nome do Usuário</th>
+                                  <th>Códido do Cliente</th>
+                                  <th>Nome do Cliente</th>
+                                  <th>Tipo do Pedido</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <td><?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                  <td><?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                  <td><?php echo htmlspecialchars( $namebranch, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                  <td><?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                  <td><?php echo htmlspecialchars( $nameuser, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                  <td><?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                  <td><?php echo htmlspecialchars( $nameclient, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                  <td>SAÍDA</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Informe o Parâmetro de Busca do Produto</h3>
+                        <input type="text" class="form-control" id="product_search_parameter" name="product_search_parameter" placeholder="Código ou Nome" style="width: 417px;" required>                        
+                  </div>
+                        
+                  <div style="margin-top: 10px;" class="box-footer">
+                    <button type="submit" class="btn btn-success">Pesquisar</button>                            
+                  </div> 
+                  
+                  <?php if( $error != '' ){ ?>
+                  <div class="alert alert-danger">
+                      <?php echo htmlspecialchars( $error, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+                  </div>
+                  <?php } ?> 
+            </form>
 
 
           <!-- form start -->
@@ -148,8 +146,14 @@
             </div>            
           </form> 
 
-          <a href="/admin/stockorders-output/create/finish/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
-          <a href="/admin/stockordersitem-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Voltar</a>
+          <a href="/admin/stockorders-output/create/checkout/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
+          <a href="/admin/stockorders-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-success">Voltar</a>
+
+          <?php if( $errorNotItens != '' ){ ?>
+            <div style="margin-top: 15px;" class="alert alert-danger">
+                <?php echo htmlspecialchars( $errorNotItens, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+            </div>
+          <?php } ?> 
 
         </div>
       </div>

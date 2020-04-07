@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -37,21 +37,21 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {loop="$stockorders"}
+                      <?php $counter1=-1;  if( isset($stockorders) && ( is_array($stockorders) || $stockorders instanceof Traversable ) && sizeof($stockorders) ) foreach( $stockorders as $key1 => $value1 ){ $counter1++; ?>
                       <tr>
-                        <td>{$value.idstockorder}</td>
-                        <td>{$value.idbranch}</td>
-                        <td>{$value.iduser}</td>
-                        <td>{$value.idclient}</td>     
+                        <td><?php echo htmlspecialchars( $value1["idstockorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["idclient"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>     
                         <td>BOLETO</td>                       
                         <td>SAÍDA</td>               
-                        <td>{$value.deliverynote}</td>             
-                        <td>{$value.dtregister}</td>
+                        <td><?php echo htmlspecialchars( $value1["deliverynote"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>             
+                        <td><?php echo htmlspecialchars( $value1["dtregister"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td>
-                          <a style="margin-bottom: 5px;" href="/admin/stockordersitem-output/create/{$value.idstockorder}" class="btn btn-primary"> Ver Itens</a>
+                          <a style="margin-bottom: 5px;" href="/admin/stockordersitem-output/create/<?php echo htmlspecialchars( $value1["idstockorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary"> Ver Itens</a>
                         </td>
                       </tr>
-                      {/loop}
+                      <?php } ?>
                     </tbody>
                   </table>
                 </div>

@@ -9,41 +9,72 @@ use Classes\Model\User;
 use \Classes\PageAdmin;
 
 
-$app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch,$iduser,$idclient,$idstockorder) {
+// Bt Adicionar Item Tela Pedido de Estoque
+$app->post("/admin/stockordersitem-output/create", function () {
+	
+	$dataStockOrder = $_POST;
 
-	$page = new PageAdmin();
+	$branch = new Branch();
+	$user = new User();
+	$client = new Client();
 
-    $page->setTpl("stockorders-output-create",array(
-		'idbranch'=>$idbranch,
-		'iduser'=>$iduser,
-		'idclient'=>$idclient,
-		'error'=>'',
-		'paymentmethod'=>'add',
-		'deliverynote'=>'add',
-		'finishrequest'=>'add',
-		'idstockorder'=>$idstockorder
+	$resultSearchBranch = $branch->get($dataStockOrder['idbranch']);
+	$resultSearchUser = $user->get($dataStockOrder['iduser']);
+	$resultSearchClient = $client->get($dataStockOrder['idclient']);
+
+	if($resultSearchBranch === null || $resultSearchUser === null || $resultSearchClient === null){
 		
-	));
+		$page = new PageAdmin();
+
+		$page->setTpl("stockorders-output-create",array(			
+			'idbranch'=>$branch->getidbranch(),
+			'iduser'=>$user->getiduser(),
+			'idclient'=>$client->getidclient(),
+			'error'=>'Erro! Filial, Usuário ou Cliente com Código Inválido.',
+			'checkout'=>''
+		));
+		
+	}else{
 
 
+		$stockorder = new StockOrder();
+		
+		$data = [
+			"idstockorder"=>$stockorder->getidstockorder(),
+			"idbranch"=>$branch->getidbranch(),
+			"iduser"=>$user->getiduser(),
+			"idclient"=>$client->getidclient(),
+			"idpaymentmethod"=>null,
+			"ordertype"=>'SAÍDA',
+			"deliverynote"=>null
+		];	
+		
+		$stockorder->setData($data);
+		
+		$resultSaveStockOrder = $stockorder->save();
+		
+		$page = new PageAdmin();
+
+		$page->setTpl("stockordersitem-create",array(
+			'idstockorder'=>$resultSaveStockOrder['idstockorder'],
+			'idbranch'=>$branch->getidbranch(),
+			'namebranch'=>$branch->getname(),
+			'iduser'=>$user->getiduser(),
+			'nameuser'=>$user->getname(),
+			'idclient'=>$client->getidclient(),
+			'nameclient'=>$client->getname(),
+			'errorNotItens'=>'',
+			'error'=>'',
+			'idproduct'=>'',
+			'name'=>'',
+			'description'=>''
+			
+		));
+	}
+   
 });
 
-$app->get("/admin/stockorders-output/create/finish/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch,$iduser,$idclient,$idstockorder) {
-
-	$page = new PageAdmin();
-
-    $page->setTpl("stockorders-output-create",array(
-		'idbranch'=>$idbranch,
-		'iduser'=>$iduser,
-		'idclient'=>$idclient,
-		'error'=>'',
-		'paymentmethod'=>'add',
-		'deliverynote'=>'add',
-		'finishrequest'=>'add',		
-		'idstockorder'=>$idstockorder
-	));
-});
-
+//Bt Pesquisa Produdo tela Item Pedido de Estoque
 $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch,$iduser,$idclient,$idstockorder) {
 
 	$parameter = $_GET;
@@ -61,14 +92,14 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 		$idproduct = (int) $parameter['product_search_parameter'];
 
 		$product = new Product();
-
+		
 		$resultSearchProductItemOrder = $product->checksProductItemOrder($idproduct,$idstockorder);
-
+		
 		$resultSearchProductBranch = $product->checkProductBranch($idproduct,$idbranch);
 
 		if($resultSearchProductItemOrder){
-
-			$itens = StockOrderItem::getItens($idstockorder);
+			
+			$itens = printOrderItems($idstockorder);
 		
 			$page = new PageAdmin();
 
@@ -81,6 +112,7 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 				'idclient'=>$client->getidclient(),
 				'nameclient'=>$client->getname(),
 				'error'=>'Erro! Já existem Item com esse Produto!',
+				'errorNotItens'=>'',
 				'idproduct'=>'',
 				'name'=>'',
 				'description'=>'',				
@@ -102,6 +134,7 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 				'idclient'=>$client->getidclient(),
 				'nameclient'=>$client->getname(),
 				'error'=>'Erro! Produto não existe no estoque da filial!',
+				'errorNotItens'=>'',
 				'idproduct'=>'',
 				'name'=>'',
 				'description'=>'',
@@ -132,20 +165,19 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 				'nameuser'=>$userStockOrder['nameuser'],
 				'idclient'=>$clientStockOrder['idclient'],
 				'nameclient'=>$clientStockOrder['nameclient'],
-				'error'=>'',						
+				'error'=>'',		
+				'errorNotItens'=>'',				
 				'idproduct'=>$product->getidproduct(),
 				'name'=>$product->getname(),
-				'description'=>$product->getdescription(),
-				'requestedquantity'=>'',
-				'unitaryorice'=>'',				
-				'totalvalue'=>'',
-				'itens'=>$itens
-			
+				'description'=>$product->getdescription(),				
+				'itens'=>$itens			
 			));
 			
 		}
 		
 	}else{
+
+		//Busca por Nome
 		
 	}
 
@@ -154,7 +186,7 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 });
 
 
-
+// BT Adicionar quantidade Solicitada e Preço Unitário tela Itens do Pedido
 $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", function ($idproduct,$idstockorder) {
 
 	$parameter = $_POST;
@@ -198,16 +230,12 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 		'nameuser'=>$userStockOrder['nameuser'],
 		'idclient'=>$clientStockOrder['idclient'],
 		'nameclient'=>$clientStockOrder['nameclient'],
-		'error'=>'',						
+		'error'=>'',	
+		'errorNotItens'=>'',					
 		'idproduct'=>'',
 		'name'=>'',
-		'description'=>'',
-		'requestedquantity'=>'',
-		'unitaryorice'=>'',
-		'stockquantity'=>'',
-		'totalvalue'=>'',
-		'itens'=>$itens
-	
+		'description'=>'',		
+		'itens'=>$itens	
 	));	
 	
 	exit;
@@ -216,64 +244,35 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 
 
 
-$app->post("/admin/stockordersitem-output/create", function () {
-	
-	$dataStockOrder = $_POST;
+//Bt Ver Itens de Um Pedido
+$app->get("/admin/stockordersitem-output/create/:idstockorder", function ($idstockorder) {
 
-	$branch = new Branch();
-	$user = new User();
-	$client = new Client();
+	$itens = StockOrderItem::getItens($idstockorder);
 
-	$resultSearchBranch = $branch->get($dataStockOrder['idbranch']);
-	$resultSearchUser = $user->get($dataStockOrder['iduser']);
-	$resultSearchClient = $client->get($dataStockOrder['idclient']);
+	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
 
-	if($resultSearchBranch === null || $resultSearchUser === null || $resultSearchClient === null){
-		
-		$page = new PageAdmin();
+	$userStockOrder = User::getStockOrderUser($idstockorder);
 
-		$page->setTpl("stockorders-output-create",array(			
-			'idbranch'=>$dataStockOrder['idbranch'],
-			'iduser'=>$dataStockOrder['iduser'],
-			'idclient'=>$dataStockOrder['idclient'],
-			'error'=>'Erro! Filial, Usuário ou Cliente com Código Inválido'
-		));
-		
-	}else{
+	$clientStockOrder = Client::getStockOrderClient($idstockorder);
 
+	$page = new PageAdmin();
 
-		$stockorder = new StockOrder();
-		
-		$data = [
-			"idstockorder"=>$stockorder->getidstockorder(),
-			"idbranch"=>$branch->getidbranch(),
-			"iduser"=>$user->getiduser(),
-			"idclient"=>$client->getidclient(),
-			"idpaymentmethod"=>null,
-			"ordertype"=>'SAÍDA',
-			"deliverynote"=>null
-		];	
-		
-		$stockorder->setData($data);
-		
-		$result = $stockorder->save();
-		
-		$page = new PageAdmin();
+	$page->setTpl("stockordersitem-create",array(
+		'idstockorder'=>$idstockorder,
+		'idbranch'=>$branchStockOrder['idbranch'],
+		'namebranch'=>$branchStockOrder['namebranch'],
+		'iduser'=>$userStockOrder['iduser'],
+		'nameuser'=>$userStockOrder['nameuser'],
+		'idclient'=>$clientStockOrder['idclient'],
+		'nameclient'=>$clientStockOrder['nameclient'],
+		'error'=>'',		
+		'errorNotItens'=>'',				
+		'idproduct'=>'',
+		'name'=>'',
+		'description'=>'',				
+		'itens'=>$itens			
+	));
 
-		$page->setTpl("stockordersitem-create",array(
-			'idstockorder'=>$result['idstockorder'],
-			'idbranch'=>$branch->getidbranch(),
-			'namebranch'=>$branch->getname(),
-			'iduser'=>$user->getiduser(),
-			'nameuser'=>$user->getname(),
-			'idclient'=>$client->getidclient(),
-			'nameclient'=>$client->getname(),
-			'error'=>'',
-			'idproduct'=>'',
-			'name'=>'',
-			'description'=>'',
-			'stockquantity'=>''
-		));
-	}
-   
 });
+
+

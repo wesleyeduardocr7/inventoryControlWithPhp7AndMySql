@@ -7,6 +7,12 @@ use \Classes\DB\Sql;
 
 class StockOrder extends Model {
   
+	public static function listAll()
+	{
+		$sql = new Sql();
+
+		return $sql->select("SELECT * FROM tb_stockorder ORDER BY idstockorder");
+    }
 
 	public function save()
 	{
