@@ -215,6 +215,8 @@ BEGIN
 END$$
 DELIMITER ;
 
+call sp_stockorderitem_save(106,308,141,3,10,5,15,null);
+
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorderitem_save`(
@@ -229,6 +231,10 @@ pdtremoved float
 )
 BEGIN
 	
+    declare pidbranch int(11) ;
+    
+    select b.idbranch as idbranch from tb_branch b into pidbranch;  
+    
 	IF ( NOT (select exists( select * from tb_stockorderitem where idstockorderitem = pidstockorderitem ) ) ) THEN
 		
 		INSERT INTO tb_stockorderitem (idproduct,idstockorder,idorderstatus, quantity, unitaryvalue, totalvalue) 
@@ -254,7 +260,7 @@ BEGIN
             
 		quantity = quantity - pquantity
             
-        WHERE idbranch = 203 and idproduct = 305;
+        WHERE idproduct = pidproduct and idbranch = pidbranch;
 		        
     END IF;
     
