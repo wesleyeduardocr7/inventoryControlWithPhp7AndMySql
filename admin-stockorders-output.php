@@ -48,6 +48,67 @@ $app->post("/admin/stockorders-output/create/finish/:idstockorder", function ($i
 });
 
 
+/*
+$app->get("/admin/stockorders-output/create/deleteitem/:idstockorder/:idstockorderitem", function ($idstockorder,$idstockorderitem) {
+	
+	$page = new PageAdmin();
+
+	$itens = StockOrderItem::getItens($idstockorder);
+	
+	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+
+	$userStockOrder = User::getStockOrderUser($idstockorder);
+
+	$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+	if($itens[0]["namestatus"]=!'CANCELADO'){
+			
+		StockOrderItem::deleteItem($idstockorder,2,$idstockorderitem);
+		
+		$page->setTpl("stockordersitem-create", array(
+			'idstockorder' => $idstockorder,
+			'idbranch' => $branchStockOrder['idbranch'],
+			'namebranch' => $branchStockOrder['namebranch'],
+			'iduser' => $userStockOrder['iduser'],
+			'nameuser' => $userStockOrder['nameuser'],
+			'idclient' => $clientStockOrder['idclient'],
+			'nameclient' => $clientStockOrder['nameclient'],
+			'error' => '',
+			'errorNotItens' => '',
+			'errorQuantityNotAvailable' => '',
+			'idproduct' => '',
+			'name' => '',
+			'description' => '',
+			'itens' => $itens
+		));	
+
+	}else{
+
+		$page->setTpl("stockordersitem-create", array(
+			'idstockorder' => $idstockorder,
+			'idbranch' => $branchStockOrder['idbranch'],
+			'namebranch' => $branchStockOrder['namebranch'],
+			'iduser' => $userStockOrder['iduser'],
+			'nameuser' => $userStockOrder['nameuser'],
+			'idclient' => $clientStockOrder['idclient'],
+			'nameclient' => $clientStockOrder['nameclient'],
+			'error' => '',
+			'errorNotItens' => 'Item já foi Cancelado',
+			'errorQuantityNotAvailable' => '',
+			'idproduct' => '',
+			'name' => '',
+			'description' => '',
+			'itens' => $itens
+		));	
+
+	}
+
+	exit;
+
+});*/
+
+
+
 
 $app->get("/admin/stockorders-output", function () {
 
@@ -100,75 +161,114 @@ $app->get("/admin/stockorders-output/create/:idbranch/:iduser/:idclient", functi
 $app->get("/admin/stockorders-output/create/checkout/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch,$iduser,$idclient,$idstockorder) {
 	
 	$itens = StockOrderItem::getItens($idstockorder);
-	
-	if($itens[0]['namestatus'] == 'PROCESSADO'){
 
-		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
-	
-		$userStockOrder = User::getStockOrderUser($idstockorder);
-	
-		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+	if(count($itens)>0){		
 
-		$itens = StockOrderItem::getItens($idstockorder);
+		if($itens[0]['namestatus'] == 'PROCESSADO'){
 
-		$page = new PageAdmin();
-
-		$page->setTpl("stockordersitem-create",array(
-			'idstockorder'=>$idstockorder,
-			'idbranch'=>$branchStockOrder['idbranch'],
-			'namebranch'=>$branchStockOrder['namebranch'],
-			'iduser'=>$userStockOrder['iduser'],
-			'nameuser'=>$userStockOrder['nameuser'],
-			'idclient'=>$clientStockOrder['idclient'],
-			'nameclient'=>$clientStockOrder['nameclient'],
-			'error'=>'',
-			'errorNotItens'=>'Erro! Itens do Pedido ja foram PROCESSADOS',
-			'idproduct'=>'',
-			'name'=>'',
-			'description'=>'',
-			'itens'=>$itens					
-		));
-
-	}else if(count($itens)>0){
-
-		$page = new PageAdmin();
-
-		$page->setTpl("stockorders-output-create",array(
-			'idbranch'=>'',
-			'iduser'=>'',
-			'idclient'=>'',
-			'error'=>'',
-			'checkout'=>'true',		
-			'idstockorder'=>$idstockorder
-		));
+			$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
 		
-	}else{				
+			$userStockOrder = User::getStockOrderUser($idstockorder);
+		
+			$clientStockOrder = Client::getStockOrderClient($idstockorder);
+	
+			$itens = StockOrderItem::getItens($idstockorder);
+	
+			$page = new PageAdmin();
+	
+			$page->setTpl("stockordersitem-create",array(
+				'idstockorder'=>$idstockorder,
+				'idbranch'=>$branchStockOrder['idbranch'],
+				'namebranch'=>$branchStockOrder['namebranch'],
+				'iduser'=>$userStockOrder['iduser'],
+				'nameuser'=>$userStockOrder['nameuser'],
+				'idclient'=>$clientStockOrder['idclient'],
+				'nameclient'=>$clientStockOrder['nameclient'],
+				'error'=>'',
+				'errorQuantityNotAvailable'=>'',
+				'errorNotItens'=>'Erro! Itens do Pedido ja foram PROCESSADOS',
+				'idproduct'=>'',
+				'name'=>'',
+				'description'=>'',
+				'itens'=>$itens					
+			));
+	
+		}else if(count($itens)>0){
+	
+			$page = new PageAdmin();
+	
+			$page->setTpl("stockorders-output-create",array(
+				'idbranch'=>'',
+				'iduser'=>'',
+				'idclient'=>'',
+				'error'=>'',
+				'checkout'=>'true',		
+				'idstockorder'=>$idstockorder
+			));
+			
+		}else{				
+	
+			$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+		
+			$userStockOrder = User::getStockOrderUser($idstockorder);
+		
+			$clientStockOrder = Client::getStockOrderClient($idstockorder);
+	
+			$page = new PageAdmin();
+	
+			$page->setTpl("stockordersitem-create",array(
+				'idstockorder'=>$idstockorder,
+				'idbranch'=>$branchStockOrder['idbranch'],
+				'namebranch'=>$branchStockOrder['namebranch'],
+				'iduser'=>$userStockOrder['iduser'],
+				'nameuser'=>$userStockOrder['nameuser'],
+				'idclient'=>$clientStockOrder['idclient'],
+				'nameclient'=>$clientStockOrder['nameclient'],
+				'error'=>'',
+				'errorQuantityNotAvailable'=>'',
+				'errorNotItens'=>'Pedido não possuí Itens',
+				'idproduct'=>'',
+				'name'=>'',
+				'description'=>'',
+				'itens'=>''						
+			));
+	
+		}
+
+	}else{
+
 
 		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+		
+			$userStockOrder = User::getStockOrderUser($idstockorder);
+		
+			$clientStockOrder = Client::getStockOrderClient($idstockorder);
 	
-		$userStockOrder = User::getStockOrderUser($idstockorder);
+			$page = new PageAdmin();
 	
-		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+			$page->setTpl("stockordersitem-create",array(
+				'idstockorder'=>$idstockorder,
+				'idbranch'=>$branchStockOrder['idbranch'],
+				'namebranch'=>$branchStockOrder['namebranch'],
+				'iduser'=>$userStockOrder['iduser'],
+				'nameuser'=>$userStockOrder['nameuser'],
+				'idclient'=>$clientStockOrder['idclient'],
+				'nameclient'=>$clientStockOrder['nameclient'],
+				'error'=>'',
+				'errorQuantityNotAvailable'=>'',
+				'errorNotItens'=>'Erro! Pedido sem Itens',
+				'idproduct'=>'',
+				'name'=>'',
+				'description'=>'',
+				'itens'=>''						
+			));
+	
 
-		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create",array(
-			'idstockorder'=>$idstockorder,
-			'idbranch'=>$branchStockOrder['idbranch'],
-			'namebranch'=>$branchStockOrder['namebranch'],
-			'iduser'=>$userStockOrder['iduser'],
-			'nameuser'=>$userStockOrder['nameuser'],
-			'idclient'=>$clientStockOrder['idclient'],
-			'nameclient'=>$clientStockOrder['nameclient'],
-			'error'=>'',
-			'errorNotItens'=>'Pedido não possuí Itens',
-			'idproduct'=>'',
-			'name'=>'',
-			'description'=>'',
-			'itens'=>''						
-		));
 
 	}
+	
+	
     
 });
 

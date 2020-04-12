@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -18,23 +18,23 @@
         </div>
         <!-- /.box-header -->
           <!-- form start -->
-          <form role="form" action="/admin/products/{$product.idproduct}" method="post">
+          <form role="form" action="/admin/products/<?php echo htmlspecialchars( $product["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
             <div class="box-body">
               <div class="form-group">
                 <label for="name">Nome do Produto</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Informe o nome" required value="{$product.name}">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Informe o nome" required value="<?php echo htmlspecialchars( $product["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
               </div>
               <div class="form-group">
                 <label for="sequential">Sequencial</label>
-                <input type="text" class="form-control" id="sequential" name="sequential" placeholder="Informe o sequencial" required value="{$product.sequential}">
+                <input type="text" class="form-control" id="sequential" name="sequential" placeholder="Informe o sequencial" required value="<?php echo htmlspecialchars( $product["sequential"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
               </div>
               <div class="form-group">
                 <label for="barcode">Código de Barras</label>
-                <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Informe o código de barras" required value="{$product.barcode}">
+                <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Informe o código de barras" required value="<?php echo htmlspecialchars( $product["barcode"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
               </div>
               <div class="form-group">
                 <label for="description">Descrição</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Informe a descrição" required value="{$product.description}">
+                <input type="text" class="form-control" id="description" name="description" placeholder="Informe a descrição" required value="<?php echo htmlspecialchars( $product["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
               </div>              
             </div>
             <!-- /.box-body -->

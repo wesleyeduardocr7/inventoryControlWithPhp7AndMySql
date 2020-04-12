@@ -90,9 +90,10 @@
             </div>
             <!-- /.box-body -->
           </form>        
-           
+         
           <!-- form start -->
         <form role="form" action="/admin/stockordersitem-output/additem/<?php echo htmlspecialchars( $idproduct, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
+               
           <div class="box-body">    
             <div class="form-group">
               <label for="requestedquantity">Quantidade Solicitada</label>
@@ -106,11 +107,18 @@
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Adicionar</button>            
           </div>
+
+          <?php if( $errorQuantityNotAvailable != '' ){ ?>
+          <div style="margin-top: 15px;" class="alert alert-danger">
+              <?php echo htmlspecialchars( $errorQuantityNotAvailable, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+          </div>
+        <?php } ?> 
+
         </form>
           
           
           <!-- form start -->
-          <form role="form" action="/">
+          <form role="form">
             <div class="box-body">
             
               <table class="table table-striped">
@@ -130,15 +138,15 @@
                 <tbody>
                   <?php $counter1=-1;  if( isset($itens) && ( is_array($itens) || $itens instanceof Traversable ) && sizeof($itens) ) foreach( $itens as $key1 => $value1 ){ $counter1++; ?>
                   <tr>                 
-                    <td><?php echo htmlspecialchars( $value1["idstockorderitem"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                 
-                    <td><?php echo htmlspecialchars( $value1["namestatus"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
+                    <td><?php echo htmlspecialchars( $value1["idstockorderitem"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo htmlspecialchars( $value1["namestatus"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["idstockorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                     <td><?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                     <td><?php echo htmlspecialchars( $value1["nameproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                     <td><?php echo htmlspecialchars( $value1["requestedquantity"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                     <td><?php echo htmlspecialchars( $value1["unitaryvalue"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                     <td><?php echo htmlspecialchars( $value1["totalvalue"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                      
-                    <td><a href="" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir Item</a></td> 
+                  <!--  <td><a href="/admin/stockorders-output/create/deleteitem/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $value1["idstockorderitem"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> -->
                   </tr>
                   <?php } ?>
                 </tbody>
@@ -147,7 +155,7 @@
           </form> 
 
           <a href="/admin/stockorders-output/create/checkout/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
-          <a href="/admin/stockorders-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-success">Voltar</a>
+          <a href="/admin/stockorders-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Cancelar</a>
 
           <?php if( $errorNotItens != '' ){ ?>
             <div style="margin-top: 15px;" class="alert alert-danger">

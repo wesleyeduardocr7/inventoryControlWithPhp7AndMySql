@@ -30,8 +30,6 @@ class StockOrder extends Model {
 		
 		return $result[0];
 	}
-
-
 	
     public function get($idstockorder)
 	{

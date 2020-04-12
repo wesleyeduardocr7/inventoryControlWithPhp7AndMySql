@@ -47,7 +47,7 @@ class Product extends Model {
 			":idstockorder"=>$idstockorder
 		));
 		
-		if (count($result) > 1 ){
+		if (count($result) > 0 ){
 			return true;		
 		}else{
 			return false;

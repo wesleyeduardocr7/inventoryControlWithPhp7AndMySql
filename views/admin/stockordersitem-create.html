@@ -90,9 +90,10 @@
             </div>
             <!-- /.box-body -->
           </form>        
-           
+         
           <!-- form start -->
         <form role="form" action="/admin/stockordersitem-output/additem/{$idproduct}/{$idstockorder}" method="post">
+               
           <div class="box-body">    
             <div class="form-group">
               <label for="requestedquantity">Quantidade Solicitada</label>
@@ -106,11 +107,18 @@
           <div class="box-footer">
             <button type="submit" class="btn btn-success">Adicionar</button>            
           </div>
+
+          {if="$errorQuantityNotAvailable != ''"}
+          <div style="margin-top: 15px;" class="alert alert-danger">
+              {$errorQuantityNotAvailable}
+          </div>
+        {/if} 
+
         </form>
           
           
           <!-- form start -->
-          <form role="form" action="/">
+          <form role="form">
             <div class="box-body">
             
               <table class="table table-striped">
@@ -130,15 +138,15 @@
                 <tbody>
                   {loop="$itens"}
                   <tr>                 
-                    <td>{$value.idstockorderitem}</td>                 
-                    <td>{$value.namestatus}</td>  
+                    <td>{$value.idstockorderitem}</td>
+                    <td>{$value.namestatus}</td>
                     <td>{$value.idstockorder}</td>  
                     <td>{$value.idproduct}</td>  
                     <td>{$value.nameproduct}</td>  
                     <td>{$value.requestedquantity}</td>  
                     <td>{$value.unitaryvalue}</td>  
                     <td>{$value.totalvalue}</td>                      
-                    <td><a href="" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir Item</a></td> 
+                  <!--  <td><a href="/admin/stockorders-output/create/deleteitem/{$idstockorder}/{$value.idstockorderitem}" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> -->
                   </tr>
                   {/loop}
                 </tbody>
@@ -147,7 +155,7 @@
           </form> 
 
           <a href="/admin/stockorders-output/create/checkout/{$idbranch}/{$iduser}/{$idclient}/{$idstockorder}" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
-          <a href="/admin/stockorders-output/create/{$idbranch}/{$iduser}/{$idclient}" style="width: 90px; margin-top: 50px;" class="btn btn-success">Voltar</a>
+          <a href="/admin/stockorders-output/create/{$idbranch}/{$iduser}/{$idclient}" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Cancelar</a>
 
           {if="$errorNotItens != ''"}
             <div style="margin-top: 15px;" class="alert alert-danger">

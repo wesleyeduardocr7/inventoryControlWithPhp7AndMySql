@@ -31,6 +31,22 @@ class Stock extends Model {
 
 	}
 
+	public static function verifyQuantityRequestedStock($idstockorder, $idproduct)
+	{
+
+		$sql = new Sql();
+
+		$results = $sql->select(" SELECT s.quantity FROM tb_stockorder so INNER JOIN tb_branch b ON so.idbranch = b.idbranch
+		INNER JOIN tb_stock s ON s.idbranch = b.idbranch 
+		INNER JOIN tb_product p ON s.idproduct = p.idproduct
+		WHERE so.idstockorder = :idstockorder AND p.idproduct = :idproduct", array(
+			":idstockorder"=>(int)$idstockorder,
+			":idproduct"=>(int)$idproduct			
+		));
+
+		return $results[0];
+		
+	}
 
     public function get($idstock)
 	{

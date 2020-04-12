@@ -2,7 +2,7 @@
 # PROCEDURES PARA INSERTS E UPDATES
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_branch_save`(
+CREATE  PROCEDURE `sp_branch_save`(
 pidbranch int(11),
 pname varchar(100),
 pstreet  varchar(100),
@@ -67,7 +67,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_product_save`(
+CREATE  PROCEDURE `sp_product_save`(
 pidproduct int(11),
 pname varchar(100),
 psequential  varchar(256),
@@ -102,7 +102,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_save`(
+CREATE PROCEDURE `sp_user_save`(
 piduser int(11),
 pname varchar(100),
 pcpf  varchar(256),
@@ -139,7 +139,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_client_save`(
+CREATE  PROCEDURE `sp_client_save`(
 pidclient int(11),
 pname varchar(100),
 pcpf  varchar(256)
@@ -172,7 +172,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorder_output_save`(
+CREATE  PROCEDURE `sp_stockorder_output_save`(
 pidstockorder int(11),
 pidbranch int(11),
 piduser int(11),
@@ -216,7 +216,7 @@ END$$
 DELIMITER ;
 
  DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorderitem_save`(
+CREATE  PROCEDURE `sp_stockorderitem_save`(
 pidstockorderitem int(11),
 pidproduct int(11),
 pidstockorder int(11),
