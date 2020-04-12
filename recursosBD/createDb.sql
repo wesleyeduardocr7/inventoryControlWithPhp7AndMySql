@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_branch` (
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idbranch`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 101
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -45,7 +44,6 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_client` (
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idclient`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 201
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -58,7 +56,6 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_orderstatus` (
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idorderstatus`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -86,7 +83,6 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_product` (
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idproduct`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 201
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -123,7 +119,6 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_user` (
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`iduser`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 101
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -157,7 +152,6 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_stockorder` (
     FOREIGN KEY (`iduser`)
     REFERENCES `inventorycontrol`.`tb_user` (`iduser`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -188,7 +182,6 @@ CREATE TABLE IF NOT EXISTS `inventorycontrol`.`tb_stockorderitem` (
     FOREIGN KEY (`idstockorder`)
     REFERENCES `inventorycontrol`.`tb_stockorder` (`idstockorder`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8;
 
 INSERT INTO tb_paymentmethod (idpaymentmethod,name) values (1,'À VISTA');

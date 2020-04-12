@@ -146,7 +146,7 @@
                     <td><?php echo htmlspecialchars( $value1["requestedquantity"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                     <td><?php echo htmlspecialchars( $value1["unitaryvalue"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                     <td><?php echo htmlspecialchars( $value1["totalvalue"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                      
-                  <!--  <td><a href="/admin/stockorders-output/create/deleteitem/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $value1["idstockorderitem"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> -->
+                    <td><a href="/admin/stockordersitem-output/deleteitem/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $value1["idstockorderitem"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> 
                   </tr>
                   <?php } ?>
                 </tbody>

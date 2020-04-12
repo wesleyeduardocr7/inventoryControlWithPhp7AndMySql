@@ -146,7 +146,7 @@
                     <td>{$value.requestedquantity}</td>  
                     <td>{$value.unitaryvalue}</td>  
                     <td>{$value.totalvalue}</td>                      
-                  <!--  <td><a href="/admin/stockorders-output/create/deleteitem/{$idstockorder}/{$value.idstockorderitem}" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> -->
+                    <td><a href="/admin/stockordersitem-output/deleteitem/{$idstockorder}/{$value.idstockorderitem}" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> 
                   </tr>
                   {/loop}
                 </tbody>

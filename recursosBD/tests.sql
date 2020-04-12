@@ -37,6 +37,6 @@ INSERT INTO tb_stockorder (idbranch,iduser,idclient, idpaymentmethod, ordertype,
      
      
      
-     
+     CALL sp_stockorderitem_save(8, 2, 4, 2, 12, 12, 144, null);
       
         

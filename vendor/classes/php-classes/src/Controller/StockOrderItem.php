@@ -124,5 +124,27 @@ class StockOrderItem extends Model
 
 		return false;
 	}
+
+
+
+	public static function checkIfItemWasCanceled($idstockorder,$idstockorderitem)
+	{		
+
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		for ($i = 0; $i < count($itens); $i++){
+
+			if($itens[$i]['idstockorderitem']===$idstockorderitem){
+
+				if($itens[$i]["namestatus"] === 'CANCELADO' ){
+
+					return true;
+				}
+			}
+		}
+
+		return false;
+
+	}
 	
 }

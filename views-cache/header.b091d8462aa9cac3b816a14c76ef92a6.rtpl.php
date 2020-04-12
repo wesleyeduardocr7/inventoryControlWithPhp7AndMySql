@@ -224,8 +224,8 @@
           <li class="header">HEADER</li>
           <!-- Optionally, you can add icons to the links -->
           <li><a href="/admin/branchs"><i class="fa fa-link"></i> <span>Filiais</span></a></li>
+           <li><a href="/admin/products"><i class="fa fa-link"></i> <span>Produtos</span></a></li>
           <li><a href="/admin/stocks"><i class="fa fa-link"></i> <span>Estoque</span></a></li>
-          <li><a href="/admin/products"><i class="fa fa-link"></i> <span>Produtos</span></a></li>
           <li><a href="/admin/users"><i class="fa fa-user"></i> <span>Usuários</span></a></li>
           <li><a href="/admin/clients"><i class="fa fa-link"></i> <span>Clientes</span></a></li>
           <li>

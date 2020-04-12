@@ -200,8 +200,9 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 
 	$availableQuantity = (int) $resultSearchavailableQuantity['quantity'];
 
-	if ($requestedQuantity <= 0) {
 
+	if ($requestedQuantity <= 0) {
+		
 		$itens = StockOrderItem::getItens($idstockorder);
 
 		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
@@ -228,6 +229,37 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 			'description' => $product->getdescription(),
 			'itens' => $itens
 		));
+		
+	} else if($unitaryValue <= 0){
+		
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+
+		$userStockOrder = User::getStockOrderUser($idstockorder);
+
+		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+		$page = new PageAdmin();
+
+		$page->setTpl("stockordersitem-create", array(
+			'idstockorder' => $idstockorder,
+			'idbranch' => $branchStockOrder['idbranch'],
+			'namebranch' => $branchStockOrder['namebranch'],
+			'iduser' => $userStockOrder['iduser'],
+			'nameuser' => $userStockOrder['nameuser'],
+			'idclient' => $clientStockOrder['idclient'],
+			'nameclient' => $clientStockOrder['nameclient'],
+			'error' => '',
+			'errorQuantityNotAvailable' => 'Preço do Produto não pode ser menor ou igual a 0',
+			'errorNotItens' => '',
+			'idproduct' => $product->getidproduct(),
+			'name' => $product->getname(),
+			'description' => $product->getdescription(),
+			'itens' => $itens
+		));
+
+
 	} else if ($requestedQuantity <= $availableQuantity) {
 
 		$stockorderitem = new StockOrderItem();
@@ -282,7 +314,6 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 
 		$clientStockOrder = Client::getStockOrderClient($idstockorder);
 
-
 		$page = new PageAdmin();
 
 		$page->setTpl("stockordersitem-create", array(
@@ -302,7 +333,6 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 			'itens' => $itens
 		));
 	}
-
 
 	exit;
 });
@@ -373,5 +403,73 @@ $app->post("/admin/stockordersitem-output/additem//:idstockorder", function ($id
 		'itens' => $itens
 	));
 });
+
+
+
+
+$app->get("/admin/stockordersitem-output/deleteitem/:idstockorder/:idstockorderitem", function ($idstockorder,$idstockorderitem) {
+	
+	$itens = StockOrderItem::getItens($idstockorder);
+	
+	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+
+	$userStockOrder = User::getStockOrderUser($idstockorder);
+
+	$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+	$teste = StockOrderItem::checkIfItemWasCanceled($idstockorder,$idstockorderitem);
+
+	if( StockOrderItem::checkIfItemWasCanceled($idstockorder,$idstockorderitem) ){
+		
+		$page = new PageAdmin();
+
+		$page->setTpl("stockordersitem-create", array(
+			'idstockorder' => $idstockorder,
+			'idbranch' => $branchStockOrder['idbranch'],
+			'namebranch' => $branchStockOrder['namebranch'],
+			'iduser' => $userStockOrder['iduser'],
+			'nameuser' => $userStockOrder['nameuser'],
+			'idclient' => $clientStockOrder['idclient'],
+			'nameclient' => $clientStockOrder['nameclient'],
+			'error' => '',
+			'errorNotItens' => 'Item já foi Cancelado',
+			'errorQuantityNotAvailable' => '',
+			'idproduct' => '',
+			'name' => '',
+			'description' => '',
+			'itens' => $itens
+		));			
+
+	}else{
+
+		StockOrderItem::deleteItem($idstockorder,2,$idstockorderitem);
+
+		$itens = StockOrderItem::getItens($idstockorder);
+		
+		$page = new PageAdmin();
+
+		$page->setTpl("stockordersitem-create", array(
+			'idstockorder' => $idstockorder,
+			'idbranch' => $branchStockOrder['idbranch'],
+			'namebranch' => $branchStockOrder['namebranch'],
+			'iduser' => $userStockOrder['iduser'],
+			'nameuser' => $userStockOrder['nameuser'],
+			'idclient' => $clientStockOrder['idclient'],
+			'nameclient' => $clientStockOrder['nameclient'],
+			'error' => '',
+			'errorNotItens' => '',
+			'errorQuantityNotAvailable' => '',
+			'idproduct' => '',
+			'name' => '',
+			'description' => '',
+			'itens' => $itens
+		));	
+
+	}
+
+	exit;
+
+});
+
 
 

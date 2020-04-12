@@ -48,66 +48,6 @@ $app->post("/admin/stockorders-output/create/finish/:idstockorder", function ($i
 });
 
 
-/*
-$app->get("/admin/stockorders-output/create/deleteitem/:idstockorder/:idstockorderitem", function ($idstockorder,$idstockorderitem) {
-	
-	$page = new PageAdmin();
-
-	$itens = StockOrderItem::getItens($idstockorder);
-	
-	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
-
-	$userStockOrder = User::getStockOrderUser($idstockorder);
-
-	$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
-	if($itens[0]["namestatus"]=!'CANCELADO'){
-			
-		StockOrderItem::deleteItem($idstockorder,2,$idstockorderitem);
-		
-		$page->setTpl("stockordersitem-create", array(
-			'idstockorder' => $idstockorder,
-			'idbranch' => $branchStockOrder['idbranch'],
-			'namebranch' => $branchStockOrder['namebranch'],
-			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
-			'error' => '',
-			'errorNotItens' => '',
-			'errorQuantityNotAvailable' => '',
-			'idproduct' => '',
-			'name' => '',
-			'description' => '',
-			'itens' => $itens
-		));	
-
-	}else{
-
-		$page->setTpl("stockordersitem-create", array(
-			'idstockorder' => $idstockorder,
-			'idbranch' => $branchStockOrder['idbranch'],
-			'namebranch' => $branchStockOrder['namebranch'],
-			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
-			'error' => '',
-			'errorNotItens' => 'Item já foi Cancelado',
-			'errorQuantityNotAvailable' => '',
-			'idproduct' => '',
-			'name' => '',
-			'description' => '',
-			'itens' => $itens
-		));	
-
-	}
-
-	exit;
-
-});*/
-
-
 
 
 $app->get("/admin/stockorders-output", function () {
