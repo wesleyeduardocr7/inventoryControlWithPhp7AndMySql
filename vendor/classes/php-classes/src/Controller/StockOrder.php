@@ -11,7 +11,7 @@ class StockOrder extends Model {
 	{
 		$sql = new Sql();
 
-		return $sql->select("SELECT * FROM tb_stockorder ORDER BY dtregister DESC");
+		return $sql->select("  SELECT * FROM tb_stockorder WHERE idpaymentmethod != 0 ORDER BY dtregister DESC");
     }
 
 	public function save()

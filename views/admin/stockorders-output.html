@@ -6,7 +6,7 @@
         Lista de Pedidos de Saída
       </h1>
       <ol class="breadcrumb">
-        <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active"><a href="/admin/stockorders">Pedidos de Saída</a></li>
       </ol>
     </section>

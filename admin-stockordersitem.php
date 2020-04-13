@@ -52,6 +52,8 @@ $app->post("/admin/stockordersitem-output/create", function () {
 
 		$resultSaveStockOrder = $stockorder->save();
 
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($stockorder->getidstockorder());
+
 		$page = new PageAdmin();
 
 		$page->setTpl("stockordersitem-create", array(
@@ -67,7 +69,9 @@ $app->post("/admin/stockordersitem-output/create", function () {
 			'error' => '',
 			'idproduct' => '',
 			'name' => '',
-			'description' => ''
+			'description' => '',
+			'itens'=>'',
+			'totalvalueitems'=>$totalValueItens
 
 		));
 	}
@@ -86,7 +90,39 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 	$user->get($iduser);
 	$client->get($idclient);
 
-	if (is_numeric($parameter['product_search_parameter'])) {
+	if(StockOrderItem::checkIfAllItemsWasProcessed($idstockorder)){
+
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+
+		$userStockOrder = User::getStockOrderUser($idstockorder);
+
+		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
+
+		$page = new PageAdmin();
+
+		$page->setTpl("stockordersitem-create", array(
+			'idstockorder' => $idstockorder,
+			'idbranch' => $branchStockOrder['idbranch'],
+			'namebranch' => $branchStockOrder['namebranch'],
+			'iduser' => $userStockOrder['iduser'],
+			'nameuser' => $userStockOrder['nameuser'],
+			'idclient' => $clientStockOrder['idclient'],
+			'nameclient' => $clientStockOrder['nameclient'],
+			'error' => '',
+			'errorQuantityNotAvailable' => 'Não é Possível mais Adicinar Itens Porque o Pedido Já Foi Finalizado',
+			'errorNotItens' => '',
+			'idproduct' => '',
+			'name' => '',
+			'description' => '',
+			'itens' => $itens,
+			'totalvalueitems'=>$totalValueItens
+		));
+
+	}else if (is_numeric($parameter['product_search_parameter'])) {
 
 		$idproduct = (int) $parameter['product_search_parameter'];
 
@@ -99,6 +135,8 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 		if ($resultSearchProductItemOrder) {
 
 			$itens = printOrderItems($idstockorder);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 			$page = new PageAdmin();
 
@@ -116,11 +154,14 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 				'idproduct' => '',
 				'name' => '',
 				'description' => '',
-				'itens' => $itens
+				'itens' => $itens,
+				'totalvalueitems'=>$totalValueItens
 			));
 		} else if (!$resultSearchProductBranch) {
 
 			$itens = StockOrderItem::getItens($idstockorder);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 			$page = new PageAdmin();
 
@@ -138,7 +179,8 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 				'idproduct' => '',
 				'name' => '',
 				'description' => '',
-				'itens' => $itens
+				'itens' => $itens,
+				'totalvalueitems'=>$totalValueItens
 			));
 		} else {
 
@@ -153,6 +195,8 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 			$product = new Product();
 
 			$product->get($idproduct);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 			$page = new PageAdmin();
 
@@ -170,13 +214,110 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 				'idproduct' => $product->getidproduct(),
 				'name' => $product->getname(),
 				'description' => $product->getdescription(),
-				'itens' => $itens
+				'itens' => $itens,
+				'totalvalueitems'=>$totalValueItens
 			));
 		}
 	} else {
 
-		//Busca por Nome
+		$nameProduct = $parameter['product_search_parameter'];
+		
+		$product = new Product();
 
+		$product->getByName($nameProduct);
+		
+		$idproduct = (int) $product->getidproduct();
+
+		$resultSearchProductItemOrder = $product->checksProductItemOrder($idproduct, $idstockorder);
+
+		$resultSearchProductBranch = $product->checkProductBranch($idproduct, $idbranch);
+		
+		if ($resultSearchProductItemOrder) {
+
+			$itens = printOrderItems($idstockorder);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
+
+			$page = new PageAdmin();
+
+			$page->setTpl("stockordersitem-create", array(
+				'idstockorder' => $idstockorder,
+				'idbranch' => $branch->getidbranch(),
+				'namebranch' => $branch->getname(),
+				'iduser' => $user->getiduser(),
+				'nameuser' => $user->getname(),
+				'idclient' => $client->getidclient(),
+				'nameclient' => $client->getname(),
+				'error' => 'Erro! Já existem Item com esse Produto!',
+				'errorQuantityNotAvailable' => '',
+				'errorNotItens' => '',
+				'idproduct' => '',
+				'name' => '',
+				'description' => '',
+				'itens' => $itens,
+				'totalvalueitems'=>$totalValueItens
+			));
+		} else if (!$resultSearchProductBranch) {
+
+			$itens = StockOrderItem::getItens($idstockorder);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
+
+			$page = new PageAdmin();
+
+			$page->setTpl("stockordersitem-create", array(
+				'idstockorder' => $idstockorder,
+				'idbranch' => $branch->getidbranch(),
+				'namebranch' => $branch->getname(),
+				'iduser' => $user->getiduser(),
+				'nameuser' => $user->getname(),
+				'idclient' => $client->getidclient(),
+				'nameclient' => $client->getname(),
+				'error' => 'Erro! Produto não existe no estoque da filial!',
+				'errorQuantityNotAvailable' => '',
+				'errorNotItens' => '',
+				'idproduct' => '',
+				'name' => '',
+				'description' => '',
+				'itens' => $itens,
+				'totalvalueitems'=>$totalValueItens
+			));
+		} else {
+
+			$itens = StockOrderItem::getItens($idstockorder);
+
+			$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+
+			$userStockOrder = User::getStockOrderUser($idstockorder);
+
+			$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+			$product = new Product();
+
+			$product->getByName($nameProduct);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
+
+			$page = new PageAdmin();
+
+			$page->setTpl("stockordersitem-create", array(
+				'idstockorder' => $idstockorder,
+				'idbranch' => $branchStockOrder['idbranch'],
+				'namebranch' => $branchStockOrder['namebranch'],
+				'iduser' => $userStockOrder['iduser'],
+				'nameuser' => $userStockOrder['nameuser'],
+				'idclient' => $clientStockOrder['idclient'],
+				'nameclient' => $clientStockOrder['nameclient'],
+				'errorQuantityNotAvailable' => '',
+				'error' => '',
+				'errorNotItens' => '',
+				'idproduct' => $product->getidproduct(),
+				'name' => $product->getname(),
+				'description' => $product->getdescription(),
+				'itens' => $itens,
+				'totalvalueitems'=>$totalValueItens
+			));
+		}
 	}
 
 	exit;
@@ -204,12 +345,14 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 	if ($requestedQuantity <= 0) {
 		
 		$itens = StockOrderItem::getItens($idstockorder);
-
+		
 		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
 
 		$userStockOrder = User::getStockOrderUser($idstockorder);
 
 		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
@@ -227,7 +370,8 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 			'idproduct' => $product->getidproduct(),
 			'name' => $product->getname(),
 			'description' => $product->getdescription(),
-			'itens' => $itens
+			'itens' => $itens,
+			'totalvalueitems'=>$totalValueItens
 		));
 		
 	} else if($unitaryValue <= 0){
@@ -239,6 +383,8 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 		$userStockOrder = User::getStockOrderUser($idstockorder);
 
 		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
@@ -256,12 +402,14 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 			'idproduct' => $product->getidproduct(),
 			'name' => $product->getname(),
 			'description' => $product->getdescription(),
-			'itens' => $itens
+			'itens' => $itens,
+			'totalvalueitems'=>$totalValueItens
 		));
 
 
 	} else if ($requestedQuantity <= $availableQuantity) {
 
+		
 		$stockorderitem = new StockOrderItem();
 
 		$data = [
@@ -285,6 +433,8 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 		$userStockOrder = User::getStockOrderUser($idstockorder);
 
 		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+		
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
@@ -302,7 +452,8 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 			'idproduct' => $product->getidproduct(),
 			'name' => $product->getname(),
 			'description' => $product->getdescription(),
-			'itens' => $itens
+			'itens' => $itens,
+			'totalvalueitems'=>$totalValueItens
 		));
 	} else {
 
@@ -313,6 +464,8 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 		$userStockOrder = User::getStockOrderUser($idstockorder);
 
 		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
@@ -330,7 +483,8 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 			'idproduct' => $product->getidproduct(),
 			'name' => $product->getname(),
 			'description' => $product->getdescription(),
-			'itens' => $itens
+			'itens' => $itens,
+			'totalvalueitems'=>$totalValueItens
 		));
 	}
 
@@ -350,6 +504,8 @@ $app->get("/admin/stockordersitem-output/create/:idstockorder", function ($idsto
 
 	$clientStockOrder = Client::getStockOrderClient($idstockorder);
 
+	$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
+
 	$page = new PageAdmin();
 
 	$page->setTpl("stockordersitem-create", array(
@@ -366,7 +522,9 @@ $app->get("/admin/stockordersitem-output/create/:idstockorder", function ($idsto
 		'idproduct' => '',
 		'name' => '',
 		'description' => '',
-		'itens' => $itens
+		'itens' => $itens,
+		'totalvalueitems'=>$totalValueItens
+		
 	));
 });
 
@@ -384,6 +542,8 @@ $app->post("/admin/stockordersitem-output/additem//:idstockorder", function ($id
 
 	$clientStockOrder = Client::getStockOrderClient($idstockorder);
 
+	$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
+
 	$page = new PageAdmin();
 
 	$page->setTpl("stockordersitem-create", array(
@@ -400,7 +560,8 @@ $app->post("/admin/stockordersitem-output/additem//:idstockorder", function ($id
 		'idproduct' => '',
 		'name' => '',
 		'description' => '',
-		'itens' => $itens
+		'itens' => $itens,
+		'totalvalueitems'=>$totalValueItens
 	));
 });
 
@@ -417,9 +578,33 @@ $app->get("/admin/stockordersitem-output/deleteitem/:idstockorder/:idstockorderi
 
 	$clientStockOrder = Client::getStockOrderClient($idstockorder);
 
-	$teste = StockOrderItem::checkIfItemWasCanceled($idstockorder,$idstockorderitem);
+	if( StockOrderItem::checkIfItemWasProcessed($idstockorder,$idstockorderitem) ){
 
-	if( StockOrderItem::checkIfItemWasCanceled($idstockorder,$idstockorderitem) ){
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
+
+		$page = new PageAdmin();
+
+		$page->setTpl("stockordersitem-create", array(
+			'idstockorder' => $idstockorder,
+			'idbranch' => $branchStockOrder['idbranch'],
+			'namebranch' => $branchStockOrder['namebranch'],
+			'iduser' => $userStockOrder['iduser'],
+			'nameuser' => $userStockOrder['nameuser'],
+			'idclient' => $clientStockOrder['idclient'],
+			'nameclient' => $clientStockOrder['nameclient'],
+			'error' => '',
+			'errorNotItens' => 'Item não pode ser CANCELADO porque já foi PROCESSADO',
+			'errorQuantityNotAvailable' => '',
+			'idproduct' => '',
+			'name' => '',
+			'description' => '',
+			'itens' => $itens,
+			'totalvalueitems'=>$totalValueItens
+		));	
+
+	}else if( StockOrderItem::checkIfItemWasCanceled($idstockorder,$idstockorderitem) ){
+
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 		
 		$page = new PageAdmin();
 
@@ -437,7 +622,8 @@ $app->get("/admin/stockordersitem-output/deleteitem/:idstockorder/:idstockorderi
 			'idproduct' => '',
 			'name' => '',
 			'description' => '',
-			'itens' => $itens
+			'itens' => $itens,
+			'totalvalueitems'=>$totalValueItens
 		));			
 
 	}else{
@@ -445,6 +631,8 @@ $app->get("/admin/stockordersitem-output/deleteitem/:idstockorder/:idstockorderi
 		StockOrderItem::deleteItem($idstockorder,2,$idstockorderitem);
 
 		$itens = StockOrderItem::getItens($idstockorder);
+
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 		
 		$page = new PageAdmin();
 
@@ -462,7 +650,8 @@ $app->get("/admin/stockordersitem-output/deleteitem/:idstockorder/:idstockorderi
 			'idproduct' => '',
 			'name' => '',
 			'description' => '',
-			'itens' => $itens
+			'itens' => $itens,
+			'totalvalueitems'=>$totalValueItens
 		));	
 
 	}

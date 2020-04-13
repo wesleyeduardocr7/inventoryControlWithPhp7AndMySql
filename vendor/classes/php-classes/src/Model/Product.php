@@ -31,7 +31,9 @@ class Product extends Model {
 		}else{
 			return false;
 		}
-    }
+	}
+	
+   
     
 	
 	public static function checksProductItemOrder($idproduct,$idstockorder)
@@ -53,8 +55,8 @@ class Product extends Model {
 			return false;
 		}
     }
-    
-
+	
+	
 	public function save()
 	{
 		$sql = new Sql();
@@ -74,6 +76,22 @@ class Product extends Model {
 
 		$results = $sql->select("SELECT * FROM tb_product WHERE idproduct = :idproduct", [
 			':idproduct'=>$idproduct
+		]);
+
+		if(count($results)<=0){
+			return null;
+		}else{
+			$this->setData($results[0]);	
+			return $this;
+		}
+	}
+
+	public function getByName($name)
+	{
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT * FROM tb_product WHERE name = :name", [
+			':name'=>$name
 		]);
 
 		if(count($results)<=0){

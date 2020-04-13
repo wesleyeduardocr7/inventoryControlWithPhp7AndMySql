@@ -1,4 +1,4 @@
-----------------------
+-- -----------------------------------------------------
 -- Table `wesley22_db`.`tb_branch`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wesley22_db`.`tb_branch` (
@@ -76,8 +76,8 @@ CREATE TABLE IF NOT EXISTS `wesley22_db`.`tb_stock` (
   `quantity` INT NOT NULL,
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idproduct`, `idbranch`),
-  INDEX `fk_tb_stock_tb_product1_idx` (`idproduct` ASC),
-  INDEX `fk_tb_stock_tb_branch1_idx` (`idbranch` ASC),
+  INDEX `fk_tb_stock_tb_product1_idx` (`idproduct` ASC) ,
+  INDEX `fk_tb_stock_tb_branch1_idx` (`idbranch` ASC) ,
   CONSTRAINT `fk_tb_stock_tb_branch1`
     FOREIGN KEY (`idbranch`)
     REFERENCES `wesley22_db`.`tb_branch` (`idbranch`),
@@ -116,10 +116,10 @@ CREATE TABLE IF NOT EXISTS `wesley22_db`.`tb_stockorder` (
   `deliverynote` VARCHAR(256) NULL DEFAULT NULL,
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idstockorder`),
-  INDEX `fk_tb_stockorder_tb_branch1_idx` (`idbranch` ASC),
-  INDEX `fk_tb_stockorder_tb_user1_idx` (`iduser` ASC),
-  INDEX `fk_tb_stockorder_tb_cliente1_idx` (`idclient` ASC),
-  INDEX `fk_tb_stockorder_tb_paymentmethod1_idx` (`idpaymentmethod` ASC),
+  INDEX `fk_tb_stockorder_tb_branch1_idx` (`idbranch` ASC) ,
+  INDEX `fk_tb_stockorder_tb_user1_idx` (`iduser` ASC) ,
+  INDEX `fk_tb_stockorder_tb_cliente1_idx` (`idclient` ASC) ,
+  INDEX `fk_tb_stockorder_tb_paymentmethod1_idx` (`idpaymentmethod` ASC) ,
   CONSTRAINT `fk_tb_stockorder_tb_branch1`
     FOREIGN KEY (`idbranch`)
     REFERENCES `wesley22_db`.`tb_branch` (`idbranch`),
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `wesley22_db`.`tb_stockorderitem` (
   `dtremoved` DATETIME NULL DEFAULT NULL,
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idstockorderitem`),
-  INDEX `fk_tb_stockorderitem_tb_product1_idx` (`idproduct` ASC),
+  INDEX `fk_tb_stockorderitem_tb_product1_idx` (`idproduct` ASC) ,
   INDEX `fk_tb_stockorderitem_tb_stockorder1_idx` (`idstockorder` ASC) ,
   INDEX `fk_tb_stockorderitem_tb_orderstatus1_idx` (`idorderstatus` ASC) ,
   CONSTRAINT `fk_tb_stockorderitem_tb_orderstatus1`

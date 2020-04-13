@@ -99,14 +99,14 @@ class StockOrderItem extends Model
 	public static function deleteItem($idstockorder, $idorderstatus, $idstockorderitem)
 	{
 		$sql = new Sql();
-	
+
 		$itens = StockOrderItem::getItens($idstockorder);
 
 		for ($i = 0; $i < count($itens); $i++) {
 
-			if($itens[$i]['idstockorderitem']===$idstockorderitem){
+			if ($itens[$i]['idstockorderitem'] === $idstockorderitem) {
 
-				$sql->select("CALL sp_stockorderitem_save(:idstockorderitem, :idproduct, :idstockorder, :idorderstatus, :quantity, :unitaryvalue, :totalvalue, :dtremoved)", array(
+				$sql->select("CALL sp_stockorderitem_delete(:idstockorderitem, :idproduct, :idstockorder, :idorderstatus, :quantity, :unitaryvalue, :totalvalue, :dtremoved)", array(
 					"idstockorderitem" => $itens[$i]['idstockorderitem'],
 					"idproduct" => $itens[$i]['idproduct'],
 					"idstockorder" => $idstockorder,
@@ -117,9 +117,8 @@ class StockOrderItem extends Model
 					"dtremoved" => null
 				));
 
-				return true;				
-			}			
-
+				return true;
+			}
 		}
 
 		return false;
@@ -127,16 +126,16 @@ class StockOrderItem extends Model
 
 
 
-	public static function checkIfItemWasCanceled($idstockorder,$idstockorderitem)
-	{		
+	public static function checkIfItemWasCanceled($idstockorder, $idstockorderitem)
+	{
 
 		$itens = StockOrderItem::getItens($idstockorder);
 
-		for ($i = 0; $i < count($itens); $i++){
+		for ($i = 0; $i < count($itens); $i++) {
 
-			if($itens[$i]['idstockorderitem']===$idstockorderitem){
+			if ($itens[$i]['idstockorderitem'] === $idstockorderitem) {
 
-				if($itens[$i]["namestatus"] === 'CANCELADO' ){
+				if ($itens[$i]["namestatus"] === 'CANCELADO') {
 
 					return true;
 				}
@@ -144,7 +143,86 @@ class StockOrderItem extends Model
 		}
 
 		return false;
+	}
+
+	public static function checkIfItemWasProcessed($idstockorder, $idstockorderitem)
+	{
+
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		for ($i = 0; $i < count($itens); $i++) {
+
+			if ($itens[$i]['idstockorderitem'] === $idstockorderitem) {
+
+				if ($itens[$i]["namestatus"] === 'PROCESSADO') {
+
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public static function checkIfAllItemsWasCanceled($idstockorder)
+	{
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		$quantiyItems = count($itens);
+		$quantiyCanceled = 0;
+
+		for ($i = 0; $i < $quantiyItems; $i++) {
+
+			if ($itens[$i]["namestatus"] === 'CANCELADO') {
+
+				$quantiyCanceled++;
+			}
+		}
+
+		if ($quantiyItems === $quantiyCanceled) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static function checkIfAllItemsWasProcessed($idstockorder)
+	{
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		$quantiyItems = count($itens);
+		$quantiyCanceled = 0;
+
+		for ($i = 0; $i < $quantiyItems; $i++) {
+
+			if ($itens[$i]["namestatus"] === 'PROCESSADO') {
+
+				$quantiyCanceled++;
+			}
+		}
+
+		if ($quantiyItems === $quantiyCanceled && $quantiyItems>0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	public static  function totalValueItensStockOrder($idstockorder)
+	{
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		$totalvalue = 0;;
+
+		for($i = 0; $i < count($itens); $i++){
+
+			$totalvalue += $itens[$i]["totalvalue"];	
+
+		}	
+		
+		return (float)$totalvalue;
 
 	}
-	
+
 }

@@ -6,8 +6,8 @@
       Itens do Pedido de Saída
     </h1>
     <ol class="breadcrumb">
-      <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="/admin">Itens de Pedido</a></li>
+      <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="/">Itens de Pedido</a></li>
       <li class="active"><a href="/admin/stockordersitem-output/create">Cadastrar</a></li>
     </ol>
   </section>
@@ -150,6 +150,9 @@
                   </tr>
                   <?php } ?>
                 </tbody>
+                <tfoot>
+                  <th>Soma do Valor Total dos Itens: R$ <?php echo htmlspecialchars( $totalvalueitems, ENT_COMPAT, 'UTF-8', FALSE ); ?> </th> 
+                </tfoot>
               </table>        
             </div>            
           </form> 

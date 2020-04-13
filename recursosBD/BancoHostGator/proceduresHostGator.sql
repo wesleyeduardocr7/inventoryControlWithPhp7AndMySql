@@ -1,4 +1,3 @@
-
 # PROCEDURES PARA INSERTS E UPDATES
 
 DELIMITER $$
@@ -102,7 +101,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE `sp_user_save`(
+CREATE  PROCEDURE `sp_user_save`(
 piduser int(11),
 pname varchar(100),
 pcpf  varchar(256),
@@ -139,7 +138,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE  PROCEDURE `sp_client_save`(
+CREATE PROCEDURE `sp_client_save`(
 pidclient int(11),
 pname varchar(100),
 pcpf  varchar(256)
@@ -233,17 +232,13 @@ BEGIN
       select b.idbranch as idbranch from tb_branch b inner join tb_stockorder so on so.idbranch = b.idbranch where so.idstockorder = pidstockorder into pidbranch;  
     
 	IF ( NOT (select exists( select * from tb_stockorderitem where idstockorderitem = pidstockorderitem ) ) ) THEN
-		
-        select 'ok 1';
-        
+	
 		INSERT INTO tb_stockorderitem (idproduct,idstockorder,idorderstatus, quantity, unitaryvalue, totalvalue, dtremoved) 
         VALUES(pidproduct,pidstockorder,pidorderstatus, pquantity, punitaryvalue, ptotalvalue, pdtremoved) ;
         
         SET pidstockorderitem = LAST_INSERT_ID();
         
     ELSE 
-    
-    select 'ok 2';
     
         UPDATE tb_stockorderitem
         SET 
@@ -265,6 +260,36 @@ BEGIN
 		        
     END IF;
     
+    SELECT * FROM tb_stockorderitem WHERE idstockorderitem = pidstockorderitem;
+    
+END$$
+DELIMITER ;
+
+
+
+ DELIMITER $$
+CREATE PROCEDURE `sp_stockorderitem_delete`(
+pidstockorderitem int(11),
+pidproduct int(11),
+pidstockorder int(11),
+pidorderstatus int(11),
+pquantity int(11),
+punitaryvalue float,
+ptotalvalue float,
+pdtremoved datetime
+)
+BEGIN    
+        UPDATE tb_stockorderitem
+        SET 
+            idproduct = pidproduct,
+		    idstockorder = 	pidstockorder ,
+			idorderstatus = pidorderstatus ,
+			quantity = pquantity ,
+			unitaryvalue = punitaryvalue ,
+			totalvalue = ptotalvalue ,
+            dtremoved = pdtremoved
+        WHERE idstockorderitem = pidstockorderitem;
+            
     SELECT * FROM tb_stockorderitem WHERE idstockorderitem = pidstockorderitem;
     
 END$$

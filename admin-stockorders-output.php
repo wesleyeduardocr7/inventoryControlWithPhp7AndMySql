@@ -48,8 +48,6 @@ $app->post("/admin/stockorders-output/create/finish/:idstockorder", function ($i
 });
 
 
-
-
 $app->get("/admin/stockorders-output", function () {
 
 	$stockorders = StockOrder::listAll();
@@ -58,9 +56,7 @@ $app->get("/admin/stockorders-output", function () {
 
     $page->setTpl("stockorders-output", array(
         'stockorders' => $stockorders
-    ));
-   
-	
+    ));	
 
 });
 
@@ -113,6 +109,8 @@ $app->get("/admin/stockorders-output/create/checkout/:idbranch/:iduser/:idclient
 			$clientStockOrder = Client::getStockOrderClient($idstockorder);
 	
 			$itens = StockOrderItem::getItens($idstockorder);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 	
 			$page = new PageAdmin();
 	
@@ -130,11 +128,44 @@ $app->get("/admin/stockorders-output/create/checkout/:idbranch/:iduser/:idclient
 				'idproduct'=>'',
 				'name'=>'',
 				'description'=>'',
-				'itens'=>$itens					
+				'itens'=>$itens	,
+				'totalvalueitems'=>$totalValueItens			
 			));
 	
-		}else if(count($itens)>0){
+		}else if(StockOrderItem::checkIfAllItemsWasCanceled($idstockorder)){
+
+			$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+		
+			$userStockOrder = User::getStockOrderUser($idstockorder);
+		
+			$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 	
+			$itens = StockOrderItem::getItens($idstockorder);
+	
+			$page = new PageAdmin();
+	
+			$page->setTpl("stockordersitem-create",array(
+				'idstockorder'=>$idstockorder,
+				'idbranch'=>$branchStockOrder['idbranch'],
+				'namebranch'=>$branchStockOrder['namebranch'],
+				'iduser'=>$userStockOrder['iduser'],
+				'nameuser'=>$userStockOrder['nameuser'],
+				'idclient'=>$clientStockOrder['idclient'],
+				'nameclient'=>$clientStockOrder['nameclient'],
+				'error'=>'',
+				'errorQuantityNotAvailable'=>'',
+				'errorNotItens'=>'Erro! Não é possível Concluir Pedido com Todos os Itens Cancelados, Por favor Cancele o Pedido no Botão Cancelar',
+				'idproduct'=>'',
+				'name'=>'',
+				'description'=>'',
+				'itens'=>$itens	,
+				'totalvalueitems'=>$totalValueItens		
+			));				
+
+		}else if(count($itens)>0){
+
 			$page = new PageAdmin();
 	
 			$page->setTpl("stockorders-output-create",array(
@@ -153,6 +184,8 @@ $app->get("/admin/stockorders-output/create/checkout/:idbranch/:iduser/:idclient
 			$userStockOrder = User::getStockOrderUser($idstockorder);
 		
 			$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 	
 			$page = new PageAdmin();
 	
@@ -170,7 +203,8 @@ $app->get("/admin/stockorders-output/create/checkout/:idbranch/:iduser/:idclient
 				'idproduct'=>'',
 				'name'=>'',
 				'description'=>'',
-				'itens'=>''						
+				'itens'=>''	,
+				'totalvalueitems'=>$totalValueItens					
 			));
 	
 		}
@@ -183,6 +217,8 @@ $app->get("/admin/stockorders-output/create/checkout/:idbranch/:iduser/:idclient
 			$userStockOrder = User::getStockOrderUser($idstockorder);
 		
 			$clientStockOrder = Client::getStockOrderClient($idstockorder);
+
+			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 	
 			$page = new PageAdmin();
 	
@@ -200,14 +236,11 @@ $app->get("/admin/stockorders-output/create/checkout/:idbranch/:iduser/:idclient
 				'idproduct'=>'',
 				'name'=>'',
 				'description'=>'',
-				'itens'=>''						
+				'itens'=>''	,
+				'totalvalueitems'=>$totalValueItens			
 			));
-	
-
-
 
 	}
-	
 	
     
 });
