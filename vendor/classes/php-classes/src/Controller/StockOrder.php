@@ -30,6 +30,24 @@ class StockOrder extends Model {
 		
 		return $result[0];
 	}
+
+	public function saveStockOrderInput()
+	{
+		$sql = new Sql();
+
+		 $result =$sql->select("CALL sp_stockorder_input_save(:idstockorder,:idbranch, :iduser, :idclient, :idpaymentmethod, :ordertype, :deliverynote)", array(
+			"idstockorder"=>$this->getidstockorder(),
+			"idbranch"=>$this->getidbranch(),
+			"iduser"=>$this->getiduser(),
+			"idclient"=>$this->getidclient(),
+			"idpaymentmethod"=>$this->getidpaymentmethod(),
+			"ordertype"=>$this->getordertype(),
+			"deliverynote"=>$this->getdeliverynote()
+		));
+		
+		return $result[0];
+	}
+	
 	
     public function get($idstockorder)
 	{

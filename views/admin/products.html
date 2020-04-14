@@ -30,8 +30,7 @@
                         <th>Nome</th>
                         <th>Sequencial</th>
                         <th>Código de Barras</th>
-                        <th>Descrição</th>
-                        <th>Preço Unitário</th>                        
+                        <th>Descrição</th>                                             
                       </tr>
                     </thead>
                     <tbody>

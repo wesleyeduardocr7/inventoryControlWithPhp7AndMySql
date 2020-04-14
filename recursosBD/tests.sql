@@ -83,7 +83,7 @@ INSERT INTO tb_stockorder (idbranch,iduser,idclient, idpaymentmethod, ordertype,
             
             
             
-            
+
             
             
             

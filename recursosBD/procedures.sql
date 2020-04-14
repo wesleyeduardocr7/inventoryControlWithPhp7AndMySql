@@ -214,6 +214,52 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorder_input_save`(
+pidstockorder int(11),
+pidbranch int(11),
+piduser int(11),
+pidclient int(11),
+pidpaymentmethod int(11),
+pordertype varchar(20),
+pdeliverynote varchar(256)
+)
+BEGIN
+	
+	IF(  NOT (select exists( select * from tb_stockorder where idstockorder = pidstockorder ) )  AND
+       (select exists( select * from tb_branch where idbranch = pidbranch ) ) AND
+       (select exists( select * from tb_user where iduser = piduser ) )
+    
+    )THEN
+     
+		INSERT INTO tb_stockorder (idbranch,iduser,idclient, idpaymentmethod, ordertype,  deliverynote) 
+        VALUES(pidbranch,piduser,pidclient, pidpaymentmethod,  pordertype, pdeliverynote) ;
+        
+        SET pidstockorder = LAST_INSERT_ID();
+        
+    ELSE 
+    
+        UPDATE tb_stockorder
+        SET 
+            idbranch =  pidbranch,
+		    iduser = piduser, 
+			idclient = pidclient,	
+			idpaymentmethod = pidpaymentmethod, 
+			ordertype = pordertype,         
+			deliverynote = pdeliverynote 
+            
+        WHERE idstockorder = pidstockorder;   
+		        
+    END IF;
+    
+    SELECT * FROM tb_stockorder WHERE idstockorder= pidstockorder;
+    
+END$$
+DELIMITER;
+
+
+
+
  DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorderitem_save`(
 pidstockorderitem int(11),

@@ -233,6 +233,9 @@
             <ul >
               <a href="/admin/stockorders-output/create"><i class="fa fa-link"></i> <span>Saída</span></a></li>
             </ul>
+            <ul style="margin-top: 5px;">
+              <a href="/admin/stockorders-input/create"><i class="fa fa-link"></i> <span>Entrada</span></a></li>
+            </ul>
             <ul style="margin-top: 8px;">
              <!-- <a href="/"><i class="fa fa-link"></i> <span>Entrada</span></a></li>-->
             </ul>
