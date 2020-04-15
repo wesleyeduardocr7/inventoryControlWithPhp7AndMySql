@@ -1,7 +1,7 @@
 -- -----------------------------------------------------
--- Table ` id10128896_inventorycontrolmateus`.`tb_branch`
+-- Table `id7264843_stockcontrol`.`tb_branch`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_branch` (
+CREATE TABLE IF NOT EXISTS `id7264843_stockcontrol`.`tb_branch` (
   `idbranch` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `street` VARCHAR(100) NOT NULL,
@@ -16,9 +16,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table ` id10128896_inventorycontrolmateus`.`tb_client`
+-- Table `id7264843_stockcontrol`.`tb_client`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_client` (
+CREATE TABLE IF NOT EXISTS `id7264843_stockcontrol`.`tb_client` (
   `idclient` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `cpf` VARCHAR(45) NOT NULL,
@@ -29,9 +29,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table ` id10128896_inventorycontrolmateus`.`tb_orderstatus`
+-- Table `id7264843_stockcontrol`.`tb_orderstatus`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_orderstatus` (
+CREATE TABLE IF NOT EXISTS `id7264843_stockcontrol`.`tb_orderstatus` (
   `idorderstatus` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -41,9 +41,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table ` id10128896_inventorycontrolmateus`.`tb_paymentmethod`
+-- Table `id7264843_stockcontrol`.`tb_paymentmethod`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_paymentmethod` (
+CREATE TABLE IF NOT EXISTS `id7264843_stockcontrol`.`tb_paymentmethod` (
   `idpaymentmethod` INT NOT NULL,
   `name` VARCHAR(20) NOT NULL,
   `dtregister` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -53,9 +53,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table ` id10128896_inventorycontrolmateus`.`tb_product`
+-- Table `id7264843_stockcontrol`.`tb_product`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_product` (
+CREATE TABLE IF NOT EXISTS `id7264843_stockcontrol`.`tb_product` (
   `idproduct` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `sequential` VARCHAR(100) NOT NULL,
@@ -68,9 +68,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table ` id10128896_inventorycontrolmateus`.`tb_stock`
+-- Table `id7264843_stockcontrol`.`tb_stock`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_stock` (
+CREATE TABLE IF NOT EXISTS `id7264843_stockcontrol`.`tb_stock` (
   `idbranch` INT NOT NULL,
   `idproduct` INT NOT NULL,
   `quantity` INT NOT NULL,
@@ -80,18 +80,18 @@ CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_stock` (
   INDEX `fk_tb_stock_tb_branch1_idx` (`idbranch` ASC) ,
   CONSTRAINT `fk_tb_stock_tb_branch1`
     FOREIGN KEY (`idbranch`)
-    REFERENCES ` id10128896_inventorycontrolmateus`.`tb_branch` (`idbranch`),
+    REFERENCES `id7264843_stockcontrol`.`tb_branch` (`idbranch`),
   CONSTRAINT `fk_tb_stock_tb_product1`
     FOREIGN KEY (`idproduct`)
-    REFERENCES ` id10128896_inventorycontrolmateus`.`tb_product` (`idproduct`))
+    REFERENCES `id7264843_stockcontrol`.`tb_product` (`idproduct`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table ` id10128896_inventorycontrolmateus`.`tb_user`
+-- Table `id7264843_stockcontrol`.`tb_user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_user` (
+CREATE TABLE IF NOT EXISTS `id7264843_stockcontrol`.`tb_user` (
   `iduser` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `cpf` VARCHAR(15) NOT NULL,
@@ -104,9 +104,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table ` id10128896_inventorycontrolmateus`.`tb_stockorder`
+-- Table `id7264843_stockcontrol`.`tb_stockorder`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_stockorder` (
+CREATE TABLE IF NOT EXISTS `id7264843_stockcontrol`.`tb_stockorder` (
   `idstockorder` INT NOT NULL AUTO_INCREMENT,
   `idbranch` INT NOT NULL,
   `iduser` INT NOT NULL,
@@ -122,24 +122,24 @@ CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_stockorder` 
   INDEX `fk_tb_stockorder_tb_paymentmethod1_idx` (`idpaymentmethod` ASC) ,
   CONSTRAINT `fk_tb_stockorder_tb_branch1`
     FOREIGN KEY (`idbranch`)
-    REFERENCES ` id10128896_inventorycontrolmateus`.`tb_branch` (`idbranch`),
+    REFERENCES `id7264843_stockcontrol`.`tb_branch` (`idbranch`),
   CONSTRAINT `fk_tb_stockorder_tb_cliente1`
     FOREIGN KEY (`idclient`)
-    REFERENCES ` id10128896_inventorycontrolmateus`.`tb_client` (`idclient`),
+    REFERENCES `id7264843_stockcontrol`.`tb_client` (`idclient`),
   CONSTRAINT `fk_tb_stockorder_tb_paymentmethod1`
     FOREIGN KEY (`idpaymentmethod`)
-    REFERENCES ` id10128896_inventorycontrolmateus`.`tb_paymentmethod` (`idpaymentmethod`),
+    REFERENCES `id7264843_stockcontrol`.`tb_paymentmethod` (`idpaymentmethod`),
   CONSTRAINT `fk_tb_stockorder_tb_user1`
     FOREIGN KEY (`iduser`)
-    REFERENCES ` id10128896_inventorycontrolmateus`.`tb_user` (`iduser`))
+    REFERENCES `id7264843_stockcontrol`.`tb_user` (`iduser`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table ` id10128896_inventorycontrolmateus`.`tb_stockorderitem`
+-- Table `id7264843_stockcontrol`.`tb_stockorderitem`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_stockorderitem` (
+CREATE TABLE IF NOT EXISTS `id7264843_stockcontrol`.`tb_stockorderitem` (
   `idstockorderitem` INT NOT NULL AUTO_INCREMENT,
   `idproduct` INT NOT NULL,
   `idstockorder` INT NOT NULL,
@@ -155,13 +155,13 @@ CREATE TABLE IF NOT EXISTS ` id10128896_inventorycontrolmateus`.`tb_stockorderit
   INDEX `fk_tb_stockorderitem_tb_orderstatus1_idx` (`idorderstatus` ASC) ,
   CONSTRAINT `fk_tb_stockorderitem_tb_orderstatus1`
     FOREIGN KEY (`idorderstatus`)
-    REFERENCES ` id10128896_inventorycontrolmateus`.`tb_orderstatus` (`idorderstatus`),
+    REFERENCES `id7264843_stockcontrol`.`tb_orderstatus` (`idorderstatus`),
   CONSTRAINT `fk_tb_stockorderitem_tb_product1`
     FOREIGN KEY (`idproduct`)
-    REFERENCES ` id10128896_inventorycontrolmateus`.`tb_product` (`idproduct`),
+    REFERENCES `id7264843_stockcontrol`.`tb_product` (`idproduct`),
   CONSTRAINT `fk_tb_stockorderitem_tb_stockorder1`
     FOREIGN KEY (`idstockorder`)
-    REFERENCES ` id10128896_inventorycontrolmateus`.`tb_stockorder` (`idstockorder`))
+    REFERENCES `id7264843_stockcontrol`.`tb_stockorder` (`idstockorder`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -172,4 +172,6 @@ INSERT INTO tb_paymentmethod (idpaymentmethod,name) values (3,'CARTÃO');
 INSERT INTO tb_orderstatus (idorderstatus,name) values (1,'ATIVO');
 INSERT INTO tb_orderstatus (idorderstatus,name) values (2,'CANCELADO');
 INSERT INTO tb_orderstatus (idorderstatus,name) values (3,'PROCESSADO');
+
+
 
