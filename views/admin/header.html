@@ -231,14 +231,11 @@
           <li>
             <a> <span> <strong>Pedidos de Estoque</span></strong> </a></li>
             <ul >
-              <a href="/admin/stockorders-output/create"><i class="fa fa-link"></i> <span>Saída</span></a></li>
+              <a href="/admin/stockorders/create/exitrequest"><i class="fa fa-link"></i> <span>Saída</span></a></li>
             </ul>
             <ul style="margin-top: 5px;">
-          <a href="/admin/stockorders-input/create"><i class="fa fa-link"></i> <span>Entrada</span></a></li> 
-            </ul>
-            <ul style="margin-top: 8px;">
-             <!-- <a href="/"><i class="fa fa-link"></i> <span>Entrada</span></a></li>-->
-            </ul>
+                <a href="/admin/stockorders/create/entryrequest"><i class="fa fa-link"></i> <span>Entrada</span></a></li> 
+            </ul>            
           </li>
           <li>
             <a> <span> <strong>Lista de Pedidos</span></strong> </a></li>

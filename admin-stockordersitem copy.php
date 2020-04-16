@@ -9,22 +9,79 @@ use Classes\Model\Stock;
 use Classes\Model\User;
 use \Classes\PageAdmin;
 
-
-$app->post("/admin/stockordersitem/create/:orderType", function ($orderType) {
+// Bt Adicionar Item Tela Pedido de Estoque
+$app->post("/admin/stockordersitem-output/create", function () {
 
 	$dataStockOrder = $_POST;
-	
-	createStockOrder($dataStockOrder,$orderType);
 
-	exit;
+	$branch = new Branch();
+	$user = new User();
+	$client = new Client();
 
+	$resultSearchBranch = $branch->get($dataStockOrder['idbranch']);
+	$resultSearchUser = $user->get($dataStockOrder['iduser']);
+	$resultSearchClient = $client->get($dataStockOrder['idclient']);
+
+	if ($resultSearchBranch === null || $resultSearchUser === null || $resultSearchClient === null) {
+
+		$page = new PageAdmin();
+
+		$page->setTpl("stockorders-output-create", array(
+			'idbranch' => $branch->getidbranch(),
+			'iduser' => $user->getiduser(),
+			'idclient' => $client->getidclient(),
+			'error' => 'Erro! Filial, Usuário ou Cliente com Código Inválido.',
+			'checkout' => ''
+		));
+	} else {
+
+
+		$stockorder = new StockOrder();
+
+		$data = [
+			"idstockorder" => $stockorder->getidstockorder(),
+			"idbranch" => $branch->getidbranch(),
+			"iduser" => $user->getiduser(),
+			"idclient" => $client->getidclient(),
+			"idpaymentmethod" => null,
+			"ordertype" => 'SAÍDA',
+			"deliverynote" => null
+		];
+
+		$stockorder->setData($data);
+
+		$resultSaveStockOrder = $stockorder->save();
+
+		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($stockorder->getidstockorder());
+
+		$page = new PageAdmin();
+
+		$page->setTpl("stockordersitem-create", array(
+			'idstockorder' => $resultSaveStockOrder['idstockorder'],
+			'idbranch' => $branch->getidbranch(),
+			'namebranch' => $branch->getname(),
+			'iduser' => $user->getiduser(),
+			'nameuser' => $user->getname(),
+			'idclient' => $client->getidclient(),
+			'nameclient' => $client->getname(),
+			'errorNotItens' => '',
+			'errorQuantityNotAvailable' => '',
+			'error' => '',
+			'idproduct' => '',
+			'name' => '',
+			'description' => '',
+			'itens'=>'',
+			'totalvalueitems'=>$totalValueItens
+
+		));
+	}
 });
 
 //Bt Pesquisa Produdo tela Item Pedido de Estoque
-$app->get("/admin/stockordersitem/create/:ordertype/:idbranch/:iduser/:idclient/:idstockorder", function ($ordertype,$idbranch,$iduser,$idclient,$idstockorder) {
+$app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch, $iduser, $idclient, $idstockorder) {
 
 	$parameter = $_GET;
-	
+
 	$branch = new Branch();
 	$user = new User();
 	$client = new Client();

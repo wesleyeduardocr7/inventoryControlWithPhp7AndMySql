@@ -18,7 +18,7 @@ class StockOrder extends Model {
 	{
 		$sql = new Sql();
 
-		 $result =$sql->select("CALL sp_stockorder_output_save(:idstockorder,:idbranch, :iduser, :idclient, :idpaymentmethod, :ordertype, :deliverynote)", array(
+		 $result =$sql->select("CALL sp_stockorder_save(:idstockorder,:idbranch, :iduser, :idclient, :idpaymentmethod, :ordertype, :deliverynote)", array(
 			"idstockorder"=>$this->getidstockorder(),
 			"idbranch"=>$this->getidbranch(),
 			"iduser"=>$this->getiduser(),
@@ -27,7 +27,7 @@ class StockOrder extends Model {
 			"ordertype"=>$this->getordertype(),
 			"deliverynote"=>$this->getdeliverynote()
 		));
-		
+
 		return $result[0];
 	}
 

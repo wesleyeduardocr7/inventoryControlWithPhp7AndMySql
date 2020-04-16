@@ -3,7 +3,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Itens do Pedido de Saída
+      Itens do Pedido
     </h1>
     <ol class="breadcrumb">
       <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -22,7 +22,7 @@
             <h3 class="box-title">Novo Item de Pedido</h3>
           </div>  
           <!-- form start -->
-            <form role="form" action="/admin/stockordersitem-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="get">
+            <form role="form" action="/admin/stockordersitem/create/<?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="get">
                   <div class="box-body">              
                         <table class="table table-striped">
                             <thead>
@@ -46,7 +46,7 @@
                                   <td><?php echo htmlspecialchars( $nameuser, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                   <td><?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                   <td><?php echo htmlspecialchars( $nameclient, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                                  <td>SAÍDA</td>
+                                  <td><?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 </tr>
                             </tbody>
                         </table>

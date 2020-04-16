@@ -3,7 +3,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Itens do Pedido de Saída
+      Itens do Pedido
     </h1>
     <ol class="breadcrumb">
       <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -22,7 +22,7 @@
             <h3 class="box-title">Novo Item de Pedido</h3>
           </div>  
           <!-- form start -->
-            <form role="form" action="/admin/stockordersitem-output/create/{$idbranch}/{$iduser}/{$idclient}/{$idstockorder}" method="get">
+            <form role="form" action="/admin/stockordersitem/create/{$ordertype}/{$idbranch}/{$iduser}/{$idclient}/{$idstockorder}" method="get">
                   <div class="box-body">              
                         <table class="table table-striped">
                             <thead>
@@ -46,7 +46,7 @@
                                   <td>{$nameuser}</td>
                                   <td>{$idclient}</td>
                                   <td>{$nameclient}</td>
-                                  <td>SAÍDA</td>
+                                  <td>{$ordertype}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -170,6 +170,70 @@ DELIMITER ;
 
 
 
+
+
+
+CALL sp_stockorder_save(0,1, 1, null, null, 'SAIDA', null);
+INSERT INTO tb_stockorder (idbranch,iduser,idclient, idpaymentmethod, ordertype,  deliverynote) 
+        VALUES(1, 1, null, null, 'SAIDA', null);
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorder_save`(
+pidstockorder int(11),
+pidbranch int(11),
+piduser int(11),
+pidclient int(11),
+pidpaymentmethod int(11),
+pordertype varchar(20),
+pdeliverynote varchar(256)
+)
+BEGIN
+	
+	IF  NOT (select exists( select * from tb_stockorder where idstockorder = pidstockorder ) )  THEN
+     
+		INSERT INTO tb_stockorder (idbranch,iduser,idclient, idpaymentmethod, ordertype,  deliverynote) 
+        VALUES(pidbranch,piduser,pidclient, pidpaymentmethod,  pordertype, pdeliverynote) ;
+        
+        SET pidstockorder = LAST_INSERT_ID();
+        
+    ELSE 
+    
+        UPDATE tb_stockorder
+        SET 
+            idbranch =  pidbranch,
+		    iduser = piduser, 
+			idclient = pidclient,	
+			idpaymentmethod = pidpaymentmethod, 
+			ordertype = pordertype,         
+			deliverynote = pdeliverynote 
+            
+        WHERE idstockorder = pidstockorder;   
+		        
+    END IF;
+    
+    SELECT * FROM tb_stockorder WHERE idstockorder= pidstockorder;
+    
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorder_output_save`(
 pidstockorder int(11),
