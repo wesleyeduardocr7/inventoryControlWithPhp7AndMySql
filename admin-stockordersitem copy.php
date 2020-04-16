@@ -134,8 +134,7 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 		if ($resultSearchProductItemOrder) {
 
-			$itens = printOrderItems($idstockorder);
-
+			
 			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 			$page = new PageAdmin();
@@ -147,7 +146,7 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 				'iduser' => $user->getiduser(),
 				'nameuser' => $user->getname(),
 				'idclient' => $client->getidclient(),
-				'nameclient' => $client->getname(),
+				'nameclient' => $client->zgetname(),
 				'error' => 'Erro! Já existem Item com esse Produto!',
 				'errorQuantityNotAvailable' => '',
 				'errorNotItens' => '',
@@ -234,8 +233,7 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 		
 		if ($resultSearchProductItemOrder) {
 
-			$itens = printOrderItems($idstockorder);
-
+			
 			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 			$page = new PageAdmin();

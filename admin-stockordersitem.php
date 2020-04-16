@@ -20,249 +20,67 @@ $app->post("/admin/stockordersitem/create/:orderType", function ($orderType) {
 
 });
 
-//Bt Pesquisa Produdo tela Item Pedido de Estoque
 $app->get("/admin/stockordersitem/create/:ordertype/:idbranch/:iduser/:idclient/:idstockorder", function ($ordertype,$idbranch,$iduser,$idclient,$idstockorder) {
 
 	$parameter = $_GET;
 	
 	$branch = new Branch();
 	$user = new User();
-	$client = new Client();
+	$client = new Client();	
+	$product = new Product();	
+	$error = '';
 
 	$branch->get($idbranch);
 	$user->get($iduser);
 	$client->get($idclient);
+	
+	
+	if(is_numeric($parameter['product_search_parameter'])){	
 
-	if(StockOrderItem::checkIfAllItemsWasProcessed($idstockorder)){
-
-		$itens = StockOrderItem::getItens($idstockorder);
-
-		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
-
-		$userStockOrder = User::getStockOrderUser($idstockorder);
-
-		$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
-		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-
-		$page = new PageAdmin();
-
-		$page->setTpl("stockordersitem-create", array(
-			'idstockorder' => $idstockorder,
-			'idbranch' => $branchStockOrder['idbranch'],
-			'namebranch' => $branchStockOrder['namebranch'],
-			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
-			'error' => '',
-			'errorQuantityNotAvailable' => 'Não é Possível mais Adicinar Itens Porque o Pedido Já Foi Finalizado',
-			'errorNotItens' => '',
-			'idproduct' => '',
-			'name' => '',
-			'description' => '',
-			'itens' => $itens,
-			'totalvalueitems'=>$totalValueItens
-		));
-
-	}else if (is_numeric($parameter['product_search_parameter'])) {
-
-		$idproduct = (int) $parameter['product_search_parameter'];
-
-		$product = new Product();
-
-		$resultSearchProductItemOrder = $product->checksProductItemOrder($idproduct, $idstockorder);
-
-		$resultSearchProductBranch = $product->checkProductBranch($idproduct, $idbranch);
-
-		if ($resultSearchProductItemOrder) {
-
-			$itens = printOrderItems($idstockorder);
-
-			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-
-			$page = new PageAdmin();
-
-			$page->setTpl("stockordersitem-create", array(
-				'idstockorder' => $idstockorder,
-				'idbranch' => $branch->getidbranch(),
-				'namebranch' => $branch->getname(),
-				'iduser' => $user->getiduser(),
-				'nameuser' => $user->getname(),
-				'idclient' => $client->getidclient(),
-				'nameclient' => $client->getname(),
-				'error' => 'Erro! Já existem Item com esse Produto!',
-				'errorQuantityNotAvailable' => '',
-				'errorNotItens' => '',
-				'idproduct' => '',
-				'name' => '',
-				'description' => '',
-				'itens' => $itens,
-				'totalvalueitems'=>$totalValueItens
-			));
-		} else if (!$resultSearchProductBranch) {
-
-			$itens = StockOrderItem::getItens($idstockorder);
-
-			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-
-			$page = new PageAdmin();
-
-			$page->setTpl("stockordersitem-create", array(
-				'idstockorder' => $idstockorder,
-				'idbranch' => $branch->getidbranch(),
-				'namebranch' => $branch->getname(),
-				'iduser' => $user->getiduser(),
-				'nameuser' => $user->getname(),
-				'idclient' => $client->getidclient(),
-				'nameclient' => $client->getname(),
-				'error' => 'Erro! Produto não existe no estoque da filial!',
-				'errorQuantityNotAvailable' => '',
-				'errorNotItens' => '',
-				'idproduct' => '',
-				'name' => '',
-				'description' => '',
-				'itens' => $itens,
-				'totalvalueitems'=>$totalValueItens
-			));
-		} else {
-
-			$itens = StockOrderItem::getItens($idstockorder);
-
-			$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
-
-			$userStockOrder = User::getStockOrderUser($idstockorder);
-
-			$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
-			$product = new Product();
-
-			$product->get($idproduct);
-
-			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-
-			$page = new PageAdmin();
-
-			$page->setTpl("stockordersitem-create", array(
-				'idstockorder' => $idstockorder,
-				'idbranch' => $branchStockOrder['idbranch'],
-				'namebranch' => $branchStockOrder['namebranch'],
-				'iduser' => $userStockOrder['iduser'],
-				'nameuser' => $userStockOrder['nameuser'],
-				'idclient' => $clientStockOrder['idclient'],
-				'nameclient' => $clientStockOrder['nameclient'],
-				'errorQuantityNotAvailable' => '',
-				'error' => '',
-				'errorNotItens' => '',
-				'idproduct' => $product->getidproduct(),
-				'name' => $product->getname(),
-				'description' => $product->getdescription(),
-				'itens' => $itens,
-				'totalvalueitems'=>$totalValueItens
-			));
-		}
-	} else {
-
-		$nameProduct = $parameter['product_search_parameter'];
+		$product->get($parameter['product_search_parameter']);
 		
-		$product = new Product();
+	}else{
 
-		$product->getByName($nameProduct);
-		
-		$idproduct = (int) $product->getidproduct();
-
-		$resultSearchProductItemOrder = $product->checksProductItemOrder($idproduct, $idstockorder);
-
-		$resultSearchProductBranch = $product->checkProductBranch($idproduct, $idbranch);
-		
-		if ($resultSearchProductItemOrder) {
-
-			$itens = printOrderItems($idstockorder);
-
-			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-
-			$page = new PageAdmin();
-
-			$page->setTpl("stockordersitem-create", array(
-				'idstockorder' => $idstockorder,
-				'idbranch' => $branch->getidbranch(),
-				'namebranch' => $branch->getname(),
-				'iduser' => $user->getiduser(),
-				'nameuser' => $user->getname(),
-				'idclient' => $client->getidclient(),
-				'nameclient' => $client->getname(),
-				'error' => 'Erro! Já existem Item com esse Produto!',
-				'errorQuantityNotAvailable' => '',
-				'errorNotItens' => '',
-				'idproduct' => '',
-				'name' => '',
-				'description' => '',
-				'itens' => $itens,
-				'totalvalueitems'=>$totalValueItens
-			));
-		} else if (!$resultSearchProductBranch) {
-
-			$itens = StockOrderItem::getItens($idstockorder);
-
-			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-
-			$page = new PageAdmin();
-
-			$page->setTpl("stockordersitem-create", array(
-				'idstockorder' => $idstockorder,
-				'idbranch' => $branch->getidbranch(),
-				'namebranch' => $branch->getname(),
-				'iduser' => $user->getiduser(),
-				'nameuser' => $user->getname(),
-				'idclient' => $client->getidclient(),
-				'nameclient' => $client->getname(),
-				'error' => 'Erro! Produto não existe no estoque da filial!',
-				'errorQuantityNotAvailable' => '',
-				'errorNotItens' => '',
-				'idproduct' => '',
-				'name' => '',
-				'description' => '',
-				'itens' => $itens,
-				'totalvalueitems'=>$totalValueItens
-			));
-		} else {
-
-			$itens = StockOrderItem::getItens($idstockorder);
-
-			$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
-
-			$userStockOrder = User::getStockOrderUser($idstockorder);
-
-			$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
-			$product = new Product();
-
-			$product->getByName($nameProduct);
-
-			$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-
-			$page = new PageAdmin();
-
-			$page->setTpl("stockordersitem-create", array(
-				'idstockorder' => $idstockorder,
-				'idbranch' => $branchStockOrder['idbranch'],
-				'namebranch' => $branchStockOrder['namebranch'],
-				'iduser' => $userStockOrder['iduser'],
-				'nameuser' => $userStockOrder['nameuser'],
-				'idclient' => $clientStockOrder['idclient'],
-				'nameclient' => $clientStockOrder['nameclient'],
-				'errorQuantityNotAvailable' => '',
-				'error' => '',
-				'errorNotItens' => '',
-				'idproduct' => $product->getidproduct(),
-				'name' => $product->getname(),
-				'description' => $product->getdescription(),
-				'itens' => $itens,
-				'totalvalueitems'=>$totalValueItens
-			));
-		}
+		$product->getByName($parameter['product_search_parameter']);				
 	}
 
+	if(StockOrderItem::checkIfAllItemsWasProcessed($idstockorder)){
+			
+		$error = 'Não é Possível mais Adicinar Itens Porque o Pedido Já Foi Finalizado';
+
+		clearProductData($product);
+
+		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client,$product, $error);		
+
+		exit;
+	}
+
+	if( Product::checksProductItemOrder($product->getidproduct(),$idstockorder)){
+
+		clearProductData($product);
+
+		$error = 'Erro! Já existem Item com esse Produto!';
+
+		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client,$product, $error);	
+
+		exit;
+
+	}
+
+	if( ! Product::checkProductBranch($product->getidproduct(),$branch->getidbranch())){
+		
+		clearProductData($product);
+
+		$error = 'Erro! Produto não existe no estoque da filial!';
+
+		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client,$product, $error);	
+
+		exit;
+
+	}
+		
+	createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);	
+	
 	exit;
 });
 

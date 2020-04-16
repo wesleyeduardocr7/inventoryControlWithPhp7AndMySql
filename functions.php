@@ -5,6 +5,7 @@ use \Classes\PageAdmin;
 use Classes\Controller\StockOrderItem;
 use Classes\Model\Branch;
 use Classes\Model\Client;
+use Classes\Model\Product;
 use Classes\Model\User;
 
 function createStockOrder($dataStockOrder,$orderType){
@@ -30,10 +31,10 @@ function createStockOrder($dataStockOrder,$orderType){
 				$stockorder->setData($data);
 
 				$stockorder = $stockorder->save();
-				
-				$totalValueItens =  StockOrderItem::totalValueItensStockOrder($stockorder['idstockorder']);
-
-				createPageStockOrderItem($orderType,$stockorder,$branch,$user,$client,$totalValueItens);
+			
+				$error = '';
+			
+				createPageStockOrderItem($orderType,$stockorder["idstockorder"],$branch,$user,$client, new Product, $error);
 			
 			}else{
 
@@ -52,10 +53,10 @@ function createStockOrder($dataStockOrder,$orderType){
 				$stockorder->setData($data);
 
 				$stockorder = $stockorder->save();
-				
-				$totalValueItens =  StockOrderItem::totalValueItensStockOrder($stockorder['idstockorder']);
 
-				createPageStockOrderItem($orderType,$stockorder,$branch,$user,$client,$totalValueItens);
+				$error = '';
+			
+				createPageStockOrderItem($orderType,$stockorder["idstockorder"],$branch,$user,$client, new Product, $error);
 			
 			}else{
 
@@ -135,7 +136,11 @@ function createPageStockOrder($orderType,$error){
 }
 
 
-function createPageStockOrderItem($orderType,$stockorder,$branch,$user,$client,$totalValueItens){
+function createPageStockOrderItem($orderType,$idstockorder,$branch,$user,$client,$product,$error){
+
+	$itens = StockOrderItem::getItens($idstockorder);
+
+	$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 	if($orderType === 'exitrequest'){
 
@@ -150,10 +155,14 @@ function createPageStockOrderItem($orderType,$stockorder,$branch,$user,$client,$
 		$nameclient = 'null';
 	}
 
+	if($error == ''){
+		
+	}
+
 	$page = new PageAdmin();
 	
 	$page->setTpl("stockordersitem-create", array(
-		'idstockorder' => $stockorder['idstockorder'],
+		'idstockorder' => $idstockorder,
 		'idbranch' => $branch->getidbranch(),
 		'namebranch' => $branch->getname(),
 		'iduser' => $user->getiduser(),
@@ -163,22 +172,24 @@ function createPageStockOrderItem($orderType,$stockorder,$branch,$user,$client,$
 		'ordertype'=>$orderType,
 		'errorNotItens' => '',
 		'errorQuantityNotAvailable' => '',
-		'error' => '',
-		'idproduct' => '',
-		'name' => '',
-		'description' => '',
-		'itens'=>'',
+		'error' => $error,
+		'idproduct' => $product->getidproduct(),
+		'name' => $product->getname(),
+		'description' => $product->getdescription(),
+		'itens'=>$itens,
 		'totalvalueitems'=>$totalValueItens
 	));
 
 
 }
 
-function printOrderItems($idstockorder){
 
-    $itens = StockOrderItem::getItens($idstockorder);
+function clearProductData($product){
 
-    return $itens;
+	$product->setidproduct('');
+	$product->setname('');
+	$product->setdescription('');
+	
 }
 
 
