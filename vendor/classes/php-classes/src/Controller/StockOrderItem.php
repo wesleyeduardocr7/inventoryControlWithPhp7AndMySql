@@ -147,7 +147,7 @@ class StockOrderItem extends Model
 
 
 
-	public static function checkIfItemWasCanceled($idstockorder, $idstockorderitem)
+	public static function checkIfItemWasCanceledLoadByIdStockOrderItem($idstockorder, $idstockorderitem)
 	{
 
 		$itens = StockOrderItem::getItens($idstockorder);
@@ -160,6 +160,22 @@ class StockOrderItem extends Model
 
 					return true;
 				}
+			}
+		}
+
+		return false;
+	}
+
+	public static function checkIfItemWasActivatedLoadByIdproductAndStatus($idstockorder, $idproduct)
+	{
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		for ($i = 0; $i < count($itens); $i++) {
+
+			if ($itens[$i]['idproduct'] === $idproduct && $itens[$i]["namestatus"] === 'ATIVO') {
+
+				return true;
+				
 			}
 		}
 
@@ -238,10 +254,12 @@ class StockOrderItem extends Model
 
 		for($i = 0; $i < count($itens); $i++){
 
-			$totalvalue += $itens[$i]["totalvalue"];	
+			if($itens[$i]['namestatus'] != 'CANCELADO'){
 
+				$totalvalue += $itens[$i]["totalvalue"];	
+			}
 		}	
-		
+
 		return (float)$totalvalue;
 
 	}

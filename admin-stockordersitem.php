@@ -55,16 +55,26 @@ $app->get("/admin/stockordersitem/create/:ordertype/:idbranch/:iduser/:idclient/
 		exit;
 	}
 
-	if( Product::checksProductItemOrder($product->getidproduct(),$idstockorder)){
+	if( Product::checksProductItemOrder($product->getidproduct(),$idstockorder) ){
+		
+	   	if ( StockOrderItem::checkIfItemWasActivatedLoadByIdproductAndStatus($idstockorder, $product->getidproduct())){
+			
+			
+			clearProductData($product);
 
-		clearProductData($product);
+			$error = 'Erro! Já existem Item com esse Produto!';
 
-		$error = 'Erro! Já existem Item com esse Produto!';
+			createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client,$product, $error);	
+		
+	   	}else{
 
-		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client,$product, $error);	
+			$error = '';
 
-		exit;
+			createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client,$product, $error);
+	   	}
 
+	   exit;
+		
 	}
 
 	if( ! Product::checkProductBranch($product->getidproduct(),$branch->getidbranch())){
@@ -173,12 +183,75 @@ $app->post("/admin/stockordersitem/additem/:ordertype/:idproduct/:idstockorder",
 
 		$error = '';
 
+		clearProductData($product);
+
 		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);	
 
 		exit;
 
 	}	
 });
+
+
+
+
+
+
+$app->get("/admin/stockordersitem/deleteitem/:ordertype/:idstockorder/:idstockorderitem", function ($ordertype,$idstockorder,$idstockorderitem) {
+	
+	$branch = new Branch();
+	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
+	$branch->get($branchStockOrder['idbranch']);
+	
+	$user = new User();
+	$userStockOrder = user::getStockOrderUser($idstockorder);
+	$user->get($userStockOrder['iduser']);
+
+	$client = new Client();
+	
+	$product = new Product();	
+
+	if($ordertype == 'exitrequest')
+	{	
+		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+		$client->get($clientStockOrder['idclient']);
+	}
+
+	if( StockOrderItem::checkIfItemWasProcessed($idstockorder,$idstockorderitem) ){
+
+		clearProductData($product);
+
+		$error = 'Item não pode ser CANCELADO porque já foi PROCESSADO';
+
+		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);	
+
+	}else if( StockOrderItem::checkIfItemWasCanceledLoadByIdStockOrderItem($idstockorder,$idstockorderitem) ){
+
+		clearProductData($product);
+
+		$error = 'Item já foi Cancelado';
+
+		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);	
+		
+	}else{
+
+		StockOrderItem::deleteItem($idstockorder,2,$idstockorderitem);
+
+		clearProductData($product);
+
+		$error = '';
+
+		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);	
+
+	}
+
+	exit;
+
+});
+
+
+
+
 
 
 
@@ -215,138 +288,6 @@ $app->get("/admin/stockordersitem-output/create/:idstockorder", function ($idsto
 		'totalvalueitems'=>$totalValueItens
 		
 	));
-});
-
-
-
-// BT Erro Ao Inserir quantidade e preço de produto nao Selecionado
-$app->post("/admin/stockordersitem-output/additem//:idstockorder", function ($idstockorder) {
-
-
-	$itens = StockOrderItem::getItens($idstockorder);
-
-	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
-
-	$userStockOrder = User::getStockOrderUser($idstockorder);
-
-	$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
-	$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-
-	$page = new PageAdmin();
-
-	$page->setTpl("stockordersitem-create", array(
-		'idstockorder' => $idstockorder,
-		'idbranch' => $branchStockOrder['idbranch'],
-		'namebranch' => $branchStockOrder['namebranch'],
-		'iduser' => $userStockOrder['iduser'],
-		'nameuser' => $userStockOrder['nameuser'],
-		'idclient' => $clientStockOrder['idclient'],
-		'nameclient' => $clientStockOrder['nameclient'],
-		'error' => '',
-		'errorQuantityNotAvailable' => 'Por favor informe um parâmetro de busca para o Produto',
-		'errorNotItens' => '',
-		'idproduct' => '',
-		'name' => '',
-		'description' => '',
-		'itens' => $itens,
-		'totalvalueitems'=>$totalValueItens
-	));
-});
-
-
-
-
-$app->get("/admin/stockordersitem-output/deleteitem/:idstockorder/:idstockorderitem", function ($idstockorder,$idstockorderitem) {
-	
-	$itens = StockOrderItem::getItens($idstockorder);
-	
-	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
-
-	$userStockOrder = User::getStockOrderUser($idstockorder);
-
-	$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
-	if( StockOrderItem::checkIfItemWasProcessed($idstockorder,$idstockorderitem) ){
-
-		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-
-		$page = new PageAdmin();
-
-		$page->setTpl("stockordersitem-create", array(
-			'idstockorder' => $idstockorder,
-			'idbranch' => $branchStockOrder['idbranch'],
-			'namebranch' => $branchStockOrder['namebranch'],
-			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
-			'error' => '',
-			'errorNotItens' => 'Item não pode ser CANCELADO porque já foi PROCESSADO',
-			'errorQuantityNotAvailable' => '',
-			'idproduct' => '',
-			'name' => '',
-			'description' => '',
-			'itens' => $itens,
-			'totalvalueitems'=>$totalValueItens
-		));	
-
-	}else if( StockOrderItem::checkIfItemWasCanceled($idstockorder,$idstockorderitem) ){
-
-		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-		
-		$page = new PageAdmin();
-
-		$page->setTpl("stockordersitem-create", array(
-			'idstockorder' => $idstockorder,
-			'idbranch' => $branchStockOrder['idbranch'],
-			'namebranch' => $branchStockOrder['namebranch'],
-			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
-			'error' => '',
-			'errorNotItens' => 'Item já foi Cancelado',
-			'errorQuantityNotAvailable' => '',
-			'idproduct' => '',
-			'name' => '',
-			'description' => '',
-			'itens' => $itens,
-			'totalvalueitems'=>$totalValueItens
-		));			
-
-	}else{
-
-		StockOrderItem::deleteItem($idstockorder,2,$idstockorderitem);
-
-		$itens = StockOrderItem::getItens($idstockorder);
-
-		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
-		
-		$page = new PageAdmin();
-
-		$page->setTpl("stockordersitem-create", array(
-			'idstockorder' => $idstockorder,
-			'idbranch' => $branchStockOrder['idbranch'],
-			'namebranch' => $branchStockOrder['namebranch'],
-			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
-			'error' => '',
-			'errorNotItens' => '',
-			'errorQuantityNotAvailable' => '',
-			'idproduct' => '',
-			'name' => '',
-			'description' => '',
-			'itens' => $itens,
-			'totalvalueitems'=>$totalValueItens
-		));	
-
-	}
-
-	exit;
-
 });
 
 
