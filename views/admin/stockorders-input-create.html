@@ -45,7 +45,30 @@
                     </div>
                     {/if}
               </div>
-          </form>       
+          </form>      
+          
+          <div class="box-body">
+          
+            {if="$checkout != ''"}
+            <form action="/admin/stockorders-input/create/finish/{$idstockorder}" method="post">
+              <label style="font-size: 25px;" for="idstockorder">Código do Pedido: {$idstockorder}</label>               
+              <br>
+              <a style="margin-bottom: 5px;" href="/admin/stockordersitem-input/create/{$idstockorder}" class="btn btn-primary"> Ver Itens</a>
+              <p><strong>Selecione o Metódo de Pagamento</p></strong> 
+              <div class="radioPaymentMethod">              
+                <input  class="radioavista"  checked type="radio" name="gender" value="avista"> À VISTA
+                <input style="margin-left: 5px;" class="radioboleto" type="radio" name="gender" value="boleto"> BOLETO
+                <input style="margin-left: 5px;" class="radiocartao" type="radio" name="gender" value="cartao"> CARTÃO
+            </div>
+              <br>
+              <label for="deliverynote">Observação para Entrega</label>
+              <input type="text" class="form-control" id="deliverynote" name="deliverynote" required placeholder="Nota de Entrega">
+              <br>
+             <button type="submit" class="btn btn-success">Concluir</button>     
+            </form>
+            {/if}
+          </div>  
+
         </div>
       </div>
     </div>

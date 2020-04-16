@@ -3,7 +3,6 @@
 use Classes\Controller\StockOrderItem;
 use Classes\Controller\StockOrder;
 use Classes\Model\Branch;
-use Classes\Model\Client;
 use Classes\Model\Product;
 use Classes\Model\Stock;
 use Classes\Model\User;
@@ -21,16 +20,18 @@ $app->post("/admin/stockordersitem-input/create", function () {
 	$resultSearchBranch = $branch->get($dataStockOrder['idbranch']);
 
 	$resultSearchUser = $user->get($dataStockOrder['iduser']);
+
 	
 	if ($resultSearchBranch === null || $resultSearchUser === null) {
 
 		$page = new PageAdmin();
 
-		$page->setTpl("stockorders-output-create", array(
+		$page->setTpl("stockorders-input-create", array(
 			'idbranch' => $branch->getidbranch(),
-			'iduser' => $user->getiduser(),			
+			'iduser' => $user->getiduser(),						
 			'error' => 'Erro! Filial ou Usuário Código Inválido.',			
 		));
+
 	} else {
 
 
@@ -50,20 +51,16 @@ $app->post("/admin/stockordersitem-input/create", function () {
 
 		$resultSaveStockOrder = $stockorder->saveStockOrderInput();
 		
-		var_dump($resultSaveStockOrder);exit;
-
 		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($stockorder->getidstockorder());
 
 		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create", array(
+		$page->setTpl("stockordersitem-input-create", array(
 			'idstockorder' => $resultSaveStockOrder['idstockorder'],
 			'idbranch' => $branch->getidbranch(),
 			'namebranch' => $branch->getname(),
 			'iduser' => $user->getiduser(),
-			'nameuser' => $user->getname(),
-			'idclient' => null,
-			'nameclient' => null,
+			'nameuser' => $user->getname(),			
 			'errorNotItens' => '',
 			'errorQuantityNotAvailable' => '',
 			'error' => '',
@@ -78,17 +75,15 @@ $app->post("/admin/stockordersitem-input/create", function () {
 });
 
 //Bt Pesquisa Produdo tela Item Pedido de Estoque
-$app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:idstockorder", function ($idbranch, $iduser, $idclient, $idstockorder) {
+$app->get("/admin/stockordersitem-input/create/:idbranch/:iduser/:idstockorder", function ($idbranch, $iduser, $idstockorder) {
 
 	$parameter = $_GET;
 
 	$branch = new Branch();
 	$user = new User();
-	$client = new Client();
-
+	
 	$branch->get($idbranch);
 	$user->get($iduser);
-	$client->get($idclient);
 
 	if(StockOrderItem::checkIfAllItemsWasProcessed($idstockorder)){
 
@@ -98,20 +93,17 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 		$userStockOrder = User::getStockOrderUser($idstockorder);
 
-		$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
+		
 		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create", array(
+		$page->setTpl("stockordersitem-input-create", array(
 			'idstockorder' => $idstockorder,
 			'idbranch' => $branchStockOrder['idbranch'],
 			'namebranch' => $branchStockOrder['namebranch'],
 			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
+			'nameuser' => $userStockOrder['nameuser'],			
 			'error' => '',
 			'errorQuantityNotAvailable' => 'Não é Possível mais Adicinar Itens Porque o Pedido Já Foi Finalizado',
 			'errorNotItens' => '',
@@ -140,14 +132,12 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 			$page = new PageAdmin();
 
-			$page->setTpl("stockordersitem-create", array(
+			$page->setTpl("stockordersitem-input-create", array(
 				'idstockorder' => $idstockorder,
 				'idbranch' => $branch->getidbranch(),
 				'namebranch' => $branch->getname(),
 				'iduser' => $user->getiduser(),
-				'nameuser' => $user->getname(),
-				'idclient' => $client->getidclient(),
-				'nameclient' => $client->getname(),
+				'nameuser' => $user->getname(),				
 				'error' => 'Erro! Já existem Item com esse Produto!',
 				'errorQuantityNotAvailable' => '',
 				'errorNotItens' => '',
@@ -165,14 +155,12 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 			$page = new PageAdmin();
 
-			$page->setTpl("stockordersitem-create", array(
+			$page->setTpl("stockordersitem-input-create", array(
 				'idstockorder' => $idstockorder,
 				'idbranch' => $branch->getidbranch(),
 				'namebranch' => $branch->getname(),
 				'iduser' => $user->getiduser(),
-				'nameuser' => $user->getname(),
-				'idclient' => $client->getidclient(),
-				'nameclient' => $client->getname(),
+				'nameuser' => $user->getname(),				
 				'error' => 'Erro! Produto não existe no estoque da filial!',
 				'errorQuantityNotAvailable' => '',
 				'errorNotItens' => '',
@@ -190,8 +178,6 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 			$userStockOrder = User::getStockOrderUser($idstockorder);
 
-			$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
 			$product = new Product();
 
 			$product->get($idproduct);
@@ -200,14 +186,12 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 			$page = new PageAdmin();
 
-			$page->setTpl("stockordersitem-create", array(
+			$page->setTpl("stockordersitem-input-create", array(
 				'idstockorder' => $idstockorder,
 				'idbranch' => $branchStockOrder['idbranch'],
 				'namebranch' => $branchStockOrder['namebranch'],
 				'iduser' => $userStockOrder['iduser'],
-				'nameuser' => $userStockOrder['nameuser'],
-				'idclient' => $clientStockOrder['idclient'],
-				'nameclient' => $clientStockOrder['nameclient'],
+				'nameuser' => $userStockOrder['nameuser'],				
 				'errorQuantityNotAvailable' => '',
 				'error' => '',
 				'errorNotItens' => '',
@@ -240,14 +224,12 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 			$page = new PageAdmin();
 
-			$page->setTpl("stockordersitem-create", array(
+			$page->setTpl("stockordersitem-input-create", array(
 				'idstockorder' => $idstockorder,
 				'idbranch' => $branch->getidbranch(),
 				'namebranch' => $branch->getname(),
 				'iduser' => $user->getiduser(),
-				'nameuser' => $user->getname(),
-				'idclient' => $client->getidclient(),
-				'nameclient' => $client->getname(),
+				'nameuser' => $user->getname(),				
 				'error' => 'Erro! Já existem Item com esse Produto!',
 				'errorQuantityNotAvailable' => '',
 				'errorNotItens' => '',
@@ -265,14 +247,12 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 			$page = new PageAdmin();
 
-			$page->setTpl("stockordersitem-create", array(
+			$page->setTpl("stockordersitem-input-create", array(
 				'idstockorder' => $idstockorder,
 				'idbranch' => $branch->getidbranch(),
 				'namebranch' => $branch->getname(),
 				'iduser' => $user->getiduser(),
-				'nameuser' => $user->getname(),
-				'idclient' => $client->getidclient(),
-				'nameclient' => $client->getname(),
+				'nameuser' => $user->getname(),				
 				'error' => 'Erro! Produto não existe no estoque da filial!',
 				'errorQuantityNotAvailable' => '',
 				'errorNotItens' => '',
@@ -290,8 +270,6 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 			$userStockOrder = User::getStockOrderUser($idstockorder);
 
-			$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
 			$product = new Product();
 
 			$product->getByName($nameProduct);
@@ -300,14 +278,12 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 			$page = new PageAdmin();
 
-			$page->setTpl("stockordersitem-create", array(
+			$page->setTpl("stockordersitem-input-create", array(
 				'idstockorder' => $idstockorder,
 				'idbranch' => $branchStockOrder['idbranch'],
 				'namebranch' => $branchStockOrder['namebranch'],
 				'iduser' => $userStockOrder['iduser'],
-				'nameuser' => $userStockOrder['nameuser'],
-				'idclient' => $clientStockOrder['idclient'],
-				'nameclient' => $clientStockOrder['nameclient'],
+				'nameuser' => $userStockOrder['nameuser'],				
 				'errorQuantityNotAvailable' => '',
 				'error' => '',
 				'errorNotItens' => '',
@@ -325,7 +301,7 @@ $app->get("/admin/stockordersitem-output/create/:idbranch/:iduser/:idclient/:ids
 
 
 // BT Adicionar quantidade Solicitada e Preço Unitário tela Itens do Pedido
-$app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", function ($idproduct, $idstockorder) {
+$app->post("/admin/stockordersitem-input/additem/:idproduct/:idstockorder", function ($idproduct, $idstockorder) {
 
 	$parameter = $_POST;
 
@@ -350,20 +326,16 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 
 		$userStockOrder = User::getStockOrderUser($idstockorder);
 
-		$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
 		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create", array(
+		$page->setTpl("stockordersitem-input-create", array(
 			'idstockorder' => $idstockorder,
 			'idbranch' => $branchStockOrder['idbranch'],
 			'namebranch' => $branchStockOrder['namebranch'],
 			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
+			'nameuser' => $userStockOrder['nameuser'],			
 			'error' => '',
 			'errorQuantityNotAvailable' => 'Quantidade Solicitada Não pode ser menor ou igual a 0 ',
 			'errorNotItens' => '',
@@ -381,21 +353,17 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 		$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
 
 		$userStockOrder = User::getStockOrderUser($idstockorder);
-
-		$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
+		
 		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create", array(
+		$page->setTpl("stockordersitem-input-create", array(
 			'idstockorder' => $idstockorder,
 			'idbranch' => $branchStockOrder['idbranch'],
 			'namebranch' => $branchStockOrder['namebranch'],
 			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
+			'nameuser' => $userStockOrder['nameuser'],			
 			'error' => '',
 			'errorQuantityNotAvailable' => 'Preço do Produto não pode ser menor ou igual a 0',
 			'errorNotItens' => '',
@@ -432,20 +400,16 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 
 		$userStockOrder = User::getStockOrderUser($idstockorder);
 
-		$clientStockOrder = Client::getStockOrderClient($idstockorder);
-		
 		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create", array(
+		$page->setTpl("stockordersitem-input-create", array(
 			'idstockorder' => $idstockorder,
 			'idbranch' => $branchStockOrder['idbranch'],
 			'namebranch' => $branchStockOrder['namebranch'],
 			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
+			'nameuser' => $userStockOrder['nameuser'],			
 			'error' => '',
 			'errorQuantityNotAvailable' => '',
 			'errorNotItens' => '',
@@ -463,20 +427,16 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 
 		$userStockOrder = User::getStockOrderUser($idstockorder);
 
-		$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
 		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create", array(
+		$page->setTpl("stockordersitem-input-create", array(
 			'idstockorder' => $idstockorder,
 			'idbranch' => $branchStockOrder['idbranch'],
 			'namebranch' => $branchStockOrder['namebranch'],
 			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
+			'nameuser' => $userStockOrder['nameuser'],			
 			'error' => '',
 			'errorQuantityNotAvailable' => 'Quantidade Solicitada Inferior à Quantidade Disponível no Estoque' . ' || Quantidade Disponível = ' . $availableQuantity,
 			'errorNotItens' => '',
@@ -494,7 +454,7 @@ $app->post("/admin/stockordersitem-output/additem/:idproduct/:idstockorder", fun
 
 
 //Bt Ver Itens de Um Pedido
-$app->get("/admin/stockordersitem-output/create/:idstockorder", function ($idstockorder) {
+$app->get("/admin/stockordersitem-input/create/:idstockorder", function ($idstockorder) {
 
 	$itens = StockOrderItem::getItens($idstockorder);
 
@@ -502,20 +462,16 @@ $app->get("/admin/stockordersitem-output/create/:idstockorder", function ($idsto
 
 	$userStockOrder = User::getStockOrderUser($idstockorder);
 
-	$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
 	$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 	$page = new PageAdmin();
 
-	$page->setTpl("stockordersitem-create", array(
+	$page->setTpl("stockordersitem-input-create", array(
 		'idstockorder' => $idstockorder,
 		'idbranch' => $branchStockOrder['idbranch'],
 		'namebranch' => $branchStockOrder['namebranch'],
 		'iduser' => $userStockOrder['iduser'],
-		'nameuser' => $userStockOrder['nameuser'],
-		'idclient' => $clientStockOrder['idclient'],
-		'nameclient' => $clientStockOrder['nameclient'],
+		'nameuser' => $userStockOrder['nameuser'],		
 		'error' => '',
 		'errorNotItens' => '',
 		'errorQuantityNotAvailable' => '',
@@ -531,7 +487,7 @@ $app->get("/admin/stockordersitem-output/create/:idstockorder", function ($idsto
 
 
 // BT Erro Ao Inserir quantidade e preço de produto nao Selecionado
-$app->post("/admin/stockordersitem-output/additem//:idstockorder", function ($idstockorder) {
+$app->post("/admin/stockordersitem-input/additem/:idstockorder", function ($idstockorder) {
 
 
 	$itens = StockOrderItem::getItens($idstockorder);
@@ -540,20 +496,16 @@ $app->post("/admin/stockordersitem-output/additem//:idstockorder", function ($id
 
 	$userStockOrder = User::getStockOrderUser($idstockorder);
 
-	$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
 	$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 	$page = new PageAdmin();
 
-	$page->setTpl("stockordersitem-create", array(
+	$page->setTpl("stockordersitem-input-create", array(
 		'idstockorder' => $idstockorder,
 		'idbranch' => $branchStockOrder['idbranch'],
 		'namebranch' => $branchStockOrder['namebranch'],
 		'iduser' => $userStockOrder['iduser'],
-		'nameuser' => $userStockOrder['nameuser'],
-		'idclient' => $clientStockOrder['idclient'],
-		'nameclient' => $clientStockOrder['nameclient'],
+		'nameuser' => $userStockOrder['nameuser'],		
 		'error' => '',
 		'errorQuantityNotAvailable' => 'Por favor informe um parâmetro de busca para o Produto',
 		'errorNotItens' => '',
@@ -568,30 +520,26 @@ $app->post("/admin/stockordersitem-output/additem//:idstockorder", function ($id
 
 
 
-$app->get("/admin/stockordersitem-output/deleteitem/:idstockorder/:idstockorderitem", function ($idstockorder,$idstockorderitem) {
+$app->get("/admin/stockordersitem-input/deleteitem/:idstockorder/:idstockorderitem", function ($idstockorder,$idstockorderitem) {
 	
 	$itens = StockOrderItem::getItens($idstockorder);
 	
 	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
 
 	$userStockOrder = User::getStockOrderUser($idstockorder);
-
-	$clientStockOrder = Client::getStockOrderClient($idstockorder);
-
+	
 	if( StockOrderItem::checkIfItemWasProcessed($idstockorder,$idstockorderitem) ){
 
 		$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
 
 		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create", array(
+		$page->setTpl("stockordersitem-input-create", array(
 			'idstockorder' => $idstockorder,
 			'idbranch' => $branchStockOrder['idbranch'],
 			'namebranch' => $branchStockOrder['namebranch'],
 			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
+			'nameuser' => $userStockOrder['nameuser'],			
 			'error' => '',
 			'errorNotItens' => 'Item não pode ser CANCELADO porque já foi PROCESSADO',
 			'errorQuantityNotAvailable' => '',
@@ -608,14 +556,12 @@ $app->get("/admin/stockordersitem-output/deleteitem/:idstockorder/:idstockorderi
 		
 		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create", array(
+		$page->setTpl("stockordersitem-input-create", array(
 			'idstockorder' => $idstockorder,
 			'idbranch' => $branchStockOrder['idbranch'],
 			'namebranch' => $branchStockOrder['namebranch'],
 			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
+			'nameuser' => $userStockOrder['nameuser'],			
 			'error' => '',
 			'errorNotItens' => 'Item já foi Cancelado',
 			'errorQuantityNotAvailable' => '',
@@ -636,14 +582,12 @@ $app->get("/admin/stockordersitem-output/deleteitem/:idstockorder/:idstockorderi
 		
 		$page = new PageAdmin();
 
-		$page->setTpl("stockordersitem-create", array(
+		$page->setTpl("stockordersitem-input-create", array(
 			'idstockorder' => $idstockorder,
 			'idbranch' => $branchStockOrder['idbranch'],
 			'namebranch' => $branchStockOrder['namebranch'],
 			'iduser' => $userStockOrder['iduser'],
-			'nameuser' => $userStockOrder['nameuser'],
-			'idclient' => $clientStockOrder['idclient'],
-			'nameclient' => $clientStockOrder['nameclient'],
+			'nameuser' => $userStockOrder['nameuser'],			
 			'error' => '',
 			'errorNotItens' => '',
 			'errorQuantityNotAvailable' => '',

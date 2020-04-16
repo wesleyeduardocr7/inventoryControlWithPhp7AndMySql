@@ -49,6 +49,7 @@ class Client extends Model {
 		INNER JOIN tb_client c ON so.idclient = c.idclient WHERE so.idstockorder = :idstockorder", [
 			':idstockorder'=>$idstockorder
 		]);
+		
 
 		return $results[0];
 		

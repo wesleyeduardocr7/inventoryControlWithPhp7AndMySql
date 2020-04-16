@@ -314,6 +314,58 @@ DELIMITER ;
 
 
  DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorderitem_input_save`(
+pidstockorderitem int(11),
+pidproduct int(11),
+pidstockorder int(11),
+pidorderstatus int(11),
+pquantity int(11),
+punitaryvalue float,
+ptotalvalue float,
+pdtremoved datetime
+)
+BEGIN
+	
+    declare pidbranch int(11) ;
+    
+      select b.idbranch as idbranch from tb_branch b inner join tb_stockorder so on so.idbranch = b.idbranch where so.idstockorder = pidstockorder into pidbranch;  
+    
+	IF ( NOT (select exists( select * from tb_stockorderitem where idstockorderitem = pidstockorderitem ) ) ) THEN
+	
+		INSERT INTO tb_stockorderitem (idproduct,idstockorder,idorderstatus, quantity, unitaryvalue, totalvalue, dtremoved) 
+        VALUES(pidproduct,pidstockorder,pidorderstatus, pquantity, punitaryvalue, ptotalvalue, pdtremoved) ;
+        
+        SET pidstockorderitem = LAST_INSERT_ID();
+        
+    ELSE 
+    
+        UPDATE tb_stockorderitem
+        SET 
+            idproduct = pidproduct,
+		    idstockorder = 	pidstockorder ,
+			idorderstatus = pidorderstatus ,
+			quantity = pquantity ,
+			unitaryvalue = punitaryvalue ,
+			totalvalue = ptotalvalue ,
+            dtremoved = pdtremoved
+        WHERE idstockorderitem = pidstockorderitem;
+        
+		UPDATE tb_stock
+        SET 
+            
+		quantity = quantity + pquantity
+            
+        WHERE idproduct = pidproduct and idbranch = pidbranch;
+		        
+    END IF;
+    
+    SELECT * FROM tb_stockorderitem WHERE idstockorderitem = pidstockorderitem;
+    
+END$$
+DELIMITER ;
+
+
+ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorderitem_delete`(
 pidstockorderitem int(11),
 pidproduct int(11),
@@ -340,3 +392,6 @@ BEGIN
     
 END$$
 DELIMITER ;
+
+
+

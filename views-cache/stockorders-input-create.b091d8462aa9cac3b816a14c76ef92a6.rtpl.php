@@ -45,7 +45,30 @@
                     </div>
                     <?php } ?>
               </div>
-          </form>       
+          </form>      
+          
+          <div class="box-body">
+          
+            <?php if( $checkout != '' ){ ?>
+            <form action="/admin/stockorders-input/create/finish/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
+              <label style="font-size: 25px;" for="idstockorder">Código do Pedido: <?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>               
+              <br>
+              <a style="margin-bottom: 5px;" href="/admin/stockordersitem-input/create/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary"> Ver Itens</a>
+              <p><strong>Selecione o Metódo de Pagamento</p></strong> 
+              <div class="radioPaymentMethod">              
+                <input  class="radioavista"  checked type="radio" name="gender" value="avista"> À VISTA
+                <input style="margin-left: 5px;" class="radioboleto" type="radio" name="gender" value="boleto"> BOLETO
+                <input style="margin-left: 5px;" class="radiocartao" type="radio" name="gender" value="cartao"> CARTÃO
+            </div>
+              <br>
+              <label for="deliverynote">Observação para Entrega</label>
+              <input type="text" class="form-control" id="deliverynote" name="deliverynote" required placeholder="Nota de Entrega">
+              <br>
+             <button type="submit" class="btn btn-success">Concluir</button>     
+            </form>
+            <?php } ?>
+          </div>  
+
         </div>
       </div>
     </div>

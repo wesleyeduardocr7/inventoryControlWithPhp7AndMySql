@@ -1,0 +1,68 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Lista de Pedidos de Entrada
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active"><a href="/admin/stockorders">Pedidos de Entrada</a></li>
+      </ol>
+    </section>
+    
+    <!-- Main content -->
+    <section class="content">
+    
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+                               
+                <div class="box-body no-padding">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th style="width: 100px">Código do Pedido</th>
+                        <th style="width: 100px">Código da Filial</th>
+                        <th style="width: 100px">Código Usuário</th> 
+                        <th>Meio de Pagamento</th>
+                        <th>Tipo de Pedido</th>
+                        <th>Anotação para entrega</th>
+                        <th>Data do Registro</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {loop="$stockorders"}
+                      <tr>
+                        <td>{$value.idstockorder}</td>
+                        <td>{$value.idbranch}</td>
+                        <td>{$value.iduser}</td>                       
+                        {if="$value.idpaymentmethod == '1'"}
+                          <td>À VISTA</td>  
+                        {/if}  
+                        {if="$value.idpaymentmethod == '2'"}
+                          <td>BOLETO</td>  
+                        {/if}  
+                        {if="$value.idpaymentmethod == '3'"}
+                          <td>CARTÂO</td>  
+                        {/if}                                         
+                        <td>ENTRADA</td>               
+                        <td>{$value.deliverynote}</td>             
+                        <td>{$value.dtregister}</td>
+                        <td>
+                          <a style="margin-bottom: 5px;" href="/admin/stockordersitem-input/create/{$value.idstockorder}" class="btn btn-primary"> Ver Itens</a>
+                        </td>
+                      </tr>
+                      {/loop}
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>              
+        </div>
+      </div>
+    
+    </section>
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
