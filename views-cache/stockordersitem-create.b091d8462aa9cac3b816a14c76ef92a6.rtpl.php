@@ -67,7 +67,7 @@
 
 
           <!-- form start -->
-          <form role="form" action="/admin/stockordersitem-output/additem" method="get">
+          <form>
             <div class="box-body">
             
               <table class="table table-striped">
@@ -92,7 +92,7 @@
           </form>        
          
           <!-- form start -->
-        <form role="form" action="/admin/stockordersitem-output/additem/<?php echo htmlspecialchars( $idproduct, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
+        <form role="form" action="/admin/stockordersitem/additem/<?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idproduct, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
                
           <div class="box-body">    
             <div class="form-group">
@@ -146,12 +146,12 @@
                     <td><?php echo htmlspecialchars( $value1["requestedquantity"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                     <td><?php echo htmlspecialchars( $value1["unitaryvalue"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                     <td><?php echo htmlspecialchars( $value1["totalvalue"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                      
-                    <td><a href="/admin/stockordersitem-output/deleteitem/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $value1["idstockorderitem"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> 
+                    <td><a href="/admin/stockordersitem/deleteitem/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $value1["idstockorderitem"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> 
                   </tr>
                   <?php } ?>
                 </tbody>
                 <tfoot>
-                  <th>Soma do Valor Total dos Itens: R$ <?php echo htmlspecialchars( $totalvalueitems, ENT_COMPAT, 'UTF-8', FALSE ); ?> </th> 
+                  <th>Valor Total dos Itens: R$ <?php echo htmlspecialchars( $totalvalueitems, ENT_COMPAT, 'UTF-8', FALSE ); ?> </th> 
                 </tfoot>
               </table>        
             </div>            

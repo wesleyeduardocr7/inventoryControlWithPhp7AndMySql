@@ -14,6 +14,7 @@ function createStockOrder($dataStockOrder,$orderType){
 	$branch = new Branch();
 	$user = new User();	
 	$client = new Client();
+	$product = new Product();
 
 	$resultSearchBranch = $branch->get($dataStockOrder['idbranch']);
 	$resultSearchUser = $user->get($dataStockOrder['iduser']);
@@ -33,8 +34,10 @@ function createStockOrder($dataStockOrder,$orderType){
 				$stockorder = $stockorder->save();
 			
 				$error = '';
+
+				clearProductData($product);
 			
-				createPageStockOrderItem($orderType,$stockorder["idstockorder"],$branch,$user,$client, new Product, $error);
+				createPageStockOrderItem($orderType,$stockorder["idstockorder"],$branch,$user,$client, $product, $error);
 			
 			}else{
 
@@ -55,8 +58,10 @@ function createStockOrder($dataStockOrder,$orderType){
 				$stockorder = $stockorder->save();
 
 				$error = '';
+
+				clearProductData($product);
 			
-				createPageStockOrderItem($orderType,$stockorder["idstockorder"],$branch,$user,$client, new Product, $error);
+				createPageStockOrderItem($orderType,$stockorder["idstockorder"],$branch,$user,$client, $product, $error);
 			
 			}else{
 
@@ -186,9 +191,9 @@ function createPageStockOrderItem($orderType,$idstockorder,$branch,$user,$client
 
 function clearProductData($product){
 
-	$product->setidproduct('');
-	$product->setname('');
-	$product->setdescription('');
+	$product->setidproduct('null');
+	$product->setname('null');
+	$product->setdescription('null');
 	
 }
 

@@ -67,7 +67,7 @@
 
 
           <!-- form start -->
-          <form role="form" action="/admin/stockordersitem-output/additem" method="get">
+          <form>
             <div class="box-body">
             
               <table class="table table-striped">
@@ -92,7 +92,7 @@
           </form>        
          
           <!-- form start -->
-        <form role="form" action="/admin/stockordersitem-output/additem/{$idproduct}/{$idstockorder}" method="post">
+        <form role="form" action="/admin/stockordersitem/additem/{$ordertype}/{$idproduct}/{$idstockorder}" method="post">
                
           <div class="box-body">    
             <div class="form-group">
@@ -146,12 +146,12 @@
                     <td>{$value.requestedquantity}</td>  
                     <td>{$value.unitaryvalue}</td>  
                     <td>{$value.totalvalue}</td>                      
-                    <td><a href="/admin/stockordersitem-output/deleteitem/{$idstockorder}/{$value.idstockorderitem}" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> 
+                    <td><a href="/admin/stockordersitem/deleteitem/{$idstockorder}/{$value.idstockorderitem}" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Cancelar Pedido</a></td> 
                   </tr>
                   {/loop}
                 </tbody>
                 <tfoot>
-                  <th>Soma do Valor Total dos Itens: R$ {$totalvalueitems} </th> 
+                  <th>Valor Total dos Itens: R$ {$totalvalueitems} </th> 
                 </tfoot>
               </table>        
             </div>            
