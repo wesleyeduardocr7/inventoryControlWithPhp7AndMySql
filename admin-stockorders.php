@@ -102,17 +102,31 @@ $app->post("/admin/stockorders/create/checkout/:ordertype/:idstockorder", functi
 	if($ordertype == 'exitrequest')
 	{	
 		$clientStockOrder = Client::getStockOrderClient($idstockorder);
-	}
-		
-	$data = [	
-		"idstockorder"=>$idstockorder,
-		'idbranch'=>$branchStockOrder['idbranch'],		
-		'iduser'=>$userStockOrder['iduser'],
-		'idclient'=>$clientStockOrder['idclient'],
-		"idpaymentmethod"=>$idpaymentmethod,
-		"ordertype"=>$ordertype,
-		"deliverynote"=>$deliverynote
-	];
+
+		$data = [	
+			"idstockorder"=>$idstockorder,
+			'idbranch'=>$branchStockOrder['idbranch'],		
+			'iduser'=>$userStockOrder['iduser'],
+			'idclient'=>$clientStockOrder['idclient'],
+			"idpaymentmethod"=>$idpaymentmethod,
+			"ordertype"=>$ordertype,
+			"deliverynote"=>$deliverynote
+		];
+	}else{
+
+
+		$data = [	
+			"idstockorder"=>$idstockorder,
+			'idbranch'=>$branchStockOrder['idbranch'],		
+			'iduser'=>$userStockOrder['iduser'],
+			'idclient'=>null,
+			"idpaymentmethod"=>$idpaymentmethod,
+			"ordertype"=>$ordertype,
+			"deliverynote"=>$deliverynote
+		];
+
+
+	}			
 
 	$stockOrder->setData($data);
 
@@ -129,15 +143,16 @@ $app->post("/admin/stockorders/create/checkout/:ordertype/:idstockorder", functi
 
 $app->get("/admin/stockorders", function () {
 
-	/*$stockorders = StockOrder::listAll();
+	$stockorders = StockOrder::listAll();
 
 	$page = new PageAdmin();
 
-    $page->setTpl("stockorders-output", array(
-        'stockorders' => $stockorders
-	));*/
+    $page->setTpl("stockorders", array(
+		'stockorders' => $stockorders
+		
+	));
 	
-	echo 'ok';exit;
+	exit;
 
 });
 

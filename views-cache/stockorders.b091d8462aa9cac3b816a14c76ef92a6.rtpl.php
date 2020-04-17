@@ -3,11 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Lista de Pedidos de Entrada
+        Lista de Pedidos de Saída
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="/admin/stockorders">Pedidos de Entrada</a></li>
+        <li class="active"><a href="/admin/stockorders">Pedidos de Saída</a></li>
       </ol>
     </section>
     
@@ -24,7 +24,8 @@
                       <tr>
                         <th style="width: 100px">Código do Pedido</th>
                         <th style="width: 100px">Código da Filial</th>
-                        <th style="width: 100px">Código Usuário</th> 
+                        <th style="width: 100px">Código Usuário</th>                        
+                        <th>Código do Cliente</th>
                         <th>Meio de Pagamento</th>
                         <th>Tipo de Pedido</th>
                         <th>Anotação para entrega</th>
@@ -36,7 +37,8 @@
                       <tr>
                         <td><?php echo htmlspecialchars( $value1["idstockorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                       
+                        <td><?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                        <td><?php echo htmlspecialchars( $value1["idclient"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
                         <?php if( $value1["idpaymentmethod"] == '1' ){ ?>
                           <td>À VISTA</td>  
                         <?php } ?>  
@@ -45,12 +47,21 @@
                         <?php } ?>  
                         <?php if( $value1["idpaymentmethod"] == '3' ){ ?>
                           <td>CARTÂO</td>  
-                        <?php } ?>                                         
-                        <td>ENTRADA</td>               
+                        <?php } ?>         
+                        
+                        
+                        <?php if( $value1["ordertype"] == 'exitrequest' ){ ?>
+                          <td>SAÍDA</td>    
+                        <?php } ?> 
+
+                        <?php if( $value1["ordertype"] == 'entryrequest' ){ ?>
+                          <td>ENTRADA</td>    
+                        <?php } ?>     
+                        
                         <td><?php echo htmlspecialchars( $value1["deliverynote"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>             
                         <td><?php echo htmlspecialchars( $value1["dtregister"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td>
-                          <a style="margin-bottom: 5px;" href="/admin/stockordersitem-input/create/<?php echo htmlspecialchars( $value1["idstockorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary"> Ver Itens</a>
+                          <a style="margin-bottom: 5px;" href="/admin/stockordersitem/create/<?php echo htmlspecialchars( $value1["ordertype"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $value1["idstockorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary"> Ver Itens</a>
                         </td>
                       </tr>
                       <?php } ?>

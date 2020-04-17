@@ -3,11 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Lista de Pedidos de Entrada
+        Lista de Pedidos de Saída
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="/admin/stockorders">Pedidos de Entrada</a></li>
+        <li class="active"><a href="/admin/stockorders">Pedidos de Saída</a></li>
       </ol>
     </section>
     
@@ -24,7 +24,8 @@
                       <tr>
                         <th style="width: 100px">Código do Pedido</th>
                         <th style="width: 100px">Código da Filial</th>
-                        <th style="width: 100px">Código Usuário</th> 
+                        <th style="width: 100px">Código Usuário</th>                        
+                        <th>Código do Cliente</th>
                         <th>Meio de Pagamento</th>
                         <th>Tipo de Pedido</th>
                         <th>Anotação para entrega</th>
@@ -36,7 +37,8 @@
                       <tr>
                         <td>{$value.idstockorder}</td>
                         <td>{$value.idbranch}</td>
-                        <td>{$value.iduser}</td>                       
+                        <td>{$value.iduser}</td>
+                        <td>{$value.idclient}</td>  
                         {if="$value.idpaymentmethod == '1'"}
                           <td>À VISTA</td>  
                         {/if}  
@@ -45,12 +47,21 @@
                         {/if}  
                         {if="$value.idpaymentmethod == '3'"}
                           <td>CARTÂO</td>  
-                        {/if}                                         
-                        <td>ENTRADA</td>               
+                        {/if}         
+                        
+                        
+                        {if="$value.ordertype == 'exitrequest'"}
+                          <td>SAÍDA</td>    
+                        {/if} 
+
+                        {if="$value.ordertype == 'entryrequest'"}
+                          <td>ENTRADA</td>    
+                        {/if}     
+                        
                         <td>{$value.deliverynote}</td>             
                         <td>{$value.dtregister}</td>
                         <td>
-                          <a style="margin-bottom: 5px;" href="/admin/stockordersitem-input/create/{$value.idstockorder}" class="btn btn-primary"> Ver Itens</a>
+                          <a style="margin-bottom: 5px;" href="/admin/stockordersitem/create/{$value.ordertype}/{$value.idstockorder}" class="btn btn-primary"> Ver Itens</a>
                         </td>
                       </tr>
                       {/loop}

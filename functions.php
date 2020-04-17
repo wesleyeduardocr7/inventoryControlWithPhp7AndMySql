@@ -214,4 +214,16 @@ function clearProductData($product){
 }
 
 
+function paymentMethod($parameter){
+
+	if($parameter === 'avista'){
+		return 1;
+	}else if ($parameter === 'boleto'){
+		return 2;
+	}else{
+		return 3;
+	}
+	
+}
+
 ?>

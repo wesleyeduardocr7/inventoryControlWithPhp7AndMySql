@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `wesley22_db`.`tb_stockorder` (
   PRIMARY KEY (`idstockorder`),
   INDEX `fk_tb_stockorder_tb_branch1_idx` (`idbranch` ASC) ,
   INDEX `fk_tb_stockorder_tb_user1_idx` (`iduser` ASC) ,
-  INDEX `fk_tb_stockorder_tb_cliente1_idx` (`idclient` ASC) ,
+  INDEX `fk_tb_stockorder_tb_cliente1_idx` (`idclient` ASC),
   INDEX `fk_tb_stockorder_tb_paymentmethod1_idx` (`idpaymentmethod` ASC) ,
   CONSTRAINT `fk_tb_stockorder_tb_branch1`
     FOREIGN KEY (`idbranch`)

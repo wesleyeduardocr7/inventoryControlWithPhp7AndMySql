@@ -15,10 +15,7 @@ require_once("admin-stocks.php");
 require_once("admin-users.php");
 require_once("admin-clients.php");
 require_once("admin-stockorders.php");
-require_once("admin-stockorders-output.php");
-require_once("admin-stockorders-input.php");
 require_once("admin-stockordersitem.php");
-require_once("admin-stockordersitem-input.php");
 require_once("functions.php");
 
 $app->run();

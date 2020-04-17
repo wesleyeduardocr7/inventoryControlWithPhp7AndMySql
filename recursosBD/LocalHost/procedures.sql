@@ -295,7 +295,33 @@ END$$
 DELIMITER ;
 
 
-
+ DELIMITER $$
+CREATE PROCEDURE `sp_stockorderitem_delete`(
+pidstockorderitem int(11),
+pidproduct int(11),
+pidstockorder int(11),
+pidorderstatus int(11),
+pquantity int(11),
+punitaryvalue float,
+ptotalvalue float,
+pdtremoved datetime
+)
+BEGIN    
+        UPDATE tb_stockorderitem
+        SET 
+            idproduct = pidproduct,
+		    idstockorder = 	pidstockorder ,
+			idorderstatus = pidorderstatus ,
+			quantity = pquantity ,
+			unitaryvalue = punitaryvalue ,
+			totalvalue = ptotalvalue ,
+            dtremoved = pdtremoved
+        WHERE idstockorderitem = pidstockorderitem;
+            
+    SELECT * FROM tb_stockorderitem WHERE idstockorderitem = pidstockorderitem;
+    
+END$$
+DELIMITER ;
 
 
 

@@ -240,10 +240,7 @@
           <li>
             <a> <span> <strong>Lista de Pedidos</span></strong> </a></li>
             <ul >
-              <a href="/admin/stockorders-output"><i class="fa fa-link"></i> <span>Saída</span></a></li>
-            </ul>           
-            <ul style="margin-top: 8px;">
-             <a href="/admin/stockorders-input"><i class="fa fa-link"></i> <span>Entrada</span></a></li>
+              <a href="/admin/stockorders"><i class="fa fa-link"></i> <span>Saída e Entarda</span></a></li>
             </ul>
           </li>
           

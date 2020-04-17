@@ -206,8 +206,9 @@ $app->get("/admin/stockordersitem/deleteitem/:ordertype/:idstockorder/:idstockor
 	
 	$product = new Product();	
 
+
 	if($ordertype == 'exitrequest')
-	{	
+	{				
 		$clientStockOrder = Client::getStockOrderClient($idstockorder);
 		$client->get($clientStockOrder['idclient']);
 	}
@@ -229,7 +230,7 @@ $app->get("/admin/stockordersitem/deleteitem/:ordertype/:idstockorder/:idstockor
 		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);	
 		
 	}else{
-
+		
 		StockOrderItem::deleteItem($idstockorder,2,$idstockorderitem);
 
 		clearProductData($product);
