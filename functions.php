@@ -41,7 +41,13 @@ function createStockOrder($dataStockOrder,$orderType){
 			
 			}else{
 
-				createPageStockOrder('exitrequest','Erro! Filial, Usuário ou Cliente com Código Inválido.');
+				$checkout = 'false';
+
+				$error = 'Erro! Filial, Usuário ou Cliente com Código Inválido';
+
+				$idstockorder = '';
+
+				createPageStockOrder($orderType,$error,$checkout, $idstockorder);
 			}
 	
 
@@ -61,11 +67,19 @@ function createStockOrder($dataStockOrder,$orderType){
 
 				clearProductData($product);
 			
-				createPageStockOrderItem($orderType,$stockorder["idstockorder"],$branch,$user,$client, $product, $error);
+				$idstockorder = '';
+
+				createPageStockOrder($orderType,$error,$checkout, $idstockorder);
 			
 			}else{
 
-				createPageStockOrder('entryrequest','Erro! Filial ou Usuário com Código Inválido.');
+				$checkout = 'false';
+
+				$error = 'Erro! Filial ou Usuário com Código Inválido.';
+
+				$idstockorder = '';
+
+				createPageStockOrder($orderType,$error,$checkout, $idstockorder);
 
 			}
 
@@ -125,7 +139,7 @@ function isDatasExistsEntryOrder($resultSearchBranch,$resultSearchUser){
 
 
 
-function createPageStockOrder($orderType,$error){
+function createPageStockOrder($orderType,$error, $checkout,$idstockorder){
 
 	$page = new PageAdmin();
 	
@@ -134,8 +148,8 @@ function createPageStockOrder($orderType,$error){
 		'iduser'=>'',
 		'idclient'=>'',
 		'ordertype'=>$orderType,
-		'idstockorder'=>'',		
-		'checkout'=>'',	
+		'idstockorder'=>$idstockorder,		
+		'checkout'=>$checkout,	
 		'error'=>$error
 	));
 }

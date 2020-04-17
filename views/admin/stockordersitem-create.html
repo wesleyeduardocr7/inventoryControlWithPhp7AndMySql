@@ -157,8 +157,8 @@
             </div>            
           </form> 
 
-          <a href="/admin/stockorders-output/create/checkout/{$idbranch}/{$iduser}/{$idclient}/{$idstockorder}" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
-          <a href="/admin/stockorders-output/create/{$idbranch}/{$iduser}/{$idclient}" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Cancelar</a>
+          <a href="/admin/stockorders/finalizeitems/create/{$ordertype}/{$idstockorder}" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
+          <a href="/admin/stockorders/create/{$ordertype}" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Cancelar</a>
 
           {if="$errorNotItens != ''"}
             <div style="margin-top: 15px;" class="alert alert-danger">

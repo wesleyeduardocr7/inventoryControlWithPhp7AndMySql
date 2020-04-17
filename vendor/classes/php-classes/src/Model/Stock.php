@@ -77,5 +77,28 @@ class Stock extends Model {
 	}
 
 
+	public static function updateStock($idbranch, $idproduct, $quantity,$ordertype){
+
+		$sql = new Sql();
+
+	
+
+		$sql->select("CALL sp_updatestock(:idbranch , :idproduct, :quantity, :ordertype)", array(
+			":idbranch" => (int) $idbranch,
+			":idproduct" =>(int) $idproduct,
+			":quantity" => (int)$quantity,
+			":ordertype" => $ordertype			
+		));
+
+		var_dump((int)$idbranch);
+		var_dump((int)$idproduct);
+		var_dump((int)$quantity);
+		var_dump($ordertype);exit;
+		
+
+
+	}
+
+
 }
 ?>

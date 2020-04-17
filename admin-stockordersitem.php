@@ -86,7 +86,6 @@ $app->get("/admin/stockordersitem/create/:ordertype/:idbranch/:iduser/:idclient/
 		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client,$product, $error);	
 
 		exit;
-
 	}
 		
 	createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);	
@@ -193,10 +192,6 @@ $app->post("/admin/stockordersitem/additem/:ordertype/:idproduct/:idstockorder",
 });
 
 
-
-
-
-
 $app->get("/admin/stockordersitem/deleteitem/:ordertype/:idstockorder/:idstockorderitem", function ($ordertype,$idstockorder,$idstockorderitem) {
 	
 	$branch = new Branch();
@@ -204,7 +199,7 @@ $app->get("/admin/stockordersitem/deleteitem/:ordertype/:idstockorder/:idstockor
 	$branch->get($branchStockOrder['idbranch']);
 	
 	$user = new User();
-	$userStockOrder = user::getStockOrderUser($idstockorder);
+	$userStockOrder = User::getStockOrderUser($idstockorder);
 	$user->get($userStockOrder['iduser']);
 
 	$client = new Client();
@@ -251,44 +246,30 @@ $app->get("/admin/stockordersitem/deleteitem/:ordertype/:idstockorder/:idstockor
 
 
 
-
-
-
-
 //Bt Ver Itens de Um Pedido
-$app->get("/admin/stockordersitem-output/create/:idstockorder", function ($idstockorder) {
-
-	$itens = StockOrderItem::getItens($idstockorder);
-
+$app->get("/admin/stockordersitem/create/:ordertype/:idstockorder", function ($ordertype,$idstockorder) {
+	
+	$branch = new Branch();
 	$branchStockOrder = Branch::getStockOrderBranch($idstockorder);
-
+	$branch->get($branchStockOrder['idbranch']);
+	
+	$user = new User();
 	$userStockOrder = User::getStockOrderUser($idstockorder);
+	$user->get($userStockOrder['iduser']);
 
-	$clientStockOrder = Client::getStockOrderClient($idstockorder);
+	$client = new Client();
+	
+	$product = new Product();	
 
-	$totalValueItens =  StockOrderItem::totalValueItensStockOrder($idstockorder);
+	if($ordertype == 'exitrequest')
+	{	
+		$clientStockOrder = Client::getStockOrderClient($idstockorder);
+		$client->get($clientStockOrder['idclient']);
+	}
 
-	$page = new PageAdmin();
+	$error = '';
 
-	$page->setTpl("stockordersitem-create", array(
-		'idstockorder' => $idstockorder,
-		'idbranch' => $branchStockOrder['idbranch'],
-		'namebranch' => $branchStockOrder['namebranch'],
-		'iduser' => $userStockOrder['iduser'],
-		'nameuser' => $userStockOrder['nameuser'],
-		'idclient' => $clientStockOrder['idclient'],
-		'nameclient' => $clientStockOrder['nameclient'],
-		'error' => '',
-		'errorNotItens' => '',
-		'errorQuantityNotAvailable' => '',
-		'idproduct' => '',
-		'name' => '',
-		'description' => '',
-		'itens' => $itens,
-		'totalvalueitems'=>$totalValueItens
-		
-	));
+	createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);
+	
+	
 });
-
-
-

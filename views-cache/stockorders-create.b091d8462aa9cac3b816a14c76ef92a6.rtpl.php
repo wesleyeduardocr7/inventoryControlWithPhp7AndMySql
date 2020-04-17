@@ -57,11 +57,12 @@
 
           <div class="box-body">
           
-          <?php if( $checkout != '' ){ ?>
-          <form action="/admin/stockorders-output/create/finish/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
+          <?php if( $checkout == 'true' ){ ?>
+          <form action="/admin/stockorders/create/checkout/<?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
             <label style="font-size: 25px;" for="idstockorder">Código do Pedido: <?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>               
+             <label style="font-size: 25px;" for="idstockorder">| <?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?></label>                           
             <br>
-            <a style="margin-bottom: 5px;" href="/admin/stockordersitem-output/create/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary"> Ver Itens</a>
+            <a style="margin-bottom: 5px;" href="/admin/stockordersitem/create/<?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary"> Editar Itens</a>
             <p><strong>Selecione o Metódo de Pagamento</p></strong> 
             <div class="radioPaymentMethod">              
               <input  class="radioavista"  checked type="radio" name="gender" value="avista"> À VISTA

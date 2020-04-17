@@ -59,6 +59,18 @@ class StockOrder extends Model {
 
 		$this->setData($results[0]);
 	}
+
+
+	public static function getOrderTypeLoadByIdStockOrder($idstockorder)
+	{
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT ordertype FROM tb_stockorder WHERE idstockorder = :idstockorder", [
+			':idstockorder'=>$idstockorder
+		]);
+
+		$this->setData($results[0]);
+	}
  
 
 }

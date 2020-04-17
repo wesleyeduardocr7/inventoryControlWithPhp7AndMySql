@@ -157,8 +157,8 @@
             </div>            
           </form> 
 
-          <a href="/admin/stockorders-output/create/checkout/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
-          <a href="/admin/stockorders-output/create/<?php echo htmlspecialchars( $idbranch, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $iduser, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idclient, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Cancelar</a>
+          <a href="/admin/stockorders/finalizeitems/create/<?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
+          <a href="/admin/stockorders/create/<?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Cancelar</a>
 
           <?php if( $errorNotItens != '' ){ ?>
             <div style="margin-top: 15px;" class="alert alert-danger">

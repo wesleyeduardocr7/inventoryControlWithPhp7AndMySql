@@ -57,11 +57,12 @@
 
           <div class="box-body">
           
-          {if="$checkout != ''"}
-          <form action="/admin/stockorders-output/create/finish/{$idstockorder}" method="post">
+          {if="$checkout == 'true'"}
+          <form action="/admin/stockorders/create/checkout/{$ordertype}/{$idstockorder}" method="post">
             <label style="font-size: 25px;" for="idstockorder">Código do Pedido: {$idstockorder}</label>               
+             <label style="font-size: 25px;" for="idstockorder">| {$ordertype}</label>                           
             <br>
-            <a style="margin-bottom: 5px;" href="/admin/stockordersitem-output/create/{$idstockorder}" class="btn btn-primary"> Ver Itens</a>
+            <a style="margin-bottom: 5px;" href="/admin/stockordersitem/create/{$ordertype}/{$idstockorder}" class="btn btn-primary"> Editar Itens</a>
             <p><strong>Selecione o Metódo de Pagamento</p></strong> 
             <div class="radioPaymentMethod">              
               <input  class="radioavista"  checked type="radio" name="gender" value="avista"> À VISTA

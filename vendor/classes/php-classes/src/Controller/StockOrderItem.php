@@ -4,6 +4,8 @@ namespace Classes\Controller;
 
 use \Classes\Model;
 use \Classes\DB\Sql;
+use Classes\Model\Branch;
+use Classes\Model\Stock;
 use DateTime;
 
 class StockOrderItem extends Model
@@ -60,7 +62,7 @@ class StockOrderItem extends Model
 	public function save()
 	{
 		$sql = new Sql();
-
+	
 		$sql->select("CALL sp_stockorderitem_save(:idstockorderitem, :idproduct, :idstockorder, :idorderstatus, :quantity, :unitaryvalue, :totalvalue, :dtremoved)", array(
 			"idstockorderitem" => (int) $this->getidstockorderitem(),
 			"idproduct" => (int) $this->getidproduct(),
@@ -71,6 +73,15 @@ class StockOrderItem extends Model
 			"totalvalue" => (float) $this->gettotalvalue(),
 			"dtremoved" => $this->getdtremoved()
 		));
+
+		//$test0 = (int) $this->getidstockorder();
+	
+		//var_dump($test0);
+		
+
+		$idbranch = Branch::getStockOrderBranch((int) $this->getidstockorder());
+		//$ordertype =  StockOrder::getOrderTypeLoadByIdStockOrder(223);
+		Stock::updateStock($idbranch, (int) $this->getidproduct(), (int) $this->getquantity(),'exitrequest');
 	}
 
 
