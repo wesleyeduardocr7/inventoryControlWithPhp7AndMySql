@@ -56,23 +56,25 @@ function createStockOrder($dataStockOrder,$orderType){
 		case 'entryrequest':
 			
 			if (isDatasExistsEntryOrder($resultSearchBranch,$resultSearchUser)){
-
+			
 				$data = fillInputParameters('entryrequest',$stockorder,$branch,$user,$client);
 
 				$stockorder->setData($data);
 
 				$stockorder = $stockorder->save();
 
-				$error = '';
-
 				clearProductData($product);
+				
+				$error = '';
 			
 				$idstockorder = '';
 
-				createPageStockOrder($orderType,$error,$checkout, $idstockorder);
+				$checkout = 'false';
+
+				createPageStockOrderItem($orderType,$stockorder["idstockorder"],$branch,$user,$client, $product, $error);
 			
 			}else{
-
+				
 				$checkout = 'false';
 
 				$error = 'Erro! Filial ou Usuário com Código Inválido.';

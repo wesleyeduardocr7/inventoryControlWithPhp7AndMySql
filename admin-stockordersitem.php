@@ -154,7 +154,7 @@ $app->post("/admin/stockordersitem/additem/:ordertype/:idproduct/:idstockorder",
 
 		exit;
 
-	}else if ($requestedQuantity > $availableQuantity) {
+	}else if ($requestedQuantity > $availableQuantity && $ordertype != 'entryrequest') {
 
 		$error = 'Quantidade Solicitada Inferior à Quantidade Disponível no Estoque' . ' || Quantidade Disponível = ' . $availableQuantity;
 

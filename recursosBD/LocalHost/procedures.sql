@@ -170,7 +170,6 @@ DELIMITER ;
 
 
 
-
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorder_save`(
 pidstockorder int(11),
@@ -210,8 +209,7 @@ BEGIN
 END$$
 DELIMITER ;
 
-
- DELIMITER $$
+DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorderitem_save`(
 pidstockorderitem int(11),
 pidproduct int(11),
@@ -226,7 +224,13 @@ BEGIN
 	
     declare pidbranch int(11) ;
     
-      select b.idbranch as idbranch from tb_branch b inner join tb_stockorder so on so.idbranch = b.idbranch where so.idstockorder = pidstockorder into pidbranch;  
+    declare pordertype varchar(25) ;
+    
+	select b.idbranch as idbranch from tb_branch b inner join tb_stockorder so on so.idbranch = b.idbranch where so.idstockorder = pidstockorder into pidbranch;  
+    
+    select ordertype from tb_stockorder where idstockorder = pidstockorder into pordertype;  
+    
+    select pordertype;
     
 	IF ( NOT (select exists( select * from tb_stockorderitem where idstockorderitem = pidstockorderitem ) ) ) THEN
 	
@@ -249,6 +253,8 @@ BEGIN
         WHERE idstockorderitem = pidstockorderitem;
         
     END IF;   
+
+    CALL sp_updatestock(pidbranch,pidproduct,pquantity,pordertype);
     
     SELECT * FROM tb_stockorderitem WHERE idstockorderitem = pidstockorderitem;
     

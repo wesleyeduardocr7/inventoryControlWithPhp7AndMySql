@@ -73,15 +73,7 @@ class StockOrderItem extends Model
 			"totalvalue" => (float) $this->gettotalvalue(),
 			"dtremoved" => $this->getdtremoved()
 		));
-
-		//$test0 = (int) $this->getidstockorder();
-	
-		//var_dump($test0);
 		
-
-		$idbranch = Branch::getStockOrderBranch((int) $this->getidstockorder());
-		//$ordertype =  StockOrder::getOrderTypeLoadByIdStockOrder(223);
-		Stock::updateStock($idbranch, (int) $this->getidproduct(), (int) $this->getquantity(),'exitrequest');
 	}
 
 
