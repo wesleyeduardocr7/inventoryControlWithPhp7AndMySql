@@ -38,7 +38,15 @@
                         <td>{$value.idstockorder}</td>
                         <td>{$value.idbranch}</td>
                         <td>{$value.iduser}</td>
-                        <td>{$value.idclient}</td>  
+
+                        {if="$value.idclient != ''"}
+                          <td>{$value.idclient}</td>  
+                        {/if} 
+
+                        {if="$value.idclient == ''"}
+                          <td>null</td>  
+                        {/if}
+
                         {if="$value.idpaymentmethod == '1'"}
                           <td>À VISTA</td>  
                         {/if}  

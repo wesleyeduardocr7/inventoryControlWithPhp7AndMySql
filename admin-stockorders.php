@@ -84,7 +84,6 @@ $app->get("/admin/stockorders/finalizeitems/create/:ordertype/:idstockorder", fu
 
 		createPageStockOrder($ordertype,$error, $checkout, $idstockorder);
 
-
 	}
 
 	

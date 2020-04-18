@@ -1,5 +1,5 @@
 # PROCEDURES PARA INSERTS E UPDATES
-
+sp_stockorderitem_save
 DELIMITER $$
 CREATE  PROCEDURE `sp_branch_save`(
 pidbranch int(11),

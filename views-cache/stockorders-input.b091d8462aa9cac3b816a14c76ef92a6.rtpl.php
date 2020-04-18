@@ -24,8 +24,7 @@
                       <tr>
                         <th style="width: 100px">Código do Pedido</th>
                         <th style="width: 100px">Código da Filial</th>
-                        <th style="width: 100px">Código Usuário</th>                        
-                        <th>Código do Cliente</th>
+                        <th style="width: 100px">Código Usuário</th>
                         <th>Meio de Pagamento</th>
                         <th>Tipo de Pedido</th>
                         <th>Anotação para entrega</th>
@@ -37,8 +36,7 @@
                       <tr>
                         <td><?php echo htmlspecialchars( $value1["idstockorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td><?php echo htmlspecialchars( $value1["idbranch"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                        <td><?php echo htmlspecialchars( $value1["idclient"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>  
+                        <td><?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>                        
                         <?php if( $value1["idpaymentmethod"] == '1' ){ ?>
                           <td>À VISTA</td>  
                         <?php } ?>  

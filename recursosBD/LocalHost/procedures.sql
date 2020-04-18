@@ -252,9 +252,7 @@ BEGIN
             dtremoved = pdtremoved
         WHERE idstockorderitem = pidstockorderitem;
         
-    END IF;   
-
-    CALL sp_updatestock(pidbranch,pidproduct,pquantity,pordertype);
+    END IF; 
     
     SELECT * FROM tb_stockorderitem WHERE idstockorderitem = pidstockorderitem;
     

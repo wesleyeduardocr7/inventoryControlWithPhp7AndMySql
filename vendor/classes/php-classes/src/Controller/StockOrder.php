@@ -89,7 +89,7 @@ class StockOrder extends Model {
 	}
 
 
-	public static function returnsQuantityToStock($idbranch, $idproduct, $quantity, $ordertype){
+	public static function updateQuantityToStock($idbranch, $idproduct, $quantity, $ordertype){
 
 		$sql = new Sql();
 
@@ -120,11 +120,11 @@ class StockOrder extends Model {
 				
 				if($ordertype == 'exitrequest'){
 					
-					StockOrder::returnsQuantityToStock($idbranch, $idproduct,$quantity, 'entryrequest');
+					StockOrder::updateQuantityToStock($idbranch, $idproduct,$quantity, 'entryrequest');
 
 				}else{
 					
-					StockOrder::returnsQuantityToStock($idbranch, $idproduct,$quantity, 'exitrequest');
+					StockOrder::updateQuantityToStock($idbranch, $idproduct,$quantity, 'exitrequest');
 				}
 
 			}

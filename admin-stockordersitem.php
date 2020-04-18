@@ -206,6 +206,15 @@ $app->post("/admin/stockordersitem/additem/:ordertype/:idproduct/:idstockorder",
 
 		$stockorderitem->save();
 
+		if($ordertype == 'exitrequest'){
+					
+			StockOrder::updateQuantityToStock((int)$branch->getidbranch(), $idproduct, $requestedQuantity, 'exitrequest');
+
+		}else{
+			
+			StockOrder::updateQuantityToStock((int)$branch->getidbranch(), $idproduct, $requestedQuantity, 'entryrequest');
+		}
+
 		$error = '';
 
 		clearProductData($product);
@@ -266,11 +275,11 @@ $app->get("/admin/stockordersitem/deleteitem/:ordertype/:idstockorder/:idstockor
 
 		if($ordertype == 'exitrequest'){
 					
-			StockOrder::returnsQuantityToStock((int)$branch->getidbranch(), $idproduct, $quantity, 'entryrequest');
+			StockOrder::updateQuantityToStock((int)$branch->getidbranch(), $idproduct, $quantity, 'entryrequest');
 
 		}else{
 			
-			StockOrder::returnsQuantityToStock((int)$branch->getidbranch(), $idproduct, $quantity, 'exitrequest');
+			StockOrder::updateQuantityToStock((int)$branch->getidbranch(), $idproduct, $quantity, 'exitrequest');
 		}
 
 		clearProductData($product);
