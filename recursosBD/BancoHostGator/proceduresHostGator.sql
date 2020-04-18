@@ -101,7 +101,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE `sp_user_save`(
+CREATE  PROCEDURE `sp_user_save`(
 piduser int(11),
 pname varchar(100),
 pcpf  varchar(256),
@@ -171,7 +171,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE  PROCEDURE `sp_stockorder_save`(
+CREATE PROCEDURE `sp_stockorder_save`(
 pidstockorder int(11),
 pidbranch int(11),
 piduser int(11),
@@ -262,7 +262,7 @@ END$$
 DELIMITER ;
 
  DELIMITER $$
-CREATE PROCEDURE `sp_updatestock`(
+CREATE  PROCEDURE `sp_updatestock`(
 pidbranch int(11),
 pidproduct int(11),
 pquantity int(11),

@@ -4,6 +4,7 @@ namespace Classes\Controller;
 
 use \Classes\Model;
 use \Classes\DB\Sql;
+use Classes\Model\Branch;
 
 class StockOrder extends Model {
   
@@ -12,7 +13,22 @@ class StockOrder extends Model {
 		$sql = new Sql();
 
 		return $sql->select("  SELECT * FROM tb_stockorder WHERE idpaymentmethod != 0 ORDER BY dtregister DESC");
+	}
+	
+	public static function listAllStockOrderOutput()
+	{
+		$sql = new Sql();
+
+		return $sql->select("  SELECT * FROM tb_stockorder WHERE idpaymentmethod != 0 AND ordertype = 'exitrequest' ORDER BY dtregister DESC");
+	}
+	
+	public static function listAllStockOrderInput()
+	{
+		$sql = new Sql();
+
+		return $sql->select("  SELECT * FROM tb_stockorder WHERE idpaymentmethod != 0 AND ordertype = 'entryrequest' ORDER BY dtregister DESC");
     }
+
 
 	public function save()
 	{
@@ -71,7 +87,49 @@ class StockOrder extends Model {
 
 		$this->setData($results[0]);
 	}
- 
+
+
+	public static function returnsQuantityToStock($idbranch, $idproduct, $quantity, $ordertype){
+
+		$sql = new Sql();
+
+		$sql->select("CALL sp_updatestock(:idbranch, :idproduct, :quantity, :ordertype)", array(
+			":idbranch"=>(int)$idbranch,
+			":idproduct"=>(int)$idproduct,
+			":quantity"=>(int)$quantity,
+			":ordertype"=>$ordertype		   
+	   ));
+
+	}
+
+	
+	public static function returnQuantityOfAllItemsToStock($ordertype,$idstockorder){
+
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		for($i = 0; $i < count($itens); $i++ ){
+
+			if($itens[$i]['namestatus'] === 'ATIVO'){
+
+				$idbranch = (int) Branch::getStockOrderBranch($idstockorder)['idbranch'];
+
+				$idproduct = StockOrderItem::getIdProductLoadByIdStockOrderItem($itens[$i]['idstockorderitem']);
+
+				$quantity = StockOrderItem::getQuantityLoadByIdStockOrderItem($itens[$i]['idstockorderitem']);
+
+				
+				if($ordertype == 'exitrequest'){
+					
+					StockOrder::returnsQuantityToStock($idbranch, $idproduct,$quantity, 'entryrequest');
+
+				}else{
+					
+					StockOrder::returnsQuantityToStock($idbranch, $idproduct,$quantity, 'exitrequest');
+				}
+
+			}
+		}
+	} 
 
 }
 

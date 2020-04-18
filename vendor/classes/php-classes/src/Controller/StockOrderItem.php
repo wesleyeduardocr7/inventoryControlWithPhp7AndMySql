@@ -85,16 +85,20 @@ class StockOrderItem extends Model
 
 		for ($i = 0; $i < count($itens); $i++) {
 
-			$sql->select("CALL sp_stockorderitem_save(:idstockorderitem, :idproduct, :idstockorder, :idorderstatus, :quantity, :unitaryvalue, :totalvalue, :dtremoved)", array(
-				"idstockorderitem" => $itens[$i]['idstockorderitem'],
-				"idproduct" => $itens[$i]['idproduct'],
-				"idstockorder" => $idstockorder,
-				"idorderstatus" => $idorderstatus,
-				"quantity" => $itens[$i]['requestedquantity'],
-				"unitaryvalue" => $itens[$i]['unitaryvalue'],
-				"totalvalue" => $itens[$i]['totalvalue'],
-				"dtremoved" => null
-			));
+			if($itens[$i]['namestatus'] != 'CANCELADO'){
+
+				$sql->select("CALL sp_stockorderitem_save(:idstockorderitem, :idproduct, :idstockorder, :idorderstatus, :quantity, :unitaryvalue, :totalvalue, :dtremoved)", array(
+					"idstockorderitem" => $itens[$i]['idstockorderitem'],
+					"idproduct" => $itens[$i]['idproduct'],
+					"idstockorder" => $idstockorder,
+					"idorderstatus" => $idorderstatus,
+					"quantity" => $itens[$i]['requestedquantity'],
+					"unitaryvalue" => $itens[$i]['unitaryvalue'],
+					"totalvalue" => $itens[$i]['totalvalue'],
+					"dtremoved" => null
+				));
+
+			}
 		}
 	}
 
@@ -265,6 +269,73 @@ class StockOrderItem extends Model
 
 		return (float)$totalvalue;
 
+	}
+
+
+   public static function checkIfAllItemsWasProcessedOrCanceled($idstockorder){
+
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		$quantiyItems = count($itens);
+		$quantiy = 0;
+
+		for ($i = 0; $i < $quantiyItems; $i++) {
+
+			if ($itens[$i]["namestatus"] === 'PROCESSADO' || $itens[$i]["namestatus"] === 'CANCELADO') {
+
+				$quantiy++;
+			}
+		}
+
+		if ($quantiyItems === $quantiy && $quantiyItems>0 ) {
+
+			return true;
+
+		} else {
+
+			return false;
+		}
+
+   }
+
+	public static function checkForProcessedItem($idstockorder){
+
+		$itens = StockOrderItem::getItens($idstockorder);
+
+		$quantiyItems = count($itens);
+
+		for ($i = 0; $i < $quantiyItems; $i++) {
+
+			if ($itens[$i]["namestatus"] === 'PROCESSADO') {
+				return true;
+			}
+		}
+
+		return false;
+
+	}
+
+
+	public static function getIdProductLoadByIdStockOrderItem($idstockorderitem):int{
+
+		$sql = new Sql();
+
+		$result = $sql->select("SELECT idproduct FROM tb_stockorderitem WHERE idstockorderitem = :idstockorderitem LIMIT 1 ", [
+			':idstockorderitem' => $idstockorderitem
+		]);
+		
+		return (int) $result[0]['idproduct'];
+	}
+
+	public static function getQuantityLoadByIdStockOrderItem($idstockorderitem):int{
+
+		$sql = new Sql();
+
+		$result = $sql->select("SELECT quantity FROM tb_stockorderitem WHERE idstockorderitem = :idstockorderitem LIMIT 1 ", [
+			':idstockorderitem' => $idstockorderitem
+		]);
+		
+		return (int) $result[0]['quantity'];
 	}
 
 }

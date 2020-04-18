@@ -13,13 +13,30 @@ use \Classes\PageAdmin;
 $app->post("/admin/stockordersitem/create/:orderType", function ($orderType) {
 
 	$dataStockOrder = $_POST;
-	
+
 	createStockOrder($dataStockOrder,$orderType);
 
 	exit;
 
 });
 
+$app->get("/admin/stockorders/cancelorder/:ordertype/:idstockorder", function ($ordertype,$idstockorder) {
+
+	StockOrder::returnQuantityOfAllItemsToStock($ordertype,$idstockorder);
+	
+	$error = '';
+
+	$checkout = 'false';
+
+	$idstockorder = '';
+
+	createPageStockOrder($ordertype,$error, $checkout,$idstockorder);
+
+	exit;
+	
+});
+
+// Bt Pesquisa Produto
 $app->get("/admin/stockordersitem/create/:ordertype/:idbranch/:iduser/:idclient/:idstockorder", function ($ordertype,$idbranch,$iduser,$idclient,$idstockorder) {
 
 	$parameter = $_GET;
@@ -44,11 +61,21 @@ $app->get("/admin/stockordersitem/create/:ordertype/:idbranch/:iduser/:idclient/
 		$product->getByName($parameter['product_search_parameter']);				
 	}
 
-	if(StockOrderItem::checkIfAllItemsWasProcessed($idstockorder)){
-			
-		$error = 'Não é Possível mais Adicinar Itens Porque o Pedido Já Foi Finalizado';
+	if(StockOrderItem::checkForProcessedItem($idstockorder)){
 
 		clearProductData($product);
+
+		$error = 'Erro! Pedido Já Foi Finalizado';
+
+		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);		
+
+	}
+
+	if(StockOrderItem::checkIfAllItemsWasProcessed($idstockorder)){
+		
+		clearProductData($product);
+
+		$error = 'Não é Possível mais Adicinar Itens Porque o Pedido Já Foi Finalizado';
 
 		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client,$product, $error);		
 
@@ -58,8 +85,7 @@ $app->get("/admin/stockordersitem/create/:ordertype/:idbranch/:iduser/:idclient/
 	if( Product::checksProductItemOrder($product->getidproduct(),$idstockorder) ){
 		
 	   	if ( StockOrderItem::checkIfItemWasActivatedLoadByIdproductAndStatus($idstockorder, $product->getidproduct())){
-			
-			
+						
 			clearProductData($product);
 
 			$error = 'Erro! Já existem Item com esse Produto!';
@@ -192,6 +218,7 @@ $app->post("/admin/stockordersitem/additem/:ordertype/:idproduct/:idstockorder",
 });
 
 
+// Bt Cancela Item
 $app->get("/admin/stockordersitem/deleteitem/:ordertype/:idstockorder/:idstockorderitem", function ($ordertype,$idstockorder,$idstockorderitem) {
 	
 	$branch = new Branch();
@@ -232,6 +259,19 @@ $app->get("/admin/stockordersitem/deleteitem/:ordertype/:idstockorder/:idstockor
 	}else{
 		
 		StockOrderItem::deleteItem($idstockorder,2,$idstockorderitem);
+
+		$idproduct = StockOrderItem::getIdProductLoadByIdStockOrderItem($idstockorderitem);
+		$quantity = StockOrderItem::getQuantityLoadByIdStockOrderItem($idstockorderitem);
+		
+
+		if($ordertype == 'exitrequest'){
+					
+			StockOrder::returnsQuantityToStock((int)$branch->getidbranch(), $idproduct, $quantity, 'entryrequest');
+
+		}else{
+			
+			StockOrder::returnsQuantityToStock((int)$branch->getidbranch(), $idproduct, $quantity, 'exitrequest');
+		}
 
 		clearProductData($product);
 

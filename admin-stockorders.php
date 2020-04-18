@@ -5,7 +5,6 @@ use Classes\Controller\StockOrderItem;
 use Classes\Model\Branch;
 use Classes\Model\Client;
 use Classes\Model\Product;
-use Classes\Model\Stock;
 use Classes\Model\User;
 use Classes\PageAdmin;
 
@@ -22,7 +21,7 @@ $app->get("/admin/stockorders/create/:orderType", function ($orderType) {
 	exit;    
 });
 
-
+// Bt Concluir
 $app->get("/admin/stockorders/finalizeitems/create/:ordertype/:idstockorder", function ($ordertype,$idstockorder) {
 
 	$branch = new Branch();
@@ -55,11 +54,23 @@ $app->get("/admin/stockorders/finalizeitems/create/:ordertype/:idstockorder", fu
 
 	}else if( StockOrderItem::checkIfAllItemsWasProcessed($idstockorder)){
 
+		clearProductData($product);
+
 		$error = 'Erro! Todos Os Pedidos Já Foram PROCESSADOS';
 
 		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);		
 	
+	}else if(StockOrderItem::checkForProcessedItem($idstockorder)){
+
+		clearProductData($product);
+
+		$error = 'Erro! Pedido Já Foi Finalizado';
+
+		createPageStockOrderItem($ordertype,$idstockorder,$branch,$user,$client, $product, $error);		
+
 	}else if(StockOrderItem::checkIfAllItemsWasCanceled($idstockorder)){
+
+		clearProductData($product);
 
 		$error = 'Erro! Todos Os Pedidos Estão CANCELADOS. Insira um Item No Pedido';
 
@@ -134,7 +145,14 @@ $app->post("/admin/stockorders/create/checkout/:ordertype/:idstockorder", functi
 	
 	StockOrderItem::saveAndUpdateItemsStatus($idstockorder,3);
 
-	header("Location: /admin/stockorders");
+	if($ordertype == 'exitrequest'){
+
+		header("Location: /admin/stockorders-output");
+
+	}else{
+
+		header("Location: /admin/stockorders-input");
+	}
 	
 	exit;
 
@@ -148,6 +166,37 @@ $app->get("/admin/stockorders", function () {
 	$page = new PageAdmin();
 
     $page->setTpl("stockorders", array(
+		'stockorders' => $stockorders
+		
+	));
+	
+	exit;
+
+});
+
+$app->get("/admin/stockorders-output", function () {
+
+	$stockorders = StockOrder::listAllStockOrderOutput();
+
+	$page = new PageAdmin();
+
+    $page->setTpl("stockorders-output", array(
+		'stockorders' => $stockorders
+		
+	));
+	
+	exit;
+
+});
+
+
+$app->get("/admin/stockorders-input", function () {
+
+	$stockorders = StockOrder::listAllStockOrderInput();
+
+	$page = new PageAdmin();
+
+    $page->setTpl("stockorders-input", array(
 		'stockorders' => $stockorders
 		
 	));

@@ -101,7 +101,7 @@
             </div>
             <div class="form-group">
               <label for="unitaryprice">Preço Unitário</label>
-              <input type="number" class="form-control" id="unitaryprice" name="unitaryprice" placeholder="Preço" style="width: 140px;"  required>
+              <input type="number" step="any"   class="form-control" id="unitaryprice" name="unitaryprice" placeholder="Preço" style="width: 140px;"  required>
             </div>                        
           <!-- /.box-body -->
           <div class="box-footer">
@@ -158,7 +158,7 @@
           </form> 
 
           <a href="/admin/stockorders/finalizeitems/create/<?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-primary">Concluir</a>
-          <a href="/admin/stockorders/create/<?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Cancelar</a>
+          <a href="/admin/stockorders/cancelorder/<?php echo htmlspecialchars( $ordertype, ENT_COMPAT, 'UTF-8', FALSE ); ?>/<?php echo htmlspecialchars( $idstockorder, ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 90px; margin-top: 50px;" class="btn btn-danger">Cancelar</a>
 
           <?php if( $errorNotItens != '' ){ ?>
             <div style="margin-top: 15px;" class="alert alert-danger">

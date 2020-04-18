@@ -1,7 +1,7 @@
 # PROCEDURES PARA INSERTS E UPDATES
 
 DELIMITER $$
-CREATE  PROCEDURE `sp_branch_save`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_branch_save`(
 pidbranch int(11),
 pname varchar(100),
 pstreet  varchar(100),
@@ -66,7 +66,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE  PROCEDURE `sp_product_save`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_product_save`(
 pidproduct int(11),
 pname varchar(100),
 psequential  varchar(256),
@@ -101,7 +101,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE  PROCEDURE `sp_user_save`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_save`(
 piduser int(11),
 pname varchar(100),
 pcpf  varchar(256),
@@ -138,7 +138,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE `sp_client_save`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_client_save`(
 pidclient int(11),
 pname varchar(100),
 pcpf  varchar(256)
@@ -171,7 +171,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE  PROCEDURE `sp_stockorder_output_save`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorder_save`(
 pidstockorder int(11),
 pidbranch int(11),
 piduser int(11),
@@ -182,12 +182,7 @@ pdeliverynote varchar(256)
 )
 BEGIN
 	
-	IF(  NOT (select exists( select * from tb_stockorder where idstockorder = pidstockorder ) )  AND
-       (select exists( select * from tb_branch where idbranch = pidbranch ) ) AND
-       (select exists( select * from tb_user where iduser = piduser ) ) AND
-        (select exists( select * from tb_client where idclient = pidclient ) )
-    
-    )THEN
+	IF  NOT (select exists( select * from tb_stockorder where idstockorder = pidstockorder ) )  THEN
      
 		INSERT INTO tb_stockorder (idbranch,iduser,idclient, idpaymentmethod, ordertype,  deliverynote) 
         VALUES(pidbranch,piduser,pidclient, pidpaymentmethod,  pordertype, pdeliverynote) ;
@@ -206,7 +201,7 @@ BEGIN
 			deliverynote = pdeliverynote 
             
         WHERE idstockorder = pidstockorder;   
-		        
+        		        
     END IF;
     
     SELECT * FROM tb_stockorder WHERE idstockorder= pidstockorder;
@@ -214,8 +209,8 @@ BEGIN
 END$$
 DELIMITER ;
 
- DELIMITER $$
-CREATE  PROCEDURE `sp_stockorderitem_save`(
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_stockorderitem_save`(
 pidstockorderitem int(11),
 pidproduct int(11),
 pidstockorder int(11),
@@ -229,7 +224,13 @@ BEGIN
 	
     declare pidbranch int(11) ;
     
-      select b.idbranch as idbranch from tb_branch b inner join tb_stockorder so on so.idbranch = b.idbranch where so.idstockorder = pidstockorder into pidbranch;  
+    declare pordertype varchar(25) ;
+    
+	select b.idbranch as idbranch from tb_branch b inner join tb_stockorder so on so.idbranch = b.idbranch where so.idstockorder = pidstockorder into pidbranch;  
+    
+    select ordertype from tb_stockorder where idstockorder = pidstockorder into pordertype;  
+    
+    select pordertype;
     
 	IF ( NOT (select exists( select * from tb_stockorderitem where idstockorderitem = pidstockorderitem ) ) ) THEN
 	
@@ -251,20 +252,47 @@ BEGIN
             dtremoved = pdtremoved
         WHERE idstockorderitem = pidstockorderitem;
         
-		UPDATE tb_stock
-        SET 
-            
-		quantity = quantity - pquantity
-            
-        WHERE idproduct = pidproduct and idbranch = pidbranch;
-		        
-    END IF;
+    END IF;   
+
+    CALL sp_updatestock(pidbranch,pidproduct,pquantity,pordertype);
     
     SELECT * FROM tb_stockorderitem WHERE idstockorderitem = pidstockorderitem;
     
 END$$
 DELIMITER ;
 
+ DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_updatestock`(
+pidbranch int(11),
+pidproduct int(11),
+pquantity int(11),
+pordertype varchar(25)
+)
+
+BEGIN
+	
+	IF (  pordertype = 'exitrequest'    ) THEN
+	
+		UPDATE tb_stock
+        SET 
+            
+		quantity = quantity - pquantity
+            
+        WHERE idproduct = pidproduct and idbranch = pidbranch;
+        
+    ELSE 
+    
+      UPDATE tb_stock
+        SET 
+            
+		quantity = quantity + pquantity
+            
+        WHERE idproduct = pidproduct and idbranch = pidbranch;
+        
+    END IF;    
+    
+END$$
+DELIMITER ;
 
 
  DELIMITER $$
@@ -294,3 +322,9 @@ BEGIN
     
 END$$
 DELIMITER ;
+
+
+
+
+           
+		
